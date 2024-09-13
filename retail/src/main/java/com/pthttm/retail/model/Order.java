@@ -3,16 +3,20 @@ package com.pthttm.retail.model;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Collection;
+
 @Entity
-@Table(name = "Oder")
-public class Oder {
+@Table(name = "Order")
+public class Order {
 
     @Id
     @Column(name="id")
     private String id;
 
-    @Column(name="user_id", nullable = false)
-    private Integer userId;
+   // @Column(name="user_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customerId;
 
     @Column(name="total_cost", columnDefinition = "money", nullable = false)
     private Long totalCost;
@@ -27,4 +31,8 @@ public class Oder {
 
     @Column(name = "flag", nullable = false)
     private boolean flag;
+
+    @OneToMany(mappedBy = "orderId", fetch = FetchType.EAGER)
+    private Collection<OrderItem> items;
+
 }

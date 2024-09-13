@@ -1,9 +1,6 @@
 package com.pthttm.retail.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="Product_nutrient")
@@ -13,11 +10,15 @@ public class ProductNutrient {
     @Column(name="id")
     private String id;
 
-    @Column(name = "product_id", nullable = false)
-    private String productId;
+    //@Column(name = "product_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product productId;
 
-    @Column(name = "nutrient_id", nullable = false)
-    private String nutrientId;
+    //@Column(name = "nutrient_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "nutrient_id")
+    private Nutrient nutrientId;
 
     @Column(name="flag", nullable = false)
     private boolean flag;

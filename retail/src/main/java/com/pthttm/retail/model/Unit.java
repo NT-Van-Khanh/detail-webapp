@@ -1,9 +1,8 @@
 package com.pthttm.retail.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.Collection;
 
 @Entity
 @Table(name="Unit")
@@ -17,4 +16,7 @@ public class Unit {
 
     @Column(name="flag",nullable = false)
     private boolean flag;
+
+    @OneToMany(mappedBy = "unitId",fetch = FetchType.EAGER)
+    private Collection<Product> products;
 }

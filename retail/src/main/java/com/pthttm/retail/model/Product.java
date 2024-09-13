@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 @Table(name="Product")
@@ -28,11 +29,15 @@ public class Product {
     @Column(name = "image")
     private String linkImage;
 
-    @Column(name = "category_id", nullable = false)
-    private  String categoryId;
+   // @Column(name = "category_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category categoryId;
 
-    @Column(name = "unit_id", nullable = false)
-    private  String unitId;
+    //@Column(name = "unit_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
+    private Unit unitId;
 
     @Column(name = "brand_id", nullable = false)
     private String brandId;
@@ -44,4 +49,10 @@ public class Product {
 
     @Column(name="flag",nullable = false)
     private boolean flag;
+
+    @OneToMany(mappedBy = "productId", fetch = FetchType.EAGER)
+    private Collection<OrderItem> orders;
+
+    @OneToMany(mappedBy = "productId", fetch = FetchType.EAGER)
+    private Collection<ProductNutrient> nutrients;
 }

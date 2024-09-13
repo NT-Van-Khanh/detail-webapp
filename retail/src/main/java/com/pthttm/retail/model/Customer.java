@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 @Table(name="Customer")
@@ -44,6 +45,9 @@ public class Customer {
 
     @Column(name="flag",nullable = false)
     private boolean flag;
+
+    @OneToMany(mappedBy = "customerId",fetch = FetchType.EAGER)
+    private Collection<Order> orders;
 
     public Customer() {
     }

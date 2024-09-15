@@ -2,9 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.com">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Fruit shop</title>
+    <link th:href = "@{/css/home.css}" rel = "stylesheet">
 </head>
 <body>
+    <header>
+        <div class = "header__logo">
+            <a href="" class="header__logo-link" > Fruit shop logo</a></div>
+        <div class = "header__search">
+            <input name="txtSearch" type="text" class ="header__search-input">
+            <button name ="btnSearch" class="header__search-button">Search</button></div>
+        <div class ="header__personal">
+            <button>Shopping cart</button>
+            <button>Perfo</button></div>
+    </header>
+    <div class = "body">
+        <div class = "product-category">
+            <h2>  Danh mục sản phẩm  </h2>
+        </div>
+        <div class = "show-product">
+            <h2> Các mặt hàng </h2>
+        </div>
+    </div>
     <h1>Done</h1>
 </body>
 </html>

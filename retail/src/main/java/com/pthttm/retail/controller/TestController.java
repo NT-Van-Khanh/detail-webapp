@@ -13,7 +13,7 @@ public class TestController {
 @Controller
 public class TestController {
     @GetMapping("/hello")
-    String FirstTest (){
+    public String FirstTest (){
         return "index";
 
     }

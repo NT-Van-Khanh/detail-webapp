@@ -10,13 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 
-/*@RestController
-public class TestController {
-    @GetMapping("/hello")
-    String FirstTest (){
-        return "done";
-    }
-}*/
 @Controller
 public class TestController {
     private final FirebaseService firebaseService;

@@ -1,7 +1,6 @@
 package com.pthttm.retail.controller;
 
-import com.google.cloud.storage.Blob;
-import com.google.firebase.cloud.StorageClient;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +24,7 @@ public class TestUploadFileController {
 
     @GetMapping("/index2")
     public String getIndex3(Model model) throws IOException {
-        InputStream imageStream = firebaseService.getObject("retailstorage-5432c.appspot.com", "pngegg.png");
+        InputStream imageStream = firebaseService.getObject("logo-web.png");
 
         if (imageStream != null) {
             byte[] imageBytes = imageStream.readAllBytes();

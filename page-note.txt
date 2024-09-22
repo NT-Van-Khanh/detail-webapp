@@ -1,0 +1,21 @@
+Trang chủ:
+	Danh mục sản phẩm; lọc, tìm kiếm sản phẩm
+Trang chi tiết sản phẩm:
+	Hình ảnh chi tiết sản phẩm (thường có khả năng phóng to).
+	Mô tả sản phẩm, giá, số lượng, v.v.
+	Gợi ý sản phẩm liên quan.
+Giỏ hàng:
+	Danh sách các sản phẩm đã thêm vào giỏ hàng.
+	Chỉnh sửa số lượng sản phẩm, xóa sản phẩm.
+	Hiển thị tổng giá trị đơn hàng.
+Trang thanh toán (Checkout):
+	Thông tin giao hàng (địa chỉ, phương thức vận chuyển).
+	Thông tin thanh toán (thẻ tín dụng, chuyển khoản, ví điện tử).
+	Xác nhận đơn hàng.
+Trang tài khoản người dùng:
+	Đăng ký và đăng nhập.
+	Quản lý thông tin cá nhân.
+	Xem lịch sử đơn hàng.
+Trang hỗ trợ khách hàng:
+	Chính sách đổi trả, bảo hành, vận chuyển.
+	Điều khoản & chính sách.

@@ -1,36 +1,30 @@
 package com.pthttm.retail.service;
 
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
-import com.google.firebase.cloud.StorageClient;
-
 import com.pthttm.retail.repository.firebase.FirebaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 @Service
 public class FirebaseService {
     private final FirebaseRepository firebaseRepository;
-
+    private final String bucketFirebase ="retailstorage-5432c.appspot.com";
     @Autowired
     public FirebaseService(FirebaseRepository firebaseRepository) {
         this.firebaseRepository = firebaseRepository;
     }
-    public InputStream getObject(String bucketName, String fileName) throws IOException {
-        return firebaseRepository.getObject(bucketName, fileName);
+    public InputStream getObject(String fileName) throws IOException {
+        return firebaseRepository.getObject(bucketFirebase, fileName);
     }
 
-    public void uploadObject(String bucketName, String fileName, InputStream inputStream) throws IOException {
-        firebaseRepository.uploadObject(bucketName, fileName, inputStream);
+    public void uploadObject(String fileName, InputStream inputStream) throws IOException {
+        firebaseRepository.uploadObject(bucketFirebase, fileName, inputStream);
     }
 
-    public void deleteObject(String bucketName, String fileName) throws IOException {
-        firebaseRepository.deleteObject(bucketName, fileName);
+    public void deleteObject(String fileName) throws IOException {
+        firebaseRepository.deleteObject(bucketFirebase, fileName);
     }
     /*    private final StorageClient storageClient = StorageClient.getInstance();
     public InputStream getObject(String bucketName, String fileName) throws IOException {

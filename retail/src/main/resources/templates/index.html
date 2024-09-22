@@ -1,30 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<html lang="en" xmlns:th="http://www.thymeleaf.com" xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/comp-header}">
 <head>
     <meta charset="UTF-8">
     <title>Fruit shop</title>
     <link th:href = "@{/css/home.css}" rel = "stylesheet">
 </head>
 <body>
-    <header>
-        <div class = "header__logo">
-            <a href="" class="header__logo-link" > Fruit shop logo</a></div>
-        <div class = "header__search">
-            <input name="txtSearch" type="text" class ="header__search-input">
-            <button name ="btnSearch" class="header__search-button">Search</button></div>
-        <div class ="header__personal">
-            <button>Shopping cart</button>
-            <button>Perfo</button></div>
-    </header>
+<article layout:fragment ="content">
+   <!-- <div th:replace = "common/comp-header::header"></div>-->
     <div class = "body">
         <div class = "product-category">
-            <h2>  Danh mục sản phẩm  </h2>
+            <div class="product-category-title">
+                <h2>  Danh mục sản phẩm  </h2>
+            </div>
+            <ul>
+                <li> <a href=""> Sản phẩm 1 </a> </li>
+                <li> <a href=""> Sản phẩm 2 </a> </li>
+                <li> <a href=""> Sản phẩm 3 </a> </li>
+            </ul>
         </div>
         <div class = "show-product">
-            <h2> Các mặt hàng </h2>
+            <h2 class ="show-product-title"> Các mặt hàng </h2>
+            <ul class ="products">
+                <th:block th:each = "quantity : ${#numbers.sequence(0, 4)}">
+                    <li>
+                        <div class ="product">
+                            <a href=""><img src="" alt="Image"></a> <br>
+                            <a href="">Product name</a> <br>
+                            <a herf="">Price:</a>
+                        </div>
+                    </li>
+                </th:block>
+            </ul>
         </div>
-        
     </div>
     <h1>Done</h1>
+</article>
 </body>
 </html>

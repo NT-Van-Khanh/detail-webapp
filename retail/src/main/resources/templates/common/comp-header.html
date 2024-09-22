@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+    <!DOCTYPE html>
+    <link th:href = "@{/css/header.css}" rel = "stylesheet">
+</head>
+<body>
+<header th:fragment="header">
+    <div class = "header__logo">
+        <a href="" class="header__logo-image"> <img th:src="'data:image/png;charset=utf-8;base64,' + ${base64Image}" width="50" height="50" alt="Logo"> </a>
+        <a href="" class="header__logo-title" >Fruit shop logo</a></div>
+    <div class = "header__search">
+        <input name="txtSearch" type="text" class ="header__search-input">
+        <button name ="btnSearch" class="header__search-button">Search</button></div>
+    <div class ="header__personal">
+        <button>Shopping cart</button>
+        <button>Perfo</button></div>
+</header>
+<article layout:fragment ="content">
+</article>
+</body>
+</html>

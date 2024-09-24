@@ -1,4 +1,7 @@
-
+*{
+    margin: 0;
+    padding: 0;
+}
 
 header{
     background-color: rgb(34, 91, 149);
@@ -8,6 +11,9 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width:100%;
+    position: sticky;
+    top: 0;
 }
 
 header div{

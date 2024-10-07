@@ -8,7 +8,7 @@
 }
 
 header{
-    background-color: rgb(34, 91, 149);
+    background-color: rgb(38, 103, 170);
     color: white;
     height: var(--header-height);
     font-family: sans-serif;
@@ -52,8 +52,10 @@ header a{
 .header__search input{
     height: 25px;
     width: 300px;
-    border-radius: 10px;
+    border-radius: 5px;
     color: dimgrey;
+    border: 2px solid #647a98;
+    outline: none;
 }
 .header__search button{
     background-color: white;

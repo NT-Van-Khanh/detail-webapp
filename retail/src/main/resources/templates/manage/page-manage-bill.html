@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com"
+      xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/comp-header}">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link th:href = "@{/css/manage.css}" rel = "stylesheet">
+    <title>Lịch sử mua hàng</title>
+</head>
+<body>
+<article layout:fragment ="content">
+    <div class="manage__background">
+        <div class="manage__menu">
+            <div class="manage__menu-title">
+                <h2>Danh mục</h2>
+            </div>
+            <div class="manage__menu-list">
+                <ul>
+                    <li> <a href="/manage/product"> Sản phẩm </a> </li>
+                    <li> <a href="/manage/bill"> Hóa đơn </a> </li>
+                    <li> <a href="/manage/account"> Tài khoản </a> </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="manage__container">
+            <div class="manage__header">
+                <div class="manage__header-name">
+                    <h2>Danh sách hóa đơn</h2></div>
+                    <div class="manage__header-tool">
+                        <div class="manage__header-tool-fill">
+                            <label>
+                                <select class="manage__header-tool-fill " name="fill" onchange="this.form.submit()">
+                                    <option value="ALL" selected="selected">Tất cả</option>
+                                    <option value="QL">Đang chuẩn bị</option>
+                                    <option value="ND">Đang giao hàng</option>
+                                    <option value="SV">Đã hoàn tất</option></select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            <div class="manage__table">
+                <table>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Mã khách hàng</th>
+                        <th>Số lượng</th>
+                        <th>Ngày đặt hàng</th>
+                        <th>Đơn giá</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                    <th:block th:each = "quantity : ${#numbers.sequence(0, 4)}">
+                        <tr onclick="window.location.href='/manage-bill?id=${acc.userId}'">
+                            <td>100001</td>
+                            <td>KH00001</td>
+                            <td>8</td>
+                            <td>18:32 01/10/2024</td>
+                            <td>145.000</td>
+                            <td>Đã hoàn tất</td>
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</article>
+
+</body>
+</html>

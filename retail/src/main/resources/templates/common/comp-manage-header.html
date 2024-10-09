@@ -8,22 +8,14 @@
     <link th:href = "@{/css/header.css}" rel = "stylesheet">
 </head>
 <body>
-<header th:fragment="header">
+<header th:fragment="manage-header">
     <div class = "header__logo">
         <a href="/" class="header__logo-image"> <img th:src="'data:image/png;charset=utf-8;base64,' + ${base64Image}" width="50" height="50" alt="Logo"> </a>
         <a href="/" class="header__logo-title" >Fruit shop logo</a>
     </div>
-    <div class = "header__search">
-        <form class = "header__search-form">
-            <label><input name="txtSearch" type="text" class ="header__search-input" placeholder="Bạn đang cần tìm sản phẩm nào?"></label>
-            <button name ="btnSearch" class="header__search-button"><i class='bx bx-search' ></i></button></form>
-    </div>
     <div class ="header__personal">
         <form>
-        <button class="header__personal-cart">Giỏ hàng <i class='bx bx-cart'></i></button>
-        </form>
-        <form>
-        <button class="header__personal-user"><i class='bx bx-user'></i></button></form>
+            <button class="header__personal-user"><i class='bx bx-user'></i></button></form>
     </div>
 </header>
 <article layout:fragment ="content">

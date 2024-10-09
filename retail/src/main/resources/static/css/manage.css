@@ -74,16 +74,95 @@
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom:20px;
-    margin-left: 13px;
+    margin: 0 20px;
 }
 
-.manage__header-tool-search{}
 
-.manage__header-tool-add{}
+.manage__header-tool-right{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
 
-.manage__header-tool-fill{}
+.manage__header-tool-search{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
+
+.manage__header-tool-search-input{
+    background-color:#fbfbfb;
+    color: dimgrey;
+    height: 28px;
+    width: 300px;
+    border-radius: 3px;
+    border: 1px solid #cfcfcf;
+    outline: none;
+    padding: 0 10px;
+    margin-right: -2rem;
+    transition: all ease-in-out .5s;
+}
+
+.manage__header-tool-search-input:focus{
+    background-color:#f3f3f3;
+}
+
+.manage__header-tool-search-input:hover, .manage__header-tool-search-input:focus{
+    box-shadow: 0 0 1em rgba(0,0,0,.1);
+}
+
+.manage__header-tool-search-button{
+    background-color: white;
+    height:25px;
+    padding: 0 5px;
+    border:none;
+    border-radius: 3px;
+}
+
+.manage__header-tool-search-button:focus,.manage__header-tool-search-button:hover{
+    background-color: #f6f6f6;
+}
+.manage__header-tool-button{
+    margin-left: 10px;
+}
+
+.manage__header-tool-button-add{
+    background-color: white;
+    color: #454545;
+    display:flex;
+    align-items:center;
+    padding: 0 5px;
+    border: 2px solid #535353;
+    min-width:100px;
+    height:30px;
+    border-radius: 5px;
+}
+
+.manage__header-tool-button-add:hover{
+    background-color:#f3f3f3;
+}
+.manage__header-tool-button-add i{
+    margin-right:5px;
+    color:#595555;
+}
+.manage__header-tool-select select{
+    background-color: white;
+    color: #454545;
+    display:flex;
+    align-items:center;
+    height:30px;
+    padding: 0 5px;
+    margin-left: 10px;
+    border: 2px solid #535353;
+    border-radius: 5px;
+
+}
 
 .manage__header-tool-sort{}
+
+.manage__table{
+    margin: 15px 10px 0 10px;
+}
 
 .manage__table table{
     border-collapse: collapse;

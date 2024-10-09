@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.com"
-      xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/comp-header}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/comp-manage-header}">
 <head>
     <meta charset="UTF-8">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link th:href = "@{/css/manage.css}" rel = "stylesheet">
     <title>Lịch sử mua hàng</title>
 </head>
@@ -29,13 +28,14 @@
                 <div class="manage__header-name">
                     <h2>Danh sách hóa đơn</h2></div>
                     <div class="manage__header-tool">
-                        <div class="manage__header-tool-fill">
+                        <div></div>
+                        <div class="manage__header-tool-select">
                             <label>
-                                <select class="manage__header-tool-fill " name="fill" onchange="this.form.submit()">
+                                <select name="fill" onchange="this.form.submit()" class="manage__header-tool-select-fill">
                                     <option value="ALL" selected="selected">Tất cả</option>
-                                    <option value="QL">Đang chuẩn bị</option>
-                                    <option value="ND">Đang giao hàng</option>
-                                    <option value="SV">Đã hoàn tất</option></select>
+                                    <option value="CB">Đang chuẩn bị</option>
+                                    <option value="GH">Đang giao hàng</option>
+                                    <option value="HT">Đã hoàn tất</option></select>
                             </label>
                         </div>
                     </div>

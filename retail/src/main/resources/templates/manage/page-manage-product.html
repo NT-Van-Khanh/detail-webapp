@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.com"
-      xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/comp-header}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/comp-manage-header}">
 <head>
     <meta charset="UTF-8">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link th:href = "@{/css/manage.css}" rel = "stylesheet">
     <title>Quản lý sản phẩm</title>
 </head>
@@ -28,36 +27,42 @@
                 <div class="manage__header-name">
                     <h2>Quản lý sản phẩm</h2></div>
                 <div class="manage__header-tool">
-                    <div class="manage__header-tool-search">
-                        <label>
-                            <form action="" method ="get">
-                            <input type="text" placeholder="Tìm kiếm">
-                                <button>Tìm</button>
-                            </form>
-                        </label></div>
-                    <div class="manage__header-tool-add">
-                        <form action="" method ="get">
-                            <button>Thêm mới</button>
-                        </form></div>
-                    <div class="manage__header-tool-fill">
-                        <label>
-                            <select name="fill" onchange="this.form.submit()">
-                                <option value="ALL" selected="selected">Tất cả</option>
-                                <option value="QL">-</option>
-                                <option value="ND">-</option>
-                            </select>
-                        </label></div>
-                    <div class="manage__header-tool-sort">
-                        <label>
-                            <select name="sort" onchange="this.form.submit()">
-                                <option value="ID" selected="selected">Mã sản phẩm</option>
-                                <option value="NAME" selected="selected">Tên sản phẩm</option>
-                                <option value="QUANTITY" selected="selected">Số lượng sản phẩm</option>
-                                <option value="PRICE" selected="selected">Giá sản phẩm</option>
-                                <option value="CREATE" selected="selected">Ngày tạo sản phẩm</option>
-                                <option value="UPDATE" selected="selected">Ngày cập nhật sản phẩm</option>
-                            </select>
-                        </label></div>
+                    <div class="manage__header-tool-left">
+                        <form action="" method ="get" class="manage__header-tool-search">
+                            <label>
+                                <input type="text" class="manage__header-tool-search-input" placeholder="Tìm kiếm"></label>
+                            <button class="manage__header-tool-search-button"><i class='bx bx-search' ></i></button>
+                        </form>
+                    </div>
+                    <div class="manage__header-tool-right">
+                        <div class="manage__header-tool-button">
+                            <form action="/manage/add-product" method ="get">
+                                <button class="manage__header-tool-button-add"><i class='bx bxs-plus-circle' ></i></i></i>Thêm mới</button>
+                            </form></div>
+                        <div  class="manage__header-tool-select">
+                            <form action="" method ="post">
+                                <label>
+                                    <select name="sort" onchange="this.form.submit()" class="manage__header-tool-select-sort">
+                                        <option value="ID" selected="selected">Mã sản phẩm</option>
+                                        <option value="NAME" selected="selected">Tên sản phẩm</option>
+                                        <option value="QUANTITY" selected="selected">Số lượng sản phẩm</option>
+                                        <option value="PRICE" selected="selected">Giá sản phẩm</option>
+                                        <option value="CREATE" selected="selected">Ngày tạo sản phẩm</option>
+                                        <option value="UPDATE" selected="selected">Ngày cập nhật sản phẩm</option>
+                                    </select>
+                                </label>
+                            </form></div>
+                        <div class="manage__header-tool-select">
+                            <form action="" method ="post">
+                                <label>
+                                    <select name="fill" onchange="this.form.submit()" class="manage__header-tool-select-fill">
+                                        <option value="ALL" selected="selected">Tất cả</option>
+                                        <option value="QL">-</option>
+                                        <option value="ND">-</option>
+                                    </select>
+                                </label>
+                            </form></div>
+                        </div>
                     </div>
                 </div>
             <div class="manage__table">

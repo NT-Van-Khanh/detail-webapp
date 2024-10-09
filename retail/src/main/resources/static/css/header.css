@@ -1,5 +1,5 @@
 :root {
-    --header-height: 65px;
+    --header-height: 70px;
 }
 
 *{
@@ -8,8 +8,8 @@
 }
 
 header{
-    background-color: rgb(38, 103, 170);
-    color: white;
+    background-color: #ffffff;
+    color: #424242;
     height: var(--header-height);
     font-family: sans-serif;
     display: flex;
@@ -19,18 +19,22 @@ header{
     position: sticky;
     top: 0;
     z-index:100;
+    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.1);
 }
 
 header div{
     display: flex;
     align-items: center;
-    height: max;
 }
 
 header a{
-    color: rgb(255, 255, 255);
+    color: rgb(53, 59, 60);
     text-decoration: none;
     transition-duration: 0.4s;
+}
+
+i{
+    font-size: 20px;
 }
 
 .header__logo{
@@ -43,33 +47,72 @@ header a{
 }
 
 .header__logo-title{
+    white-space: nowrap;
     margin-left:10px;
     font-size: 28px;
 }
-.header__search{
-
+.header__search-form{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    margin: 0 5px;
 }
-.header__search input{
-    height: 25px;
-    width: 300px;
-    border-radius: 5px;
+.header__search-input{
+    background-color:#fbfbfb;
     color: dimgrey;
-    border: 2px solid #647a98;
+    height: 28px;
+    width: 350px;
+    border-radius: 3px;
+    border: 1px solid #cfcfcf;
     outline: none;
+    padding: 0 10px;
+    margin-right: -2rem;
+    transition: all ease-in-out .5s;
 }
-.header__search button{
+.header__search-input:focus{
+    background-color:#f3f3f3;
+}
+.header__search-input:hover, .header__search-input:focus{
+    box-shadow: 0 0 1em rgba(0,0,0,.1);
+}
+
+.header__search-button{
     background-color: white;
     height:25px;
     padding: 0 5px;
-    border-radius: 10px;
+    border:none;
+    border-radius: 3px;
 }
+
+.header__search-button:focus,.header__search-button:hover{
+    background-color: #f6f6f6;
+}
+
 .header__personal{
     margin-right:20px;
 }
 
 .header__personal button{
     background-color: white;
-    height:30px;
+    display:flex;
+    align-items:center;
     padding: 0 5px;
-    border-radius: 10px;
+    border: 2px solid #323232;
+}
+
+.header__personal button:hover{
+    background-color:#f3f3f3;
+}
+.header__personal-cart{
+    height:32px;
+    border-radius: 5px;
+}
+.header__personal-cart i{
+    margin-left:5px;
+}
+.header__personal-user{
+    height:33px;
+    width:33px;
+    border-radius: 30px;
+    margin-left:10px;
 }

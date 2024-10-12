@@ -77,18 +77,17 @@
                         <th>Giá</th>
                         <th>Số lượng</th>
                     </tr>
-                    <th:block th:each = "quantity : ${#numbers.sequence(0, 4)}">
-                        <tr onclick="window.location.href='/manage/product?id=${acc.userId}'">
-                            <td><img src=""alt="Image"></td>
-                            <td>SP0001</td>
-                            <td>Trái cây</td>
-                            <td>Nhà cung cấp nông sản ABC Việt Nam</td>
-                            <td>Trái cây tươi</td>
-                            <td>Kg</td>
-                            <td>120.000</td>
-                            <td>120</td>
-                        </tr>
-                    </th:block>
+                    <tr th:each = "product :${products}"
+                        onclick="window.location.href='/manage/product?id=${acc.userId}'">
+                        <td th:text="${product.linkImage}"><img src=""alt="Image"></td>
+                        <td th:text="${product.id}">SP0001</td>
+                        <td th:text="${product.name}">Trái cây</td>
+                        <td th:text="${product.brand.name}">Nhà cung cấp nông sản ABC Việt Nam</td>
+                        <td th:text="${product.category.name}">Trái cây tươi</td>
+                        <td th:text="${product.unit.name}">Kg</td>
+                        <td th:text="${product.price}">120.000</td>
+                        <td th:text="${product.quantity}">120</td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -96,3 +95,17 @@
 </article>
 </body>
 </html>
+
+<!--
+<th:block th:each = "quantity : ${#numbers.sequence(0, 4)}" th:var="">
+    <tr onclick="window.location.href='/manage/product?id=${acc.userId}'">
+        <td><img src=""alt="Image"></td>
+        <td>SP0001</td>
+        <td>Trái cây</td>
+        <td>Nhà cung cấp nông sản ABC Việt Nam</td>
+        <td>Trái cây tươi</td>
+        <td>Kg</td>
+        <td>120.000</td>
+        <td>120</td>
+    </tr>
+</th:block>-->

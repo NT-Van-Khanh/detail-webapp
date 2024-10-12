@@ -4,66 +4,52 @@
       layout:decorate="~{common/comp-manage-header}">
 <head>
     <meta charset="UTF-8">
-    <link th:href = "@{/css/manage.css}" rel = "stylesheet">
+    <link th:href = "@{/css/manage/manage-table.css}" rel = "stylesheet">
     <title>Lịch sử mua hàng</title>
 </head>
 <body>
 <article layout:fragment ="content">
-    <div class="manage__background">
-        <div class="manage__menu">
-            <div class="manage__menu-title">
-                <h2>Danh mục</h2>
-            </div>
-            <div class="manage__menu-list">
-                <ul>
-                    <li> <a href="/manage/product"> Sản phẩm </a> </li>
-                    <li> <a href="/manage/bill"> Hóa đơn </a> </li>
-                    <li> <a href="/manage/account"> Tài khoản </a> </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="manage__container">
-            <div class="manage__header">
-                <div class="manage__header-name">
-                    <h2>Danh sách hóa đơn</h2></div>
-                    <div class="manage__header-tool">
-                        <div></div>
-                        <div class="manage__header-tool-select">
-                            <label>
-                                <select name="fill" onchange="this.form.submit()" class="manage__header-tool-select-fill">
-                                    <option value="ALL" selected="selected">Tất cả</option>
-                                    <option value="CB">Đang chuẩn bị</option>
-                                    <option value="GH">Đang giao hàng</option>
-                                    <option value="HT">Đã hoàn tất</option></select>
-                            </label>
-                        </div>
-                    </div>
+    <div class="manage__header">
+        <div class="manage__header-name">
+            <h2>Danh sách hóa đơn</h2></div>
+            <div class="manage__header-tool">
+                <div></div>
+                <div class="manage__header-tool-select">
+                    <label>
+                        <select name="fill" onchange="this.form.submit()" class="manage__header-tool-select-fill">
+                            <option value="ALL" selected="selected">Tất cả</option>
+                            <option value="CB">Đang chuẩn bị</option>
+                            <option value="GH">Đang giao hàng</option>
+                            <option value="HT">Đã hoàn tất</option></select>
+                    </label>
                 </div>
-            <div class="manage__table">
-                <table>
-                    <tr>
-                        <th>Mã hóa đơn</th>
-                        <th>Mã khách hàng</th>
-                        <th>Số lượng</th>
-                        <th>Ngày đặt hàng</th>
-                        <th>Đơn giá</th>
-                        <th>Trạng thái</th>
-                    </tr>
-                    <th:block th:each = "quantity : ${#numbers.sequence(0, 4)}">
-                        <tr onclick="window.location.href='/manage-bill?id=${acc.userId}'">
-                            <td>100001</td>
-                            <td>KH00001</td>
-                            <td>8</td>
-                            <td>18:32 01/10/2024</td>
-                            <td>145.000</td>
-                            <td>Đã hoàn tất</td>
-                        </tr>
-                    </th:block>
-                </table>
             </div>
-
         </div>
+    <div class="manage__table">
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>Mã hóa đơn</th>
+                    <th>Mã khách hàng</th>
+                    <th>Số lượng</th>
+                    <th>Ngày đặt hàng</th>
+                    <th>Đơn giá</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each = "quantity : ${#numbers.sequence(0, 4)}">
+                    <tr onclick="window.location.href='/manage-bill?id=${acc.userId}'">
+                        <td>100001</td>
+                        <td>KH00001</td>
+                        <td>8</td>
+                        <td>18:32 01/10/2024</td>
+                        <td>145.000</td>
+                        <td>Đã hoàn tất</td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
     </div>
 </article>
 

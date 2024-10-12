@@ -18,6 +18,41 @@ public class Brand {
     @Column(name="flag",nullable = false)
     private boolean flag;
 
-    @OneToMany(mappedBy = "brandId",fetch =  FetchType.EAGER)
+    @OneToMany(mappedBy = "brand",fetch =  FetchType.EAGER)
     private Collection<Product> products;
+
+    public Brand() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
+    public Collection<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Collection<Product> products) {
+        this.products = products;
+    }
 }

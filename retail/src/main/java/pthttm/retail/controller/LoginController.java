@@ -21,6 +21,6 @@ public class LoginController {
 
     @GetMapping("/register")
     public  String getRegister(){
-        return "/login/page-register";
+        return "/login/register/page-register";
     }
 }

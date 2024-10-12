@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/comp-manage-header}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link th:href = "@{/css/manage/manage-table.css}" rel = "stylesheet">
+    <title>Lịch sử mua hàng</title>
 </head>
 <body>
+<article layout:fragment ="content">
+    <div class="manage__header">
+        <div class="manage__header-name">
+            <h2>Danh sách hóa đơn</h2></div>
+        <div class="manage__header-tool">
+            <div></div>
+            <div class="manage__header-tool-select">
+                <label>
+                    <select name="fill" onchange="this.form.submit()" class="manage__header-tool-select-fill">
+                        <option value="ALL" selected="selected">Tất cả</option>
+                        <option value="CB">Đã mua hàng</option>
+                        <option value="GH">Chưa từng mua hàng</option></select>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="manage__table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã tài khoản</th>
+                    <th>Họ và tên</th>
+                    <th>Số điện thoại</th>
+                    <th>Email</th>
+                    <th>Giới tính</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày tạo tài khoản</th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each = "quantity : ${#numbers.sequence(0, 4)}">
+                    <tr onclick="window.location.href='manage/manage-bill?id=${acc.userId}'">
+                        <td>KH00001</td>
+                        <td>Khach Hang</td>
+                        <td>0123456789</td>
+                        <td>khachhang@gmail.com</td>
+                        <td>Nam</td>
+                        <td>97 Đ. Man Thiện, Hiệp Phú, Quận 9, Hồ Chí Minh</td>
+                        <td>18:32 01/10/2024</td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+</article>
 
 </body>
 </html>

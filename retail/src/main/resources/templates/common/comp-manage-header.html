@@ -6,19 +6,34 @@
     <title>Header</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link th:href = "@{/css/header.css}" rel = "stylesheet">
+    <link th:href = "@{/css/manage/manage-menu.css}" rel = "stylesheet">
 </head>
 <body>
-<header th:fragment="manage-header">
-    <div class = "header__logo">
-        <a href="/" class="header__logo-image"> <img th:src="'data:image/png;charset=utf-8;base64,' + ${base64Image}" width="50" height="50" alt="Logo"> </a>
-        <a href="/" class="header__logo-title" >Fruit shop logo</a>
+    <header th:fragment="manage-header">
+        <div class = "header__logo">
+            <a href="/manage/product" class="header__logo-image"> <img th:src="'data:image/png;charset=utf-8;base64,' + ${base64Image}" width="50" height="50" alt="Logo"> </a>
+            <a href="/manage/product" class="header__logo-title" >Fruit shop logo</a>
+        </div>
+        <div class ="header__personal">
+            <form>
+                <button class="header__personal-user"><i class='bx bx-user'></i></button></form>
+        </div>
+    </header>
+    <div class="manage__background">
+        <div class="manage__menu">
+            <div class="manage__menu-title">
+                <h2>Danh mục</h2>
+            </div>
+            <div class="manage__menu-list">
+                <ul>
+                    <li> <a href="/manage/product"> <i class='bx bxs-lemon'></i> Sản phẩm </a> </li>
+                    <li> <a href="/manage/bill"> <i class='bx bx-notepad'></i> Hóa đơn </a> </li>
+                    <li> <a href="/manage/account"> <i class='bx bxs-user-account'></i> Tài khoản </a> </li>
+                </ul>
+            </div>
+        </div>
+        <article class="manage__container" layout:fragment ="content">
+        </article>
     </div>
-    <div class ="header__personal">
-        <form>
-            <button class="header__personal-user"><i class='bx bx-user'></i></button></form>
-    </div>
-</header>
-<article layout:fragment ="content">
-</article>
 </body>
 </html>

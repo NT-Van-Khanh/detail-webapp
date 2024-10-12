@@ -15,9 +15,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+
         httpSecurity
-                .authorizeHttpRequests((requests)-> requests.anyRequest().permitAll())
-                .logout(LogoutConfigurer::permitAll);
+                .authorizeHttpRequests((requests) -> requests
+                        .anyRequest().permitAll()).logout(LogoutConfigurer::permitAll);
         return httpSecurity.build();
     }
 

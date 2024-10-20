@@ -16,7 +16,10 @@ function redirectToProduct(element) {
     var productId = element.getAttribute('data-id');
     window.location.href = '/manage/edit-product/' + productId;
 }
-
+function redirectToCustomer(element) {
+    var customerId = element.getAttribute('data-id');
+    window.location.href = '/manage/detail-customer/' + customerId;
+}
 function confirmDelete(){
     const deleteButton = document.querySelector("button[type='submit'][name='action'][value='delete']");
     if(deleteButton){
@@ -35,4 +38,5 @@ function confirmDelete(){
         });
     }
 }
+
 document.addEventListener('DOMContentLoaded', confirmDelete);

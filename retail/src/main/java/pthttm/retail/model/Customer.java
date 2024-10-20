@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @Entity
@@ -32,14 +33,14 @@ public class Customer {
     @Column(name="birthday")
     private LocalDate birthday;
 
-    @Column(name="gender")
-    private String gender;
+    @Column(name="gender", nullable = true)
+    private Boolean gender;
 
     @Column(name="address")
     private String address;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="HH:mm dd/MM/yyyy")
+/*    @DateTimeFormat(pattern="HH:mm dd/MM/yyyy")*/
     @Column(name="create_at",nullable = false)
     private LocalDateTime createAt;
 
@@ -52,6 +53,18 @@ public class Customer {
     public Customer() {
     }
 
+    public String getFormattedCreateAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
+        return createAt.format(formatter);
+    }
+
+
+    public String getGenderAsString() {
+        if (gender == null) {
+            return "khác";
+        }
+        return gender ? "nữ" : "nam";
+    }
     public Integer getId() {
         return id;
     }
@@ -100,11 +113,11 @@ public class Customer {
         this.birthday = birthday;
     }
 
-    public String getGender() {
+    public Boolean getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 

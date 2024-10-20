@@ -10,12 +10,13 @@ import java.time.LocalDateTime;
 public class OrderItem {
 
     @Id
-    @Column(name="id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", nullable = false)
+    private Integer id;
 
    // @Column(name="oder_id",nullable = false)
     @ManyToOne
-    @JoinColumn(name="oder_id")
+    @JoinColumn(name="order_id")
     private Order order;
 
     //@Column(name="product_id",nullable = false)
@@ -40,11 +41,11 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public String getId() {
+    public Integer getId() {
      return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
      this.id = id;
     }
 

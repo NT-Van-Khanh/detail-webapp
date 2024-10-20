@@ -1,6 +1,5 @@
 package pthttm.retail.controller;
 
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,33 +7,33 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pthttm.retail.model.ImageProduct;
 import pthttm.retail.model.Product;
 import pthttm.retail.service.*;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 @Controller
 public class ManageController {
-    private final FirebaseService firebaseService;
+    private final FirebaseStorageService firebaseService;
     private final CategoryService categoryService;
     private final ProductService productService;
     private final BrandService brandService;
     private final UnitService unitService;
-
+    private final OrderService orderService;
 
     @Autowired
-    public ManageController(FirebaseService firebaseService, CategoryService categoryService, ProductService productService, BrandService brandService,UnitService unitService) {
+    public ManageController(FirebaseStorageService firebaseService, CategoryService categoryService,
+                            ProductService productService, BrandService brandService,
+                            UnitService unitService, OrderService orderService) {
         this.firebaseService = firebaseService;
         this.categoryService = categoryService;
         this.productService = productService;
         this.brandService = brandService;
         this.unitService = unitService;
+        this.orderService = orderService;
     }
 
     @GetMapping("manage/product")
@@ -123,7 +122,8 @@ public class ManageController {
     }
 
     @GetMapping("manage/bill")
-    public String getBill(){
+    public String getBill(Model model){
+        model.addAttribute("orders",orderService.getAllOrder());
         return "manage/page-manage-bill";
     }
 
@@ -132,10 +132,6 @@ public class ManageController {
         return "manage/page-manage-view-bill";
     }
 
-    @GetMapping("manage/account")
-    public String getAccount(){
-        return "manage/page-manage-account";
-    }
 
 
     private String getImageUpload() throws IOException {
@@ -148,6 +144,7 @@ public class ManageController {
             return "";
         }
     }
+
     private List<Product> sortProduct(List<Product> products,String sortBy){
         switch (sortBy) {
             case "NAME":

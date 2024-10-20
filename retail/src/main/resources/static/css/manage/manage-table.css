@@ -12,12 +12,22 @@
     --quantity-col-width: 8%;
 
     /* Variables for the invoice table */
-    --invoice-id-col-width: 20%;
-    --customer-id-col-width: 20%;
-    --order-quantity-col-width: 10%;
-    --order-date-col-width: 20%;
-    --unit-price-col-width: 10%;
-    --status-col-width: 20%;
+    --invoice-id-col-width: 10%;
+    --customer-name-col-width: 22%;
+    --customer-phone-col-width: 15%;
+    --order-date-col-width: 15%;
+    --total-cost-col-width: 10%;
+    --payment-status-col-width: 15%;
+    --shipping-status-col-width: 15%;
+
+    /* Variables for the customer table */
+/*    --customer-id-col-width: 8%;*/
+    --customer-name-col-width: 18%;
+    --customer-phone-col-width: 10%;
+    --customer-email-col-width: 15%;
+    --customer-address-col-width: 29%;
+    --customer-gender-col-width: 8%;
+    --customer-create-col-width: 15%;
 }
 
 .manage__header-name{
@@ -263,11 +273,16 @@
 }
 
 .invoice-table th:nth-child(2), .invoice-table td:nth-child(2) {
-    width: var(--customer-id-col-width);
+    width: var(--customer-name-col-width); /* Applying the new variable */
+}
+.invoice-table td:nth-child(2) {
+    text-align:left;
+    padding-left:10px;
+    box-sizing:border-box;
 }
 
 .invoice-table th:nth-child(3), .invoice-table td:nth-child(3) {
-    width: var(--order-quantity-col-width);
+    width: var(--customer-phone-col-width);
 }
 
 .invoice-table th:nth-child(4), .invoice-table td:nth-child(4) {
@@ -275,10 +290,46 @@
 }
 
 .invoice-table th:nth-child(5), .invoice-table td:nth-child(5) {
-    width: var(--unit-price-col-width);
+    width: var(--total-cost-col-width);
 }
 
 .invoice-table th:nth-child(6), .invoice-table td:nth-child(6) {
-    width: var(--status-col-width);
+    width: var(--payment-status-col-width);
 }
 
+.invoice-table th:nth-child(7), .invoice-table td:nth-child(7) {
+    width: var(--shipping-status-col-width);
+}
+
+/* Customer table column widths */
+/*.customer-table th:nth-child(1), .customer-table td:nth-child(1) {
+    width: var(--customer-id-col-width);
+}*/
+
+.customer-table th:nth-child(1), .customer-table td:nth-child(1) {
+    width: var(--customer-name-col-width);
+}
+.customer-table td:nth-child(1) {
+    text-align:left;
+    padding-left:10px;
+    box-sizing:border-box;
+}
+.customer-table th:nth-child(2), .customer-table td:nth-child(2) {
+    width: var(--customer-phone-col-width);
+}
+
+.customer-table th:nth-child(3), .customer-table td:nth-child(3) {
+    width: var(--customer-email-col-width);
+}
+
+.customer-table th:nth-child(4), .customer-table td:nth-child(4) {
+    width: var(--customer-gender-col-width);
+}
+
+.customer-table th:nth-child(5), .customer-table td:nth-child(5) {
+    width: var(--customer-address-col-width);
+}
+
+.customer-table th:nth-child(6), .customer-table td:nth-child(6) {
+    width: var(--customer-create-col-width);
+}

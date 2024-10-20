@@ -1,6 +1,6 @@
 package pthttm.retail.controller;
 
-import pthttm.retail.service.FirebaseService;
+import pthttm.retail.service.FirebaseStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,10 +11,10 @@ import java.util.Base64;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
-    private final FirebaseService firebaseService;
+    private final FirebaseStorageService firebaseService;
 
     @Autowired
-    public GlobalControllerAdvice(FirebaseService firebaseService) {
+    public GlobalControllerAdvice(FirebaseStorageService firebaseService) {
         this.firebaseService = firebaseService;
     }
 

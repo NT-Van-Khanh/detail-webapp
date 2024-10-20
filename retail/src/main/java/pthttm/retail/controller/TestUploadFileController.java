@@ -10,15 +10,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 
-import pthttm.retail.service.FirebaseService;
+import pthttm.retail.service.FirebaseStorageService;
 
 @Controller
 public class TestUploadFileController {
 
-    private final FirebaseService firebaseService;
+    private final FirebaseStorageService firebaseService;
 
     @Autowired
-    public TestUploadFileController(FirebaseService firebaseService) {
+    public TestUploadFileController(FirebaseStorageService firebaseService) {
         this.firebaseService = firebaseService;
     }
 

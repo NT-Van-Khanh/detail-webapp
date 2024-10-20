@@ -13,23 +13,27 @@
 <article layout:fragment ="content">
     <div class="register-background">
         <div class="register-container">
-            <form action="/confirm-email" method="post">
-                <div class="register__header"> <h2>Đăng ký tài khoản</h2></div>
-                <div class="register__input-box">
-                    <label><input type="text"  placeholder="Nhập email" required></label>
-                    <button type="submit">Nhận mã</button></div>
-                <div class="register-confirm-phone__message">
-                    <label>Message</label></div>
-            </form>
-            <form action="/confirm-phone-verification" method="post">
-                <div class="register-confirm-phone__input-box">
-                    <label>Nhập mã xác nhận qua SMS:</label>
-                    <label><input type="text" name= "code" placeholder="Vui lòng nhập code" required></label>
+            <div class="register__header">
+                <h2>Đăng ký tài khoản</h2>
+            </div>
+            <form action="/register" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div class="register__object-confirm">
+                    <div class="confirm-input">
+                        <label class="confirm-input-title">Email:</label>
+                        <input id="email"  name="email" type="text" placeholder="Nhập email" required>
+                    </div>
+                    <button id="sign-in-button" type="button" onclick="">Gửi OTP</button>
                 </div>
-                <div class="register-confirm-phone__message">
-                    <label>Message</label></div>
+                <div class="register__code-confirm">
+                    <label>Nhập mã xác nhận qua email:</label>
+                    <input type="text" name= "code" placeholder="Nhập mã OTP">
+                </div>
                 <div class="register__action">
                     <button type="submit">Xác thực</button></div>
+                <div class="product__message">
+                    <p th:if="${message}" th:text="${message}"></p>
+                </div>
             </form>
         </div>
     </div>

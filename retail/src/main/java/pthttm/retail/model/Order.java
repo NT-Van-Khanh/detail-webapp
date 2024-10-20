@@ -3,10 +3,12 @@ package pthttm.retail.model;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "[Order]")
 public class Order {
 
     @Id
@@ -21,13 +23,16 @@ public class Order {
     @Column(name="total_cost", columnDefinition = "money", nullable = false)
     private Long totalCost;
 
-    @Column(name="status", nullable = false)
-    private String status;
+    @Column(name="pay_status", nullable = false)
+    private String payStatus;
+
+    @Column(name="ship_status", nullable = false)
+    private String shipStatus;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="HH:mm dd/MM/yyyy")
+/*    @DateTimeFormat(pattern="HH:mm dd/MM/yyyy")*/
     @Column(name = "create_at", nullable = false)
-    private String createAt;
+    private LocalDateTime createAt;
 
     @Column(name = "flag", nullable = false)
     private boolean flag;
@@ -35,6 +40,32 @@ public class Order {
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private Collection<OrderItem> items;
 
+    public String getFormattedCreateAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
+        return createAt.format(formatter);
+    }
+
+    public String getFormattedShipStatus(){
+        switch(shipStatus){
+            case "HT":
+                return "Đã hoàn tất";
+            case "DG":
+                return "Đang giao hàng";
+            default:
+                return shipStatus;
+        }
+    }
+
+    public String getFormattedPayStatus(){
+        switch(payStatus){
+            case "HT":
+                return "Đã thanh toán";
+            case "CH":
+                return "Chưa thanh toán";
+            default:
+                return payStatus;
+        }
+    }
     public Order() {
     }
 
@@ -62,19 +93,27 @@ public class Order {
         this.totalCost = totalCost;
     }
 
-    public String getStatus() {
-        return status;
+    public String getPayStatus() {
+        return payStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPayStatus(String payStatus) {
+        this.payStatus = payStatus;
     }
 
-    public String getCreateAt() {
+    public String getShipStatus() {
+        return shipStatus;
+    }
+
+    public void setShipStatus(String shipStatus) {
+        this.shipStatus = shipStatus;
+    }
+
+    public LocalDateTime getCreateAt() {
         return createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
     }
 

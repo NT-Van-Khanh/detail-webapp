@@ -1,7 +1,5 @@
 package pthttm.retail.service;
 
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.BlobInfo;
 import pthttm.retail.repository.firebase.FirebaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,11 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Service
-public class FirebaseService {
+public class FirebaseStorageService {
     private final FirebaseRepository firebaseRepository;
     private final String bucketFirebase ="retailstorage-5432c.appspot.com";
     @Autowired
-    public FirebaseService(FirebaseRepository firebaseRepository) {
+    public FirebaseStorageService(FirebaseRepository firebaseRepository) {
         this.firebaseRepository = firebaseRepository;
     }
 

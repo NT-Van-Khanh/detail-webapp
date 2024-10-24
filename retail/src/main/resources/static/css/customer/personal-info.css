@@ -1,13 +1,3 @@
-:root {
-    --invoice-id-col-width: 15%;
-    --order-date-col-width: 20%;
-    --quantity-col-width: 10%;
-    --unit-price-col-width: 15%;
-    --ship-status-col-width: 20%;
-}
-
-
-
 .personal-history__background{
     background-color: #eff3f4;
     background-size: cover;
@@ -15,7 +5,7 @@
     justify-content: center;
     align-items: center;
     width:100%;
-    height: calc(100vh - var(--header-height));
+height: calc(100vh - var(--header-height));
 }
 
 .personal-history__container{
@@ -73,7 +63,7 @@
     border-spacing:0;
     border-radius:3px;
     border: 1px solid #efefef;
-/*    box-shadow: 3px 2px 15px 1px #a4b9d54d;*/
+    /*    box-shadow: 3px 2px 15px 1px #a4b9d54d;*/
     table-layout: fixed;
 }
 
@@ -180,28 +170,4 @@
     background-color: #f6f6f6;
 }
 
-/* Invoice table column widths */
-.invoice-table th:nth-child(1),
-.invoice-table td:nth-child(1) {
-    width: var(--invoice-id-col-width); /* Width for 'Mã hóa đơn' */
-}
 
-.invoice-table th:nth-child(2),
-.invoice-table td:nth-child(2) {
-    width: var(--order-date-col-width); /* Width for 'Ngày đặt hàng' */
-}
-
-.invoice-table th:nth-child(3),
-.invoice-table td:nth-child(3) {
-    width: var(--quantity-col-width); /* Width for 'Số lượng' */
-}
-
-.invoice-table th:nth-child(4),
-.invoice-table td:nth-child(4) {
-    width: var(--unit-price-col-width); /* Width for 'Đơn giá' */
-}
-
-.invoice-table th:nth-child(5),
-.invoice-table td:nth-child(5) {
-    width: var(--ship-status-col-width); /* Width for 'Trạng thái giao hàng' */
-}

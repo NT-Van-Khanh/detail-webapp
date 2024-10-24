@@ -9,7 +9,8 @@
     min-height:400px;
     width: 100%;
 }
-.register-container{
+
+.confirm-container{
     background-color: white;
     height: 450px;
     width: 450px;
@@ -19,9 +20,19 @@
     border: 1px solid #e1e9ea;
     box-shadow: 5px 5px 15px 1px #a4b9d54d;
 }
+.register-container{
+    background-color: white;
+    height: 600px;
+    width: 450px;
+    min-width: 300px;
+    border: 2px dimgrey;
+    font-family: system-ui;
+    border: 1px solid #e1e9ea;
+    box-shadow: 5px 5px 15px 1px #a4b9d54d;
+}
 
 .register__header{
-    color:midnightblue;
+    color:#1b7346;
     margin-top: 8%;
     margin-bottom:6%;
     margin-left: 20px;
@@ -81,7 +92,10 @@
     font-size: 16px;
     font:bold;
 }
-
+.register__object-confirm button:hover{
+    background-color: #73a1ec;
+    cursor: pointer;
+}
 .register__object-info{
     position:relative;
     display: flex;
@@ -96,7 +110,6 @@
     flex-direction: column;
     width: 80%;
     position:relative;
-/*    position: static;*/
     padding:5px;
     box-sizing:border-box;
 }
@@ -147,7 +160,7 @@
 }
 
 .register__code-confirm input{
-    margin-top:10px;
+    margin-top:30px;
     box-sizing:border-box;
     padding: 10px 10px;
     font-size: 15px;
@@ -169,7 +182,8 @@
 }
 
 .register__action button{
-    background-color: cornflowerblue;
+    background-color: #47aa78;
+    border: 1px solid #cccccc;
     color:white;
     width: 40%;
     min-width: 150px;
@@ -181,5 +195,17 @@
 }
 
 
+.register__action button:hover{
+    background-color: #53b883;
+    cursor: pointer;
+}
 
-
+.register__note{
+    color:#686868;
+    margin-top:3px;
+    width:72%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size:13px;
+}

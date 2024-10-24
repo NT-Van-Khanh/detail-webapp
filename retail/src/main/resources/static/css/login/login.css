@@ -22,7 +22,7 @@
 }
 
 .login__header{
-    color:midnightblue;
+    color:#1b7346;
     margin-top: 15%;
     margin-bottom:10%;
     margin-left: 20px;
@@ -80,18 +80,22 @@
 }
 
 .login__action button{
-    background-color: cornflowerblue;
+    background-color: #47aa78;
     color:white;
     width: 40%;
     min-width: 150px;
-    height: 30px;
+    height: 32px;
+    border: 2px solid #f2fff5ef;
     border-radius: 10px;
     font-size: 16px;
     font:bold;
 }
+.login__action button:hover{
+    background-color: #53b883;
+    cursor: pointer;
+}
 
 .login__link-forgot{
-
     width:100%;
     display:flex;
     justify-content:center;
@@ -113,8 +117,9 @@
 }
 
 .login__link-register a{
-    color: #501cb5f5;
+    color: #247065f5;
     text-decoration: none;
+    font-weight:600;
 }
 
 .login-register__header{

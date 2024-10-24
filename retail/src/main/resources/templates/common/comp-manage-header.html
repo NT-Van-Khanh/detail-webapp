@@ -9,10 +9,10 @@
     <link th:href = "@{/css/manage/manage-menu.css}" rel = "stylesheet">
 </head>
 <body>
-    <header th:fragment="manage-header">
+    <header th:fragment="manage-header" class="header-background2">
         <div class = "header__logo">
-            <a href="/manage/product" class="header__logo-image"> <img th:src="'data:image/png;charset=utf-8;base64,' + ${base64Image}" width="50" height="50" alt="Logo"> </a>
-            <a href="/manage/product" class="header__logo-title" >Fruit shop</a>
+            <a href="/manage/delivery" class="header__logo-image"> <img th:src="'data:image/png;charset=utf-8;base64,' + ${base64Image}" width="50" height="50" alt="Logo"> </a>
+            <a href="/manage/delivery" class="header__logo-title" >Fruit shop</a>
         </div>
         <div class ="header__personal">
             <form>
@@ -26,9 +26,10 @@
             </div>
             <div class="manage__menu-list">
                 <ul>
+                    <li> <a href="/manage/delivery"> <i class='bx bxs-package'></i> Giao hàng </a> </li>
                     <li> <a href="/manage/product"> <i class='bx bxs-lemon'></i> Sản phẩm </a> </li>
-                    <li> <a href="/manage/bill"> <i class='bx bx-notepad'></i> Hóa đơn </a> </li>
                     <li> <a href="/manage/customer"> <i class='bx bxs-user-account'></i> Tài khoản </a> </li>
+                    <li> <a href="/manage/bill"> <i class='bx bx-notepad'></i> Hóa đơn </a> </li>
                     <li> <a href=""> <i class='bx bx-grid-alt'></i></i> Chung </a> </li>
                 </ul>
             </div>

@@ -30,9 +30,16 @@ public class Order {
     private String shipStatus;
 
     @Temporal(TemporalType.TIMESTAMP)
-/*    @DateTimeFormat(pattern="HH:mm dd/MM/yyyy")*/
-    @Column(name = "create_at", nullable = false)
+    @Column(name = "created_at",updatable = false, nullable = false)
     private LocalDateTime createAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_update",nullable =false)
+    private LocalDateTime lastUpdate;
+
+    @ManyToOne
+    @JoinColumn(name="employee_id")
+    private Employee employee;
 
     @Column(name = "flag", nullable = false)
     private boolean flag;
@@ -45,8 +52,16 @@ public class Order {
         return createAt.format(formatter);
     }
 
+    public String getFormattedLastUpdate(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm đ/MM/yyyy");
+        return lastUpdate.format(formatter);
+    }
+
+
     public String getFormattedShipStatus(){
         switch(shipStatus){
+            case "CB":
+                return "Đang chuẩn bị";
             case "HT":
                 return "Đã hoàn tất";
             case "DG":
@@ -66,7 +81,29 @@ public class Order {
                 return payStatus;
         }
     }
+
+    public int getQuantity(){
+        return items.size();
+    }
+
+
     public Order() {
+    }
+
+    public LocalDateTime getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(LocalDateTime lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public String getId() {

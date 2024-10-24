@@ -1,10 +1,12 @@
 package pthttm.retail.model;
 
 import jakarta.persistence.*;
+import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @Entity
@@ -27,9 +29,6 @@ public class Product {
     @Column(name = "price", columnDefinition = "money", nullable = false)
     private Long price;
 
-    @Column(name = "image")
-    private String linkImage;
-
    // @Column(name = "category_id", nullable = false)
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -47,9 +46,16 @@ public class Product {
 
    /* @Temporal(TemporalType.TIMESTAMP)*/
     @CreationTimestamp
-/*    @DateTimeFormat(pattern="HH:mm dd/MM/yyyy")*/
-    @Column(name="create_at",updatable = false, nullable = false)
+    @Column(name="created_at",updatable = false, nullable = false)
     private LocalDateTime createAt;
+
+    @CreationTimestamp
+    @Column(name="last_update",nullable = false)
+    private LocalDateTime lastUpdate;
+
+    @ManyToOne
+    @JoinColumn(name ="employee_id")
+    private Employee employee;
 
     @Column(name="flag",nullable = false)
     private boolean flag;
@@ -63,20 +69,15 @@ public class Product {
     public Product( String id){
         this.id=id;
     }
-    public Product(String id, String name, String detail, Integer quantity, Long price, String linkImage, Category category, Unit unit, Brand brand, LocalDateTime createAt, boolean flag, Collection<OrderItem> orders, Collection<ProductNutrient> nutrients) {
-        this.id = id;
-        this.name = name;
-        this.detail = detail;
-        this.quantity = quantity;
-        this.price = price;
-        this.linkImage = linkImage;
-        this.category = category;
-        this.unit = unit;
-        this.brand = brand;
-        this.createAt = createAt;
-        this.flag = flag;
-        this.orders = orders;
-        this.nutrients = nutrients;
+
+    public String getFormattedOfCreateAt(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
+        return createAt.format(formatter);
+    }
+
+    public String getFormattedOfLastUpdate(){
+        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
+        return lastUpdate.format(formatter);
     }
 
     public Product(){
@@ -122,13 +123,6 @@ public class Product {
         this.price = price;
     }
 
-    public String getLinkImage() {
-        return linkImage;
-    }
-
-    public void setLinkImage(String linkImage) {
-        this.linkImage = linkImage;
-    }
 
     public Category getCategory() {
         return category;
@@ -184,5 +178,21 @@ public class Product {
 
     public void setNutrients(Collection<ProductNutrient> nutrients) {
         this.nutrients = nutrients;
+    }
+
+    public LocalDateTime getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(LocalDateTime lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

@@ -46,7 +46,7 @@ public class Employee {
     private Collection<Product> products;
 
     @OneToMany(mappedBy= "employee", fetch = FetchType.LAZY)
-    private Collection<Order> orders;
+    private Collection<OrderProduct> orders;
 
 
     public Employee() {
@@ -132,11 +132,11 @@ public class Employee {
         this.products = products;
     }
 
-    public Collection<Order> getOrders() {
+    public Collection<OrderProduct> getOrders() {
         return orders;
     }
 
-    public void setOrders(Collection<Order> orders) {
+    public void setOrders(Collection<OrderProduct> orders) {
         this.orders = orders;
     }
 }

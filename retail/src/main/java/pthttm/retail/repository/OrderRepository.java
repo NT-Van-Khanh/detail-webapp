@@ -2,13 +2,13 @@ package pthttm.retail.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import pthttm.retail.model.Customer;
-import pthttm.retail.model.Order;
+import pthttm.retail.model.OrderProduct;
 
 import java.util.List;
 
-public interface OrderRepository extends CrudRepository<Order,String> {
-    List<Order> findByPayStatus(String payStatus);
-    List<Order> findByShipStatus(String shipStatus);
-    List<Order> findByPayStatusAndShipStatus(String payStatus, String shipStatus);
-    List<Order> findByCustomer(Customer customer);
+public interface OrderRepository extends CrudRepository<OrderProduct,String> {
+    List<OrderProduct> findByPayStatus(String payStatus);
+    List<OrderProduct> findByShipStatus(String shipStatus);
+    List<OrderProduct> findByPayStatusAndShipStatus(String payStatus, String shipStatus);
+    List<OrderProduct> findByCustomer(Customer customer);
 }

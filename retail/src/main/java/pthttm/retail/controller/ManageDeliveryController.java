@@ -2,13 +2,11 @@ package pthttm.retail.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pthttm.retail.model.Order;
+import pthttm.retail.model.OrderProduct;
 import pthttm.retail.service.OrderService;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
@@ -34,7 +32,7 @@ public class ManageDeliveryController {
             return ResponseEntity.badRequest().body("Invalid payment status.");
         }
         try {
-            Order order = orderService.getOrderById(orderId);
+            OrderProduct order = orderService.getOrderById(orderId);
             if (order == null) {
                 return ResponseEntity.notFound().build();
             }

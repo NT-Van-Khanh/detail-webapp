@@ -50,4 +50,14 @@ public class LoginController {
     public  String getRegister(Model model, @RequestParam("email") String email){
         return "/login/register/page-register";
     }
+
+    @GetMapping("/manage/login")
+    public String getManageLogin(){
+        return "/manage/login/page-login";
+    }
+
+    @GetMapping("/manage/forgot-password")
+    public String getManageForgotPassword(){
+        return "/manage/login/page-forgot-password";
+    }
 }

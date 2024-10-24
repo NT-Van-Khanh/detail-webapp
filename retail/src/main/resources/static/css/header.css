@@ -8,7 +8,6 @@
 }
 
 header{
-    background-color: #ffffff;
     color: #424242;
     height: var(--header-height);
     font-family: sans-serif;
@@ -22,6 +21,12 @@ header{
     box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.1);
 }
 
+.header-background1{
+    background: radial-gradient(159.85% 367.97% at 150% 123.85%, #aafd83 0, #228d5a 100%);
+}
+.header-background2{
+    background-color: #ffffff !important;
+}
 header div{
     display: flex;
     align-items: center;

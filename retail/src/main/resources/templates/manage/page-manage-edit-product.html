@@ -13,7 +13,7 @@
 <article layout:fragment ="content">
     <div class="manage__header">
         <div class="manage__header-name">
-            <h2>Thêm sản phẩm mới</h2></div>
+            <h2>Cập nhật sản phẩm</h2></div>
     </div>
     <form class="manage__form"  th:action="@{/manage/edit-product/{id}(id=${product.id})}" th:object="${product}" method="post" enctype="multipart/form-data">
         <div class="manage__form-left">

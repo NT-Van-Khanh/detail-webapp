@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pthttm.retail.model.Product;
 import pthttm.retail.repository.ProductRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,6 +31,7 @@ public class ProductService {
     }
 
     public Product saveProduct(Product product) throws Exception{
+        product.setLastUpdate(LocalDateTime.now());
         return productRepository.save(product);
     }
 

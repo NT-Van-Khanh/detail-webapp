@@ -23,17 +23,19 @@ public class ManageController {
     private final BrandService brandService;
     private final UnitService unitService;
     private final OrderService orderService;
+    private final EmployeeService employeeService;
 
     @Autowired
     public ManageController(FirebaseStorageService firebaseService, CategoryService categoryService,
                             ProductService productService, BrandService brandService,
-                            UnitService unitService, OrderService orderService) {
+                            UnitService unitService, OrderService orderService, EmployeeService employeeService) {
         this.firebaseService = firebaseService;
         this.categoryService = categoryService;
         this.productService = productService;
         this.brandService = brandService;
         this.unitService = unitService;
         this.orderService = orderService;
+        this.employeeService = employeeService;
     }
 
     @GetMapping("manage/product")
@@ -70,7 +72,10 @@ public class ManageController {
             e.printStackTrace();
             }
 
-        try {productService.saveProduct(product);}
+        try {
+            product.setEmployee(employeeService.getEmployeeById("NV001"));
+            productService.saveProduct(product);
+        }
         catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", "Lỗi thêm dữ liệu và database.");
             e.printStackTrace();
@@ -105,6 +110,7 @@ public class ManageController {
             }
             product.setId(productId);
             try {
+                product.setEmployee(employeeService.getEmployeeById("NV001"));
                 productService.saveProduct(product);
                 redirectAttributes.addFlashAttribute("message", "Cập nhật sản phẩm thành công!!");
             }

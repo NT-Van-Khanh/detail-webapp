@@ -32,7 +32,7 @@ public class OrderItem {
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern="HH:mm dd/MM/yyyy")
-    @Column(name="create_at",nullable = false)
+    @Column(name="created_at",nullable = false)
     private LocalDateTime createAt;
 
     @Column(name="flag",nullable = false)

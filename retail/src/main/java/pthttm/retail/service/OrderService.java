@@ -1,9 +1,8 @@
 package pthttm.retail.service;
 
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import pthttm.retail.model.Customer;
-import pthttm.retail.model.Order;
+import pthttm.retail.model.OrderProduct;
 import pthttm.retail.repository.OrderItemRepository;
 import pthttm.retail.repository.OrderRepository;
 
@@ -20,30 +19,30 @@ public class OrderService {
         this.orderItemRepository = orderItemRepository;
     }
 
-    public List<Order> getAllOrder(){
-        return (List<Order>) orderRepository.findAll();
+    public List<OrderProduct> getAllOrder(){
+        return (List<OrderProduct>) orderRepository.findAll();
     }
-    public List<Order> getAllOrderByPayStatus(String payStatus){
-        return (List<Order>) orderRepository.findByPayStatus(payStatus);
-    }
-
-    public List<Order> getAllOrderByShipStatus(String shipStatus){
-        return (List<Order>) orderRepository.findByShipStatus(shipStatus);
+    public List<OrderProduct> getAllOrderByPayStatus(String payStatus){
+        return (List<OrderProduct>) orderRepository.findByPayStatus(payStatus);
     }
 
-    public List<Order> getAllOrderByPayStatusAndShipStatus(String payStatus, String shipStatus){
-        return (List<Order>) orderRepository.findByPayStatusAndShipStatus(payStatus,shipStatus);
+    public List<OrderProduct> getAllOrderByShipStatus(String shipStatus){
+        return (List<OrderProduct>) orderRepository.findByShipStatus(shipStatus);
     }
 
-    public Order getOrderById(String orderId){
+    public List<OrderProduct> getAllOrderByPayStatusAndShipStatus(String payStatus, String shipStatus){
+        return (List<OrderProduct>) orderRepository.findByPayStatusAndShipStatus(payStatus,shipStatus);
+    }
+
+    public OrderProduct getOrderById(String orderId){
         return orderRepository.findById(orderId).orElse(null);
     }
-    public void saveOrder(Order order ){
+    public void saveOrder(OrderProduct order ){
         order.setLastUpdate(LocalDateTime.now());
         orderRepository.save(order);
     }
 
-    public List<Order> getAllOrderByCustomer(Customer customer){
+    public List<OrderProduct> getAllOrderByCustomer(Customer customer){
         return orderRepository.findByCustomer(customer);
     }
 

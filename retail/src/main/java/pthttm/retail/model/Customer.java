@@ -48,7 +48,7 @@ public class Customer {
     private boolean flag;
 
     @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
-    private Collection<Order> orders;
+    private Collection<OrderProduct> orders;
 
     public Customer() {
     }
@@ -146,11 +146,11 @@ public class Customer {
         this.flag = flag;
     }
 
-    public Collection<Order> getOrders() {
+    public Collection<OrderProduct> getOrders() {
         return orders;
     }
 
-    public void setOrders(Collection<Order> orders) {
+    public void setOrders(Collection<OrderProduct> orders) {
         this.orders = orders;
     }
 }

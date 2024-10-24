@@ -49,5 +49,11 @@ public class ProductService {
         }
         return String.format("SP%06d",newProductNumber);//%06d: nếu có ít hơn 6 chữ số thì thêm 0 vào trước đến khi length=6
     }
+    public List<Product> findAllOrderByCreateAtDesc() {
+        return productRepository.findAllByOrderByCreateAtDesc();
+    }
+    public List<Product> findSimilarProducts(String productId) {
+        return productRepository.findSimilarProducts(productId);
+    }
 
 }

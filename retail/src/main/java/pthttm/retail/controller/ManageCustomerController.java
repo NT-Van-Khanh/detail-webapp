@@ -5,10 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.thymeleaf.model.IModel;
 import pthttm.retail.model.Customer;
-import pthttm.retail.model.Order;
-import pthttm.retail.model.Product;
+import pthttm.retail.model.OrderProduct;
 import pthttm.retail.service.CustomerService;
 import pthttm.retail.service.OrderService;
 
@@ -34,7 +32,7 @@ public class ManageCustomerController {
     @GetMapping("manage/detail-customer/{id}")
     public String updateProduct(Model model,@PathVariable("id") String customerId){
         Customer customer = customerService.getCustomerById(Integer.parseInt(customerId));
-        List<Order> orders = (List<Order>) customer.getOrders();
+        List<OrderProduct> orders = (List<OrderProduct>) customer.getOrders();
         model.addAttribute("customer",customer);
         model.addAttribute("orders",orders);
         return "manage/page-manage-detail-account";

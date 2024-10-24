@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.com" xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/comp-header}">
+<head>
+  <meta charset="UTF-8">
+  <title>Chi tiết sản phẩm</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script th:src="@{/js/page-home.js}"></script>
+  <link th:href = "@{/css/product-details.css}" rel = "stylesheet">
+</head>
+<body>
+<article layout:fragment ="content">
+  <div class="body">
+    <div class="container">
+      <!--      <div class="title">CHI TIẾT SẢN PHẨM</div>-->
+      <div class="detail">
+        <div class="image">
+          <img th:src="'https://firebasestorage.googleapis.com/v0/b/retailstorage-5432c.appspot.com/o/'+${product.id.replace(' ', '')}+'.png?alt=media'" th:alt="${product.id}" alt="Product Image">
+        </div>
+        <div class="content">
+          <h4 class="name" th:text="${product.name}">Product Name</h4>
+          <div class="price" th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}">200.000 VND</div>
+          <div class="info" th:text="${product.detail}">Product details here...</div>
+          <div class="weight">Đơn vị: <span th:text="${product.unit.name}">Unit</span></div>
+
+          <div class="chon-mua">
+            <div class="quantity-container">
+              <div class="quantity">Số lượng:
+                <input type="number" value="1" min="1" class="quantity-input">
+              </div>
+              <div class="stock-info">
+                Còn <span class="stock-count" th:text="${product.quantity}">10</span> sản phẩm
+              </div>
+            </div>
+            <div class="buttons">
+              <button class="add-to-cart">Thêm vào giỏ</button>
+              <button class="buy-now">Mua ngay</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="listProduct container swiper">
+        <div class="header-container">
+          <div class="similar-products">SẢN PHẨM TƯƠNG TỰ</div>
+        </div>
+        <div class="card-item slider-wrapper">
+          <ul class="products swiper-wrapper">
+            <th:block th:each="similarProduct : ${similarProducts}">
+              <li class="swiper-slide">
+                <div class="product">
+                  <a th:href="@{/detail(id=${similarProduct.id})}">
+                    <img th:src="'https://firebasestorage.googleapis.com/v0/b/retailstorage-5432c.appspot.com/o/'+${similarProduct.id.replace(' ', '')}+'.png?alt=media'" th:alt="${similarProduct.id}" alt="Image">
+                  </a>
+                  <br>
+                  <a th:href="@{/detail(id=${similarProduct.id})}" th:text="${similarProduct.name}" class="product-name">Product name</a>
+                  <br>
+                  <span th:text="${#numbers.formatInteger(similarProduct.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
+                </div>
+              </li>
+            </th:block>
+          </ul>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-slide-button swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-slide-button swiper-button-next" aria-label="Next slide"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+</body>
+</html>

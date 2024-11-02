@@ -12,7 +12,7 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    public Double getTotalAmount() {
+    public double getTotalAmount() {
         return price * quantity;
     }
 
@@ -47,7 +47,6 @@ public class CartItem {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-    
 
    
 }

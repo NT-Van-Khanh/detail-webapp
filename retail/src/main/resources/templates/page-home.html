@@ -50,7 +50,10 @@
                                     <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
                                     <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
                                     <div class="add-to-cart">
-                                        <button>Thêm vào giỏ</button>
+                                        <form th:action="@{/gio-hang}" method="post">
+                                            <input type="hidden" name="productId" th:value="${product.id}"/>
+                                            <button type="submit">Thêm vào giỏ</button>
+                                        </form>
                                     </div>
                                 </div>
                             </li>
@@ -85,7 +88,9 @@
                                     </a>
                                     <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
                                     <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
-
+                                    <div class="add-to-cart">
+                                        <button>Thêm vào giỏ</button>
+                                    </div>
                                 </div>
                             </li>
                         </th:block>
@@ -119,7 +124,9 @@
                                     </a>
                                     <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
                                     <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
-
+                                    <div class="add-to-cart">
+                                        <button>Thêm vào giỏ</button>
+                                    </div>
                                 </div>
                             </li>
                         </th:block>
@@ -153,7 +160,9 @@
                                     </a>
                                     <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
                                     <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
-
+                                    <div class="add-to-cart">
+                                        <button>Thêm vào giỏ</button>
+                                    </div>
                                 </div>
                             </li>
                         </th:block>
@@ -187,7 +196,9 @@
                                     </a>
                                     <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
                                     <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
-
+                                    <div class="add-to-cart">
+                                        <button>Thêm vào giỏ</button>
+                                    </div>
                                 </div>
                             </li>
                         </th:block>

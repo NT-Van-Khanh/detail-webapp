@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.com" xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/comp-header}">
+<head>
+     <meta charset="UTF-8">
+  <title>Giỏ hàng</title>
+</head>
+
+<body>
+<article layout:fragment ="content">
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="shoping__product">Sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng tiền</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>                        
+                        <tr th:each="item : ${cartItems}" th:attr="data-product-id=${item.productId}">
+			           <td class="shoping__cart__item">
+                                <img src="img/cart/cart-1.jpg" alt="">
+                                <h5 th:text="${item.name}"></h5>
+                            </td>
+			            <td th:id="'price-' + ${item.productId}" class="shoping__cart__price" th:text="${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND'" ></td>
+			            <td class="shoping__cart__quantity">
+                                <div class="quantity">
+                                    <div class="pro-qty">		
+				        <span class="dec qtybtn" th:attr="data-product-id=${item.productId}">-</span>								
+                                        <input type="text" th:value="${item.quantity}">              
+                                        <span class="inc qtybtn" th:attr="data-product-id=${item.productId}">+</span>                                                        
+                                    </div>
+                                </div>
+                            </td>
+			                <td th:id="'total-' + ${item.productId}" class="shoping__cart__total" th:text="${#numbers.formatDecimal(item.totalAmount, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND'" ></td>
+			            <td class="shoping__cart__item__close">
+                                <span class="icon_close"  th:attr="data-product-id=${item.productId}" ></span>
+                            </td>
+        				</tr>                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__btns">
+                    <a href= "/product-details" class="primary-btn cart-btn">Quay lại trang chi tiết</a>
+                    <a href="#" class="primary-btn cart-btn cart-btn-right" id="update-cart-button"><span class="icon_loading"></span>
+                        Cập nhật giỏ hàng</a>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="shoping__checkout">
+                    <h5>Tổng giá trị giỏ</h5>
+                    <ul>
+                        <li>Thanh tiền trước khi áp mã <span id="grand-total" th:text="${#numbers.formatDecimal(grandTotal, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND'"></span></li>
+                        <li>Tổng cộng <span id="grand-total-final" th:text="${#numbers.formatDecimal(grandTotal, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND'"></span></li>
+                    </ul>
+                    <a href="#" class="primary-btn" id="checkout-button">TIẾN HÀNH THANH TOÁN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shoping Cart Section End -->
+
+
+<!-- Js Plugins -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    
+</article>
+</body>
+
+</html>

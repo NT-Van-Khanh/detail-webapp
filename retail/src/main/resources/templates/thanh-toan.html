@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.com" xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/comp-header}">
+      
+<head>
+	<style>
+    .spacer {
+        width: 30px; /* Width of the spacer column */
+    }
+</style>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Thanh Toán </title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min11.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+
+<article layout:fragment ="content">
+
+<section class="checkout spad">
+    <div class="container">
+        
+        <div class="checkout__form">
+            <h4>Chi tiết hóa đơn</h4>
+            
+            <form action="#" th:action="@{/thanh-toan}" th:object="${invoice}" method="post">
+                
+                <table>
+				<tr >
+				
+                <td class="row" style="width: 60%;">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="row" >
+							<div class="col-lg-6">
+                                <div class="checkout__input" style="display: flex; justify-content: flex-end;">
+					                <label for="lastName" style="padding-right: 10px; margin-right: auto;">Họ:</label>
+					                <input type="text" id="lastName" th:field="*{lastName}" style="flex: 1;">
+					            </div>
+                            </div>
+                            <div class="col-lg-6">
+                                 <div class="checkout__input" style="display: flex; justify-content: flex-end;">
+					                <label for="firstName" style="padding-right: 10px; margin-right: auto;">Tên:</label>
+        							<input type="text" id="firstName" th:field="*{firstName}" style="flex: 1;">					                
+					            </div>
+                            </div>
+                            <div class="checkout__input">
+			                <label for="city" style="padding-right: 10px; margin-right: auto;">Thành phố, quận, huyện:</label>
+			                <input type="text" id="city" th:field="*{city}" style="flex: 1;">
+			            </div>
+                        <div class="checkout__input" style="display: flex; justify-content: flex-end;">
+			                <label for="address" style="padding-right: 10px; margin-right: auto;">Địa chỉ:</label>
+			                <input type="text" id="address" th:field="*{address}" style="flex: 1;">
+			            </div>      
+                            
+                        </div>
+                                          
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input" style="display: flex; justify-content: flex-end;">
+				                 <label for="phone" style="padding-right: 10px; margin-right: auto;">Số ĐT:</label>
+				                <input type="text" id="phone" th:field="*{phone}" style="flex: 1;">
+				            </div>
+                            </div>
+                            <div class="checkout__input" style="display: flex; justify-content: flex-end;">
+				                <label for="email" style="padding-right: 10px; margin-right: auto;">Email:</label>
+				                <input type="text" id="email" th:field="*{email}" style="flex: 1;">
+				            </div>
+				            <div class="checkout__input" style="display: flex; justify-content: flex-end;">
+			                <label for="notes" style="padding-right: 10px; margin-right: auto;">Notes:</label>
+			                <input type="text" id="notes" th:field="*{notes}" placeholder="Nhập ghi chú đơn hàng" style="flex: 1;">
+			            </div>
+                        </div>                        
+                        
+                    </div>
+                    </td>
+                    <td class="spacer"></td>
+                    <td>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order">
+                            <h4>Đơn đặt hàng của bạn</h4>
+                            <div class="checkout__order__products">Sản phẩm <span>Tổng tiền</span></div>
+                                                   
+                            <ul>
+						    <li th:each="item : ${cartItems}" style="display: flex; justify-content: space-between; align-items: center;">
+						        <span th:text="${item.name}">Tên sản phẩm</span> 
+						        <span th:text="${#numbers.formatDecimal(item.price*item.quantity, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND'">50.000 VND</span>
+						    </li>
+						</ul>
+                            <div class="checkout__order__subtotal">Thành tiền <span th:text="${#numbers.formatDecimal(grandTotal, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND'">253.000vnd</span></div>
+                            <div class="checkout__order__total">Tổng hóa đơn <span th:text="${#numbers.formatDecimal(grandTotal, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND'">253.000vnd</span></div>
+                            <div class="checkout__input__checkbox">
+                                <label for="acc-or">
+                                    Bạn chưa có tài khoản?
+                                    <input type="checkbox" id="acc-or">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <p>Trái cây tươi ngon dành cho sức khỏe , còn chần chờ gì nữa mà không đặt hàng ngay.</p>
+                            <div class="checkout__input__checkbox">
+                                <label for="payment">
+                                    Check Payment
+                                    <input type="checkbox" id="payment">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="checkout__input__checkbox">
+                                <label for="paypal">
+                                    Tiền mặt
+                                    <input type="checkbox" id="paypal">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <input type="hidden" name="grandTotal" th:value="${grandTotal}"/>
+                            <button type="submit" class="site-btn">ĐẶT HÀNG NGAY</button>
+                        </div>
+                    </div>
+                    </td>
+                    </tr>
+                    
+                </div>           
+            </table>
+             </form>
+        </div>
+    </div>
+</section>
+
+
+<!-- Js Plugins -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+
+
+</article>
+</body>
+
+</html>

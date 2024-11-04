@@ -5,24 +5,36 @@ import pthttm.retail.model.CartItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class CartItemService {
-    private ArrayList<CartItem> cartItems=new ArrayList<>(Arrays.asList(
-            new CartItem("SP000001", "Dâu tây", 55000D, 1),
-            new CartItem("SP000003", "Sầu riêng", 39000D, 2),
-            new CartItem("SP000008", "Cam", 69000D, 3)
-    ));
-    public void setCartItems(ArrayList<CartItem> cartItems) {
-        this.cartItems = cartItems;
-
-    }
+    private ArrayList<CartItem> cartItems = new ArrayList<>();
     public ArrayList<CartItem> getAllCartItems() {
         return cartItems;
     }
 
+    public void setCartItems(ArrayList<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
     // Method thêm một sản phẩm vào giỏ hàng
     public void addCartItem(CartItem newCartItem) {
         cartItems.add(newCartItem);
+    }
+    public void addItem(CartItem item){
+        for(CartItem cartItem:cartItems){
+            if (cartItem.getProductId().equals(item.getProductId())) {
+                cartItem.setQuantity(cartItem.getQuantity()+item.getQuantity());
+                return;
+            }
+        }
+        cartItems.add(item);
+    }
+    public void removeItem(String productId) {
+        cartItems.removeIf(item -> item.getProductId().equals(productId));
+    }
+    public Long getGrandTotal() {
+        double sum = cartItems.stream().mapToDouble(CartItem::getTotalAmount).sum();
+        return Math.round(sum);
     }
 }

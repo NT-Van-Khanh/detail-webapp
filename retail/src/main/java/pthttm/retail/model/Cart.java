@@ -11,9 +11,9 @@ public class Cart {
     }
 
     public void addItem(CartItem item) {
-        for (CartItem cartItem : items) {
-            if (cartItem.getProductId().equals(item.getProductId())) {
-                cartItem.setQuantity(cartItem.getQuantity() + item.getQuantity());
+        for(CartItem cartItem:items){
+            if(cartItem.getProductId().equals(item.getProductId())){
+                cartItem.setQuantity(cartItem.getQuantity()+item.getQuantity());
                 return;
             }
         }

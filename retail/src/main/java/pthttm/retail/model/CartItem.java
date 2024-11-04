@@ -1,20 +1,24 @@
 package pthttm.retail.model;
 public class CartItem {
-    private String productId;
-    private String name;
-    private Double price;
-    private Integer quantity;
+	private String productId;
+	private String name;
+	private Double price;
+	private Integer quantity;
 
-    public CartItem(String productId, String name, Double price, Integer quantity) {
-        this.productId = productId;
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-    }
+	public CartItem(String productId, String name, Double price, Integer quantity) {
+		this.productId = productId;
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+	}
 
-    public double getTotalAmount() {
-        return price * quantity;
-    }
+	public CartItem() {
+		this.price = 0.0;
+	}
+
+	public double getTotalAmount() {
+		return price * quantity;
+	}
 
 	public String getProductId() {
 		return productId;
@@ -48,5 +52,5 @@ public class CartItem {
 		this.quantity = quantity;
 	}
 
-   
+
 }

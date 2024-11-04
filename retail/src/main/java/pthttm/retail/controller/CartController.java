@@ -1,5 +1,6 @@
 package pthttm.retail.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,39 +14,30 @@ import java.util.Map;
 @Controller
 //@RequestMapping("/gio-hang")
 public class CartController {
-    private CartItemService cartItemService;
+    private final CartItemService cartItemService;
+    @Autowired
     public CartController(CartItemService cartItemService) {
         this.cartItemService=cartItemService;
     }
     @GetMapping("/gio-hang")
-    public String gioHang(Model model){
+    public String getGioHang(Model model) {
         ArrayList<CartItem> cartItems = cartItemService.getAllCartItems();
         model.addAttribute("cartItems", cartItems);
-        //Tính tổng tiền trong giỏ hàng
-        double grandTotal = cartItems.stream()
-                .mapToDouble(item -> item.getPrice() * item.getQuantity())
-                .sum();
+
+        double grandTotal = cartItemService.getGrandTotal();
         model.addAttribute("grandTotal", grandTotal);
-        int totalItems = cartItems.stream()
-                .mapToInt(CartItem::getQuantity) // Sum the quantity of each item
-                .sum();
+
+        int totalItems = cartItems.stream().mapToInt(CartItem::getQuantity).sum();
         model.addAttribute("totalItems", totalItems);
         return "gio-hang";
     }
-    @PostMapping("/cart/add")
-    public String addProduct(@RequestParam String productId,Model model) {
-        //return "redirect:/thanh-toan";
-        ArrayList<CartItem> cartItems = cartItemService.getAllCartItems();
-        for (CartItem item : cartItems) {
-            if (item.getProductId().equals(productId)) {
-                int newQuantity = item.getQuantity() +1;
-                item.setQuantity(newQuantity);
 
-            }
-        }
-        cartItemService.setCartItems(cartItems);
-        model.addAttribute("cartItems", cartItems);
-        return "gio-hang";
+    @PostMapping("/gio-hang/add")
+    public String addItem(@RequestParam String productId, @RequestParam String productName,
+                          @RequestParam Double price, @RequestParam Integer quantity) {
+        CartItem newItem = new CartItem(productId, productName, price, quantity);
+        cartItemService.addItem(newItem);
+        return "redirect:/gio-hang";
     }
 
     @PostMapping("/cart/update")
@@ -65,16 +57,9 @@ public class CartController {
         cartItems.removeIf(item -> !quantities.containsKey(item.getProductId()));
         return "gio-hang";
     }
-    @DeleteMapping("/cart/remove/{productId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT) // Trả về mã 204 nếu thành công
-    public void removeItemFromCart(@PathVariable String productId, Model model) {
-        ArrayList<CartItem> cartItems = cartItemService.getAllCartItems();
-
-        if (cartItems != null) {
-            cartItems.removeIf(item -> item.getProductId().equals(productId));
-            cartItemService.setCartItems(cartItems);
-            model.addAttribute("cartItems", cartItems);
-        }
+    @PostMapping("/gio-hang/remove")
+    public String removeItem(@RequestParam String productId) {
+        cartItemService.removeItem(productId);
+        return "redirect:/gio-hang";
     }
-
 }

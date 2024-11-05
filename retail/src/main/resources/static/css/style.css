@@ -68,6 +68,8 @@ h4 {
 
 h5 {
 	font-size: 18px;
+	margin-top: 50px;
+	font-weight: 700
 }
 
 h6 {
@@ -83,10 +85,16 @@ p {
 	margin: 0 0 15px 0;
 }
 
-img {
-	max-width: 100%;
+.shoping__cart__item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
-
+.shoping__cart__item{
+    display: flex;
+}
 input:focus,
 select:focus,
 button:focus,

@@ -28,10 +28,17 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <tr th:if="${#lists.isEmpty(cartItems)}">
+                                <td colspan="5">Giỏ hàng của bạn hiện đang rỗng.</td>
+                            </tr>
                             <tr th:each="item : ${cartItems}" th:attr="data-product-id=${item.productId}">
                                 <td class="shoping__cart__item">
-                                    <img src="img/cart/cart-1.jpg" alt="Product Image">
-                                    <h5 th:text="${item.name}"></h5>
+                                    <a th:href="@{/detail(id=${item.productId})}">
+                                        <img th:src="'https://firebasestorage.googleapis.com/v0/b/retailstorage-5432c.appspot.com/o/'+${item.productId.replace(' ', '')}+'.png?alt=media'" th:alt="${item.productId}" alt="Product Image" class="imageId" />
+
+                                    </a>
+                                    <a th:href="@{/detail(id=${item.productId})}"><h5 th:text="${item.name}"></h5></a>
+
                                 </td>
                                 <td th:id="'price-' + ${item.productId}" class="shoping__cart__price"
                                     th:text="${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND'"></td>
@@ -47,10 +54,7 @@
                                 <td th:id="'total-' + ${item.productId}" class="shoping__cart__total"
                                     th:text="${#numbers.formatDecimal(item.price * item.quantity, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND'"></td>
                                 <td class="shoping__cart__item__close">
-                                    <form th:action="@{/gio-hang/remove}" method="post" class="remove-item-form">
-                                        <input type="hidden" name="productId" th:value="${item.productId}">
-                                        <button type="submit" class="icon_close">Xóa</button>
-                                    </form>
+                                    <a th:href="@{/gio-hang/remove(productId=${item.productId})}" class="icon_close">Xóa</a>
                                 </td>
                             </tr>
                             </tbody>

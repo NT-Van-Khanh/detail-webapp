@@ -50,10 +50,9 @@
                                     <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
                                     <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
                                     <div class="add-to-cart">
-                                        <form action="/gio-hang/add" method="post">
-                                            <input type="hidden" name="productId" value="${item.productId}"/>
-                                            <button type="submit">Thêm vào giỏ</button>
-                                        </form>
+                                        <a th:href="@{/gio-hang/add(productId=${product.id}, productName=${product.name}, price=${product.price}, quantity=1)}" class="btn-add-to-cart">
+                                            Thêm vào giỏ
+                                        </a>
                                     </div>
                                 </div>
                             </li>
@@ -89,7 +88,9 @@
                                     <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
                                     <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
                                     <div class="add-to-cart">
-                                        <button type="submit">Thêm vào giỏ</button>
+                                        <a th:href="@{/gio-hang/add(productId=${product.id}, productName=${product.name}, price=${product.price}, quantity=1)}" class="btn-add-to-cart">
+                                            Thêm vào giỏ
+                                        </a>
                                     </div>
                                 </div>
                             </li>
@@ -125,7 +126,9 @@
                                     <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
                                     <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
                                     <div class="add-to-cart">
-                                        <button type="submit">Thêm vào giỏ</button>
+                                        <a th:href="@{/gio-hang/add(productId=${product.id}, productName=${product.name}, price=${product.price}, quantity=1)}" class="btn-add-to-cart">
+                                            Thêm vào giỏ
+                                        </a>
                                     </div>
                                 </div>
                             </li>
@@ -161,7 +164,9 @@
                                     <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
                                     <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
                                     <div class="add-to-cart">
-                                        <button type="submit">Thêm vào giỏ</button>
+                                        <a th:href="@{/gio-hang/add(productId=${product.id}, productName=${product.name}, price=${product.price}, quantity=1)}" class="btn-add-to-cart">
+                                            Thêm vào giỏ
+                                        </a>
                                     </div>
                                 </div>
                             </li>
@@ -197,7 +202,9 @@
                                     <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
                                     <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
                                     <div class="add-to-cart">
-                                        <button type="submit">Thêm vào giỏ</button>
+                                        <a th:href="@{/gio-hang/add(productId=${product.id}, productName=${product.name}, price=${product.price}, quantity=1)}" class="btn-add-to-cart">
+                                            Thêm vào giỏ
+                                        </a>
                                     </div>
                                 </div>
                             </li>

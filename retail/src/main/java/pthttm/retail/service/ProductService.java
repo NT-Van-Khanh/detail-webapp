@@ -21,7 +21,7 @@ public class ProductService {
     public List<Product> getAllProduct(){
         return (List<Product>) productRepository.findAll();
     }
-
+    //https://www.codejava.net/frameworks/spring-boot/spring-data-jpa-filter-search-examples
     public Product getProductById(String productId){
         return (Product) productRepository.findById(productId).orElse(null);
     }
@@ -56,4 +56,8 @@ public class ProductService {
         return productRepository.findSimilarProducts(productId);
     }
 
+//    public List<Product> findAllByIdOrNameOrBrand(String text){
+//        return text==null ?
+//            (List<Product>) productRepository.findAll() : productRepository.findByIdOrNameOrBrand(text,text);
+//    }
 }

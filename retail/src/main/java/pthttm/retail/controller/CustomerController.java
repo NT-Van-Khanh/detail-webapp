@@ -3,6 +3,8 @@ package pthttm.retail.controller;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class CustomerController {
         this.productService = productService;
     }
 
-    @GetMapping("/purchase-history")
+    @GetMapping("/customer/purchase-history")
     public String getPurchaseHistory(Model model, HttpSession sesson){
         Customer customer = customerService.getCustomerById(3);
         /*List<Order> orders = orderService.getAllOrderByCustomer(customer);*/

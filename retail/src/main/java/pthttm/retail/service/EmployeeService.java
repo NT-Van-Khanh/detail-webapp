@@ -16,4 +16,13 @@ public class EmployeeService {
     public Employee getEmployeeById(String id){
         return employeeRepository.findById(id).orElse(null);
     }
+
+    public Employee getByPhone(String phone){
+        return employeeRepository.findByPhone(phone).orElse(null);
+    }
+
+    public Employee getByEmail(String email){
+        return employeeRepository.findByEmail(email).orElse(null);
+    }
+
 }

@@ -29,30 +29,47 @@ function filterData() {
     });
 }
 function updatePayStatus(selectElement) {
+    if (!selectElement) {
+        console.error("Không tìm thấy phần tử select");
+        return;
+    }
+
     var orderId = selectElement.getAttribute('data-id');
     let newPayStatus = selectElement.value;
     console.log("Order ID:", orderId);
     console.log("New Payment Status:", newPayStatus);
+    console.log("Order ID:", orderId);
+    console.log("New Payment Status:", newPayStatus);
+
     // Lấy CSRF token từ thẻ meta
-    var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-    var csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+//    var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+//    var csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
     // Validate orderId và newPayStatus
     if (!orderId || !newPayStatus) {
         alert('Invalid order ID or payment status.');
         return;
     }
     // Gửi yêu cầu AJAX để cập nhật trạng thái thanh toán
+//    fetch(`/manage/update-payment-status/${orderId}`, {
+//        method: 'POST',
+//        headers: {
+//            'Content-Type': 'application/json',
+//            [csrfHeader]: csrfToken // Thêm token CSRF vào header
+//        },
+//        body: JSON.stringify({ payStatus: newPayStatus }),
+//    })
     fetch(`/manage/update-payment-status/${orderId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            [csrfHeader]: csrfToken // Thêm token CSRF vào header
         },
         body: JSON.stringify({ payStatus: newPayStatus }),
     })
         .then(response => response.json())
         .then(data => {
         if (data.success) {
+            selectElement.value = newPayStatus;
+            filterData();
             alert('Cập nhật trạng thái thanh toán thành công!');
         } else {
             alert('Cập nhật thất bại, vui lòng thử lại.');
@@ -74,6 +91,8 @@ function updateShipStatus(selectElement) {
         .then(response => response.json())
         .then(data => {
         if (data.success) {
+            selectElement.value = newShipStatus;
+            filterData();
             alert('Cập nhật trạng thái giao hàng thành công!');
         } else {
             alert('Cập nhật thất bại, vui lòng thử lại.');

@@ -26,6 +26,8 @@ public class Employee {
     @Column(name="email", nullable = false)
     private String email;
 
+    private String password;
+
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="dd/MM/yyyy")
     @Column(name="birthday")
@@ -50,6 +52,14 @@ public class Employee {
 
 
     public Employee() {
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getId() {

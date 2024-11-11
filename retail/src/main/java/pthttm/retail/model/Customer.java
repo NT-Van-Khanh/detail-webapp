@@ -1,10 +1,12 @@
 package pthttm.retail.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Collection;
 
 @Entity
@@ -28,20 +30,22 @@ public class Customer {
     @Column(name="email", nullable = false)
     private String email;
 
+    @Column(name="password", nullable = false)
+    private String password;
+
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="dd/MM/yyyy")
     @Column(name="birthday")
     private LocalDate birthday;
 
-    @Column(name="gender", nullable = true)
+    @Column(name="gender")
     private Boolean gender;
 
-    @Column(name="address")
+    @Column(name="address", nullable = false)
     private String address;
 
-    @Temporal(TemporalType.TIMESTAMP)
-/*    @DateTimeFormat(pattern="HH:mm dd/MM/yyyy")*/
-    @Column(name="created_at",nullable = false)
+    @CreationTimestamp
+    @Column(name="created_at",updatable = false, nullable = false)
     private LocalDateTime createAt;
 
     @Column(name="flag",nullable = false)
@@ -52,6 +56,7 @@ public class Customer {
 
     public Customer() {
     }
+
 
     public String getFormattedCreateAt() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
@@ -64,6 +69,24 @@ public class Customer {
             return "khác";
         }
         return gender ? "nữ" : "nam";
+    }
+
+    public Boolean processName(String name){
+        if (name == null || name.trim().isEmpty()) return false;
+        String[] nameParts = name.trim().split(" ");
+
+        System.out.println(String.join(" ", Arrays.copyOfRange(nameParts, 0, nameParts.length - 1)));
+        this.firstName = nameParts[nameParts.length - 1];
+        this.lastName = String.join(" ", Arrays.copyOfRange(nameParts, 0, nameParts.length - 1));
+        return true;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getId() {

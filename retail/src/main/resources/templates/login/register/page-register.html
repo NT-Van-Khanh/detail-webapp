@@ -14,30 +14,33 @@
     <div class="register-background">
         <div class="register-container">
             <div class="register__header"> <h2>Đăng ký tài khoản</h2></div>
-            <form class="register__object-info" action="/login-register" method="post">
+            <form class="register__object-info" th:action="@{/register/confirm}" th:object="${customer}" method="post">
                 <div class="register__input-box">
                     <label>Họ và tên:</label>
-                    <input type="text" placeholder="Nhập đầy đủ họ và tên" required>
+                    <input th:field="*{lastName}" type="text" placeholder="Nhập đầy đủ họ và tên" required>
                 </div>
                 <div class="register__input-box">
                     <label>Địa chỉ:</label>
-                    <input type="text" placeholder="Địa chỉ" required>
+                    <input th:field="*{address}" type="text" placeholder="Địa chỉ" required>
                 </div>
                 <div class="register__input-box">
                     <label>Mật khẩu:</label>
-                    <input type="password" placeholder="Từ 8-20 ký tự," required>
+                    <input th:field="*{password}" type="password" placeholder="Từ 8-20 ký tự," required>
                 </div>
                 <div class="register__input-box">
                     <label>Nhập lại mật khẩu:</label>
-                    <input type="password" placeholder="Nhập lại mật khẩu" required>
+                    <input id="confirm-password" name="confirm-password" type="password" placeholder="Nhập lại mật khẩu" required>
                 </div>
                 <div class="register__note">
-                    <label> Mật khẩu có ít nhất một chữ viết thường</label>
-                    <label> Mật khẩu có ít nhất một chữ viết hoa</label>
-                    <label> Mật khẩu có ít nhất một chữ số</label>
+                    <label class="register__note1"> Mật khẩu có ít nhất một chữ viết thường</label>
+                    <label class="register__note2"> Mật khẩu có ít nhất một chữ viết hoa</label>
+                    <label class="register__note3"> Mật khẩu có ít nhất một chữ số</label>
                 </div>
                 <div class="register__action">
                     <button type="submit">Đăng ký</button></div>
+                <div class="register__message">
+                    <p th:if="${message}" th:text="${message}"></p>
+                </div>
             </form>
         </div>
     </div>

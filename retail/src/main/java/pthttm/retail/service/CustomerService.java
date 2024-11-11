@@ -26,4 +26,25 @@ public class CustomerService {
         return customerRepository.findById(customerId).orElse(null);
     }
 
+    public Customer getByPhone(String phone){
+        return customerRepository.findCustomerByPhone(phone).orElse(null);
+    }
+
+    public Customer getByEmail(String email){
+        return customerRepository.findCustomerByEmail(email).orElse(null);
+    }
+    public Customer getByEmailOrPhone(String username){
+        return customerRepository.findCustomerByEmailOrPhone(username,username).orElse(null);
+    }
+//    public Customer authentication(String phone, String email, String password){
+//        if(phone!=null)
+//            return customerRepository.findByPhoneAndPassword(phone,password).orElse(null);
+//        if(email!=null)
+//            return customerRepository.findByEmailAndPassword(email,password).orElse(null);
+//        return null;
+//    }
+
+    public void addCustomer(Customer customer){
+        customerRepository.save(customer);
+    }
 }

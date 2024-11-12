@@ -70,7 +70,7 @@
     padding-bottom: 20px;
 }
 
-.dm1, .dm2 {
+.dm1, .dm2, .dm3, .dm4, .dm5{
     background-color: #f6fdf7;
     border-radius: 10px;
     margin: 30px;
@@ -190,4 +190,17 @@
 
     max-width: 1200px;
     margin: 0 70px 55px;
+}
+
+
+.notification {
+    display: none;
+    position: fixed;
+    bottom: 20px; /* Đặt thông báo ở cuối */
+    right: 20px; /* Đặt thông báo ở góc phải */
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000;
 }

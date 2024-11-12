@@ -219,3 +219,12 @@ input[type=number] {
 ul{
     list-style-type: none;
 }
+.search-results{
+    font-weight: 700;
+    justify-content: center;
+    font-size: 300;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 auto;
+}

@@ -17,17 +17,17 @@
             </div>
             <div class="menu-list">
                 <ul>
-                    <li><a th:href="@{/search(type='hot-deals')}">Khuyến mãi hot</a></li>
-                    <li><a th:href="@{/search(type='favorites')}">Sở thích của bạn</a></li>
-                    <li><a th:href="@{/search(type='fruits')}">Trái cây bổ dưỡng</a></li>
-                    <li><a th:href="@{/search(type='vegetables')}">Rau củ tươi</a></li>
+                    <li><a th:href="@{/bestselling}">Sản phẩm bán chạy</a></li>
+                    <li><a id="nutrient-link" th:href="@{/nutrient}">Trái cây bổ dưỡng</a></li>
+                    <li><a th:href="@{/inland}">Trái cây nội địa</a></li>
+                    <li><a th:href="@{/newfruit}">Trái cây mới</a></li>
                 </ul>
             </div>
         </div>
         <div class="show-product">
             <div class="dm1 container swiper">
                 <div class="header-container">
-                    <h2 class="show-product-title">Khuyến mãi hot</h2>
+                    <h2 class="show-product-title">Trái cây hot</h2>
                     <form action="#" method="get">
                         <div class="sort">
                             <label for="sort1">Sắp xếp:</label>
@@ -101,9 +101,10 @@
                     <div class="swiper-slide-button swiper-button-next" aria-label="Next slide"></div>
                 </div>
             </div>
+
             <div class="dm3 container swiper">
                 <div class="header-container">
-                    <h2 class="show-product-title">Trái cây tươi</h2>
+                    <h2 class="show-product-title">Trái cây mới</h2>
                     <form action="#" method="get">
                         <div class="sort">
                             <label for="sort3">Sắp xếp:</label>
@@ -141,7 +142,7 @@
             </div>
             <div class="dm4 container swiper">
                 <div class="header-container">
-                    <h2 class="show-product-title">Trái cây theo mùa</h2>
+                    <h2 class="show-product-title">Trái cây nội địa</h2>
                     <form action="#" method="get">
                         <div class="sort">
                             <label for="sort4">Sắp xếp:</label>
@@ -217,6 +218,61 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.btn-add-to-cart').click(function(event) {
+                event.preventDefault();
+                var url = $(this).attr('href');
+
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function(response) {
+                        showNotification("Thêm vào giỏ thành công!", 3000);
+                    },
+                    error: function(error) {
+                        showNotification("Có lỗi xảy ra. Vui lòng thử lại!", 3000);
+                    }
+                });
+            });
+
+            function showNotification(message, duration) {
+                var notification = $('<div class="notification"></div>').text(message);
+                $('body').append(notification);
+                notification.fadeIn();
+
+                setTimeout(function() {
+                    notification.fadeOut(function() {
+                        $(this).remove();
+                    });
+                }, duration);
+            }
+        });
+        const nutrientLink = document.getElementById('nutrient-link');
+        const nutrientList = document.getElementById('nutrient-list');
+
+        nutrientLink.addEventListener('mouseover', function() {
+            fetch('/nutrients')
+                .then(response => response.json())
+                .then(data => {
+                    nutrientList.innerHTML = '';
+                    data.forEach(nutrient => {
+                        const li = document.createElement('li');
+                        li.textContent = nutrient.name;
+                        nutrientList.appendChild(li);
+                    });
+                    nutrientList.classList.remove('hidden');
+                })
+                .catch(error => console.error('Error fetching nutrients:', error));
+        });
+
+        nutrientLink.addEventListener('mouseout', function() {
+            nutrientList.classList.add('hidden');
+        });
+    </script>
+
+
 </article>
 </body>
 </html>

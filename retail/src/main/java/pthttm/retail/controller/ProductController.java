@@ -4,10 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import pthttm.retail.model.Brand;
 import pthttm.retail.model.Product;
 import pthttm.retail.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProductController {
@@ -36,4 +41,29 @@ public class ProductController {
         model.addAttribute("products", products); // Thêm danh sách sản phẩm vào model
         return "danhmuc/inland"; // Tên view để hiển thị sản phẩm
     }
+
+    @GetMapping("/search_ml")
+    public String search(@RequestParam("txtSearch") String query, Model model) {
+        // Lấy danh sách các ID sản phẩm từ API Django
+        List<String> productIds = productService.searchProductIds(query);
+        List<Product> products= new ArrayList<>();
+        if(!productIds.isEmpty()){
+            products = productService.findAllById(productIds);
+        }else{
+            products = productService.findByName(query);
+        }
+        // Giả sử bạn đã có phương thức để tìm sản phẩm từ DB theo các ID này
+
+        Set<Brand> brands=null;
+        if(products!=null){
+            brands=products.stream()
+                    .map(Product::getBrand)
+                    .collect(Collectors.toSet());
+        }
+        // Thêm danh sách sản phẩm vào Model để truyền cho view
+        model.addAttribute("products", products);
+        model.addAttribute("brands", brands);
+        return "search-page";
+    }
+
 }

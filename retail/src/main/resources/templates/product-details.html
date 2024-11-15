@@ -21,7 +21,7 @@
         <div class="content">
           <h4 class="name" th:text="${product.name}">Product Name</h4>
           <div class="price" th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}">200.000 VND</div>
-          <div class="info" th:text="${product.detail}">Product details here...</div>
+
           <div class="weight">Đơn vị: <span th:text="${product.unit.name}">Unit</span></div>
 
           <div class="chon-mua">
@@ -50,7 +50,7 @@
           </div>
         </div>
       </div>
-
+      <div class="info" th:text="${product.detail}">Product details here...</div>
       <div class="listProduct container swiper">
         <div class="header-container">
           <div class="similar-products">SẢN PHẨM TƯƠNG TỰ</div>
@@ -101,6 +101,15 @@
             var url = $(this).attr('href');
             var quantity = $('#quantity-input').val(); // Lấy số lượng từ ô input
             url = url.replace('quantity=1', 'quantity=' + quantity); // Cập nhật số lượng vào URL
+
+            var input = $('#quantity-input');
+            var stockCount = parseInt($('.stock-count').text());
+            var quantity = parseInt(input.val());
+
+            if (quantity > stockCount) {
+                showNotification("Số lượng vượt quá số lượng tồn kho. Vui lòng chọn lại!", 3000);
+                return;
+            }
 
             // Gửi yêu cầu Ajax
             $.ajax({

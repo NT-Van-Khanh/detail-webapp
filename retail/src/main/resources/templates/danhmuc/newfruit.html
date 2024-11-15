@@ -17,13 +17,13 @@
         <ul class="products">
           <div class="sap-xep">
             <div>
-              <form action="#" method="get">
+              <form th:action="@{/newfruit}" method="get">
                 <div class="sort">
                   <label for="price-sort">Sắp xếp theo giá: </label>
                   <select id="price-sort" name="sort" onchange="this.form.submit()">
                     <option value="">Chọn phương thức sắp xếp</option>
-                    <option value="price-up">Từ thấp đến cao</option>
-                    <option value="price-down">Từ cao đến thấp</option>
+                    <option value="price-up" th:selected="${sort == 'price-up'}">Từ thấp đến cao</option>
+                    <option value="price-down" th:selected="${sort == 'price-down'}">Từ cao đến thấp</option>
                   </select>
                 </div>
               </form>

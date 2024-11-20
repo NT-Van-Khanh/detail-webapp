@@ -67,21 +67,26 @@
                 </div>
             </div>
             <div class="listProduct">
-                <ul class="products">
-                    <th:block th:each="product : ${products}">
-                        <li>
-                            <div class="product">
-                                <a th:href="@{/detail(id=${product.id})}">
-                                    <img th:src="'https://firebasestorage.googleapis.com/v0/b/retailstorage-5432c.appspot.com/o/'+${product.id.replace(' ', '')}+'.png?alt=media'" th:alt="${product.id}" alt="Image" />
-                                </a>
-                                <br />
-                                <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
-                                <br />
-                                <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
-                            </div>
-                        </li>
-                    </th:block>
-                </ul>
+                <th:block th:if="${products.isEmpty()}">
+                    <p>Không có sản phẩm nào phù hợp với tìm kiếm của bạn.</p>
+                </th:block>
+                <th:block th:unless="${products.isEmpty()}">
+                    <ul class="products">
+                        <th:block th:each="product : ${products}">
+                            <li>
+                                <div class="product">
+                                    <a th:href="@{/detail(id=${product.id})}">
+                                        <img th:src="'https://firebasestorage.googleapis.com/v0/b/retailstorage-5432c.appspot.com/o/'+${product.id.replace(' ', '')}+'.png?alt=media'" th:alt="${product.id}" alt="Image" />
+                                    </a>
+                                    <br />
+                                    <a th:href="@{/detail(id=${product.id})}" th:text="${product.name}" class="product-name">Product name</a>
+                                    <br />
+                                    <span th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}" class="product-price">200.000 VND</span>
+                                </div>
+                            </li>
+                        </th:block>
+                    </ul>
+                </th:block>
             </div>
         </div>
     </div>

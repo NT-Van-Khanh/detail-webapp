@@ -10,6 +10,7 @@ import pthttm.retail.model.Product;
 import pthttm.retail.service.ProductService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,23 +23,43 @@ public class ProductController {
         this.productService = productService;
     }
     @GetMapping("/bestselling")
-    public String showPopularProducts(Model model) {
+    public String showPopularProducts(@RequestParam(value = "sort", required = false) String sort, Model model) {
         List<Product> popularProducts = productService.getPopularProducts();
-        model.addAttribute("popularProducts", popularProducts );
+
+        if ("price-up".equals(sort)) {
+            popularProducts.sort(Comparator.comparingLong(Product::getPrice));
+        } else if ("price-down".equals(sort)) {
+            popularProducts.sort(Comparator.comparingLong(Product::getPrice).reversed());
+        }
+
+        model.addAttribute("popularProducts", popularProducts);
+        model.addAttribute("sort", sort);
         return "danhmuc/bestselling";
     }
 
     @GetMapping("/newfruit")
-    public String getAllProductsSortedByDate(Model model) {
+    public String getAllProductsSortedByDate(@RequestParam(value = "sort", required = false) String sort, Model model) {
         List<Product> sortedProducts = productService.getAllProductsSortedByDate();
+        if ("price-up".equals(sort)) {
+            sortedProducts.sort(Comparator.comparingLong(Product::getPrice));
+        } else if ("price-down".equals(sort)) {
+            sortedProducts.sort(Comparator.comparingLong(Product::getPrice).reversed());
+        }
         model.addAttribute("products", sortedProducts); // Thêm danh sách sản phẩm đã sắp xếp vào model
+        model.addAttribute("sort", sort);
         return "danhmuc/newfruit"; // Tên view để hiển thị sản phẩm
     }
 
     @GetMapping("/inland")
-    public String getProductsByCategoryTN(Model model) {
+    public String getProductsByCategoryTN(@RequestParam(value = "sort", required = false) String sort, Model model) {
         List<Product> products = productService.getProductsByCategoryTN();
+        if ("price-up".equals(sort)) {
+            products.sort(Comparator.comparingLong(Product::getPrice));
+        } else if ("price-down".equals(sort)) {
+            products.sort(Comparator.comparingLong(Product::getPrice).reversed());
+        }
         model.addAttribute("products", products); // Thêm danh sách sản phẩm vào model
+        model.addAttribute("sort", sort);
         return "danhmuc/inland"; // Tên view để hiển thị sản phẩm
     }
 

@@ -22,6 +22,9 @@ public class OrderProduct {
     @Column(name="total_cost", columnDefinition = "money", nullable = false)
     private Long totalCost;
 
+    @Column(name="address")
+    private String address;
+
     @Column(name="pay_status", nullable = false)
     private String payStatus;
 
@@ -87,6 +90,14 @@ public class OrderProduct {
 
 
     public OrderProduct() {
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public LocalDateTime getLastUpdate() {

@@ -142,3 +142,11 @@ i{
     border-radius: 30px;
     margin-left:10px;
 }
+
+.header__personal-logout{
+    height:32px;
+    border-radius: 5px;
+}
+.header__personal-logout i{
+    margin-right:5px;
+}

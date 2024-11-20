@@ -209,3 +209,6 @@
     align-items: flex-start;
     font-size:13px;
 }
+.register__message{
+    text-align: center;
+}

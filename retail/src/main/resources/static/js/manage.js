@@ -4,6 +4,7 @@ function readURL(input){
         document.getElementById('blah').style.display = 'block';
     }
 }
+
 function updateBrandInputValue(){
     var selectedBrandId = document.getElementById("brand-select").value;
     document.getElementById("brand-id").value = selectedBrandId;

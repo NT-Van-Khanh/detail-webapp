@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import pthttm.retail.security.CustomPasswordEncoder;
 import pthttm.retail.service.CustomerDetailsService;
 
 import pthttm.retail.service.EmployeeDetailsService;
@@ -37,7 +38,7 @@ public class SecurityConfig {
     public DaoAuthenticationProvider customerAuthProvider(CustomerDetailsService customerDetailsService) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(customerDetailsService);
-        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
+        authProvider.setPasswordEncoder(new CustomPasswordEncoder());
         return authProvider;
     }
 
@@ -45,7 +46,7 @@ public class SecurityConfig {
     public DaoAuthenticationProvider employeeAuthProvider(EmployeeDetailsService employeeDetailsService) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(employeeDetailsService);
-        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
+        authProvider.setPasswordEncoder(new CustomPasswordEncoder());
         return authProvider;
     }
 
@@ -87,98 +88,16 @@ public class SecurityConfig {
         return http.build();
     }
 
+//    @Bean
+//    public static PasswordEncoder passwordEncoder(){
+//        return new CustomPasswordEncoder();
+//    }
     @Bean
-    public static PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    public CustomPasswordEncoder customPasswordEncoder() {
+        return new CustomPasswordEncoder();
     }
-
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new SimpleUrlAuthenticationFailureHandler("/login?error=true");
     }
 }
-
-
-
-
-
-
-
-
-
-//    @Autowired
-//    private CustomerDetailsService customerDetailsService;
-//
-//    @Autowired
-//    private EmployeeDetailsService employeeDetailsService;
-//
-//    @Bean
-//    public DaoAuthenticationProvider customerAuthProvider() {
-//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(customerDetailsService);
-//        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
-//        return authProvider;
-//    }
-//
-//    @Bean
-//    public DaoAuthenticationProvider employAuthProvider() {
-//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(employeeDetailsService);
-//        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
-//        return authProvider;
-//    }
-
-//    @Bean
-//    @Order(1)
-//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity
-//                .securityMatcher("/css/**", "/js/**", "/image/**","/fonts/**","/modal/**") // Áp dụng cho tài nguyên tĩnh
-//                .csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .anyRequest().permitAll() // Cho phép truy cập công khai
-//                );
-//        return httpSecurity.build();
-//    }
-//
-//    @Bean
-//    @Order(2)
-//    public SecurityFilterChain manageFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity
-//                .securityMatcher("/manage/**")
-//                .csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(requests -> requests
-//                        .requestMatchers("/manage/login", "/manage/forgot-password").permitAll()
-//                        .anyRequest().hasRole("EMPLOYEE")
-//                )
-//                .formLogin(form -> form
-//                        .loginPage("/manage/login")  // Trang đăng nhập cho nhân viên
-//                        .defaultSuccessUrl("/manage/product", true)  // Trang thành công sau khi đăng nhập
-//                        .failureHandler(authenticationFailureHandler())
-//                        .permitAll()
-//                )
-//                .logout(LogoutConfigurer::permitAll);
-//        return httpSecurity.build();
-//    }
-//
-//    @Bean
-//    @Order(3)
-//    public SecurityFilterChain customerFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity
-//                .securityMatcher("/customer/**")
-//                .csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(requests -> requests
-//                        .requestMatchers("/home",
-//                                "/login", "/forgot-password", "/register", "/register/confirm",
-//                                "/confirm/phone", "/confirm/phone/send-otp", "/confirm/email", "/confirm/email/send-otp"
-//                        ).permitAll()
-//                        .anyRequest().hasRole("CUSTOMER")
-//                )
-//                .formLogin(form -> form
-//                        .loginPage("/customer/login")  // Trang đăng nhập cho khách hàng
-//                        .defaultSuccessUrl("/home", true)  // Trang thành công sau khi đăng nhập
-//                        .failureHandler(authenticationFailureHandler())
-//                        .permitAll()
-//                )
-//                .logout(LogoutConfigurer::permitAll);
-//        return httpSecurity.build();
-//    }

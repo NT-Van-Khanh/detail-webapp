@@ -14,7 +14,8 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     Optional<Customer>  findCustomerByPhone(String phone);
     Optional<Customer> findCustomerByEmail(String email);
     Optional<Customer> findCustomerByEmailOrPhone(String email,String phone);
-    
+    boolean existsByPhone(String phone);
+    boolean existsByEmail(String email);
     @Query("SELECT c FROM Customer c WHERE CONCAT(c.firstName, ' ', c.lastName) LIKE %:name%")
     List<Customer> findByName(@Param("name") String name);
 }

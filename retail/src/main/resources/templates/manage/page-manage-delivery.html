@@ -55,8 +55,8 @@
             </thead>
             <tbody>
             <tr th:each="order : ${orders}"
-                th:data-id="${order.id}">
- <!--               onclick="redirectToOrder(this)">-->
+                th:data-id="${order.id}"
+               onclick="redirectToOrder(this)">
                 <td th:text="${order.id}">00001</td>
                 <td th:text="${order.customer.lastName +' '+order.customer.firstName}">100001</td>
                 <td th:text="${order.customer.phone}">0123456789</td>
@@ -75,7 +75,6 @@
                         <option value="HT" th:selected="${order.shipStatus == 'HT'}">Đã hoàn tất</option>
                     </select>
                 </td>
-
             </tr>
             </tbody>
         </table>

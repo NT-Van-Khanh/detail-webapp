@@ -36,6 +36,13 @@ public class CustomerService {
     public Customer getByEmailOrPhone(String username){
         return customerRepository.findCustomerByEmailOrPhone(username,username).orElse(null);
     }
+
+    public boolean existsEmail(String email) {
+        return customerRepository.existsByEmail(email);
+    }
+    public boolean existsPhone(String phone) {
+        return customerRepository.existsByPhone(phone);
+    }
 //    public Customer authentication(String phone, String email, String password){
 //        if(phone!=null)
 //            return customerRepository.findByPhoneAndPassword(phone,password).orElse(null);

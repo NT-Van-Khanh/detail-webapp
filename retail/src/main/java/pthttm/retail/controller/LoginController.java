@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pthttm.retail.model.Customer;
+import pthttm.retail.security.CustomPasswordEncoder;
 import pthttm.retail.service.CustomerService;
 import pthttm.retail.service.InfobipSmsService;
 import pthttm.retail.service.MailService;
@@ -23,7 +24,7 @@ public class LoginController {
     private final MailService mailService;
     private final InfobipSmsService infobipSmsService;
     private final CustomerService customerService;
-    private final PasswordEncoder passwordEncoder;
+    private final CustomPasswordEncoder passwordEncoder;
     private Boolean sendPhoneOTP=false;
     private Boolean sendEmailOTP=false;
 
@@ -32,7 +33,7 @@ public class LoginController {
 
     @Autowired
     public LoginController(MailService mailService, InfobipSmsService infobipSmsService,
-                           CustomerService customerService, PasswordEncoder passwordEncoder) {
+                           CustomerService customerService, CustomPasswordEncoder passwordEncoder) {
         this.mailService = mailService;
         this.infobipSmsService =infobipSmsService;
         this.customerService = customerService;
@@ -68,9 +69,7 @@ public class LoginController {
         if (phone == null || phone.isEmpty())
             return ResponseEntity.ok("Invalid phone number.");
 
-        Customer customer = customerService.getByPhone(phone);
-        if(customer!=null)
-            return ResponseEntity.ok("Phone available.");
+        if(customerService.existsPhone(phone)) return ResponseEntity.ok("Phone available.");
 
         String otp = OTPSMS.randomOTP();
         phoneOtpStorage.put(phone, otp); // Store OTP for the phone number
@@ -109,11 +108,10 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity<String> sendMailOTP(@RequestParam("email") String email) {
         if (email == null || email.isEmpty())
-            return ResponseEntity.ok("Invalid email!");
+            return ResponseEntity.ok("Email không hợp lệ!");
 
-        Customer customer = customerService.getByEmail(email);
-        if (customer!=null)
-            return ResponseEntity.ok("Email đã tồn tại!");
+        Customer customer;
+        if (customerService.existsEmail(email)) return ResponseEntity.ok("Email đã tồn tại!");
 
         String otp = OTPSMS.randomOTP();
         emailOtpStorage.put(email, otp); // Store OTP for the phone number

@@ -20,7 +20,7 @@
         </div>
         <div class="content">
           <h4 class="name" th:text="${product.name}">Product Name</h4>
-          <div class="price" th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}">200.000 VND</div>
+          <div class="price" th:text="${#numbers.formatInteger(product.price, 0) + ' VND'}">200.000 VND/</div>
 
           <div class="weight">Đơn vị: <span th:text="${product.unit.name}">Unit</span></div>
 
@@ -81,9 +81,9 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Xử lý sự kiện nhấn nút giảm (-) và tăng (+)
-        $('.quantity-button').click(function() {
+        $('.quantity-button').click(function () {
             var input = $('#quantity-input');
             var currentValue = parseInt(input.val());
 
@@ -96,7 +96,7 @@
         });
 
         // Xử lý sự kiện khi nhấn vào nút "Thêm vào giỏ"
-        $('.btn-add-to-cart').click(function(event) {
+        $('.btn-add-to-cart').click(function (event) {
             event.preventDefault(); // Ngăn không cho trang chuyển hướng
             var url = $(this).attr('href');
             var quantity = $('#quantity-input').val(); // Lấy số lượng từ ô input
@@ -111,14 +111,18 @@
                 return;
             }
 
+            showLoadingNotification("Đang thêm...");
+
             // Gửi yêu cầu Ajax
             $.ajax({
                 type: 'GET',
                 url: url,
-                success: function(response) {
+                success: function (response) {
+                    hideLoadingNotification();
                     showNotification("Thêm vào giỏ thành công!", 3000);
                 },
-                error: function(error) {
+                error: function (error) {
+                    hideLoadingNotification();
                     showNotification("Có lỗi xảy ra. Vui lòng thử lại!", 3000);
                 }
             });
@@ -130,11 +134,25 @@
             $('body').append(notification);
             notification.fadeIn();
 
-            setTimeout(function() {
-                notification.fadeOut(function() {
+            setTimeout(function () {
+                notification.fadeOut(function () {
                     $(this).remove();
                 });
             }, duration);
+        }
+
+        // Hàm hiển thị thông báo đang tải
+        function showLoadingNotification(message) {
+            var loadingNotification = $('<div class="notification loading"></div>').text(message);
+            $('body').append(loadingNotification);
+            loadingNotification.fadeIn();
+        }
+
+        // Hàm ẩn thông báo đang tải
+        function hideLoadingNotification() {
+            $('.notification.loading').fadeOut(function () {
+                $(this).remove();
+            });
         }
     });
   </script>

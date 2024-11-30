@@ -1,16 +1,10 @@
 package pthttm.retail.config;
 
-import com.google.api.Authentication;
-import com.google.api.Http;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -58,7 +52,7 @@ public class SecurityConfig {
                 .authenticationProvider(customerAuthProvider)
                 .securityMatcher("/customer/**")  // Đảm bảo đường dẫn được áp dụng cho quyền của ROLE_EMPLOYEE
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/customer/home").hasRole("CUSTOMER") // Cấp quyền truy cập cho ROLE_EMPLOYEE
+                        .requestMatchers("/customer/**").hasRole("CUSTOMER") // Cấp quyền truy cập cho ROLE_EMPLOYEE
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/customer/login")
@@ -75,14 +69,20 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authenticationProvider(employeeAuthProvider)
-                .securityMatcher("/manage/**")  // Đảm bảo đường dẫn được áp dụng cho quyền của ROLE_EMPLOYEE
+                .securityMatcher("/manage/**")  // Áp dụng bộ lọc cho toàn bộ URL bắt đầu bằng /manage/**
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/manage/product").hasRole("EMPLOYEE") // Cấp quyền truy cập cho ROLE_EMPLOYEE
+                        .requestMatchers("/manage/**").hasRole("EMPLOYEE") // Cấp quyền truy cập cho ROLE_EMPLOYEE
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/manage/login")
                         .loginProcessingUrl("/manage/login")
                         .defaultSuccessUrl("/manage/product", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/manage/logout")
+                        .logoutSuccessUrl("/manage/login")
+                        .deleteCookies()
+                        .invalidateHttpSession(true)       // Hủy phiên làm việc hiện tại
                         .permitAll());
 
         return http.build();

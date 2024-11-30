@@ -15,6 +15,22 @@
             <div class="personal-history__header">
                 <div class="personal-history__header-name">
                     <h2>Lịch sử mua hàng</h2></div>
+                <div class="personal-history__info">
+                    <div class="account-name__box">
+                        <label class="account__box-title">Họ và tên</label>
+                        <span class="account-name__box-span" th:text="${customer.lastName + ' ' + customer.firstName}" ></span>
+                    </div>
+                    <div class="account__group-box">
+                        <div class="account__group-box-left">
+                            <label class="account__box-title">Số điện thoại</label>
+                            <span class="account__inline-box-span" th:text="${customer.phone}" ></span>
+                        </div>
+                        <div class="account__group-box-right">
+                            <label class="account__box-title"> Email</label>
+                            <span class="account__inline-box-span" th:text="${customer.email}" ></span>
+                        </div>
+                    </div>
+                </div>
                 <div class="personal-history__header-tool">
                     <form action="" method ="get" class="personal-history__header-tool-search">
                         <label>
@@ -40,12 +56,12 @@
                         <th>Ngày đặt hàng</th>
                         <th>Số lượng</th>
                         <th>Đơn giá</th>
-                        <th>Trạng thái giao hàng</th>
-
+                        <th>Giao hàng</th>
+                        <th>Chi tiết</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="order : ${orders}"
+                    <tr th:each="order : ${customer.orders}"
                         th:data-id="${order.id}"
                         onclick="redirectToCustomer(this)">
                         <td th:text="${order.id}">00001</td>
@@ -53,6 +69,7 @@
                         <td th:text="${order.quantity}">3</td>
                         <td th:text="${order.totalCost}">145.000</td>
                         <td th:text="${order.getFormattedShipStatus}">Đã hoàn tất</td>
+                        <td><button>Chi tiết</button></td>
                     </tr>
                     </tbody>
                 </table>

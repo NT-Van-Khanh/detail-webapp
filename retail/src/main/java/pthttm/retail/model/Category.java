@@ -18,14 +18,13 @@ public class Category {
     private String name;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="HH:mm dd/MM/yyyy")
     @Column(name="created_at",nullable = false)
     private LocalDateTime createAt;
 
     @Column(name="flag",nullable = false)
     private boolean flag;
 
-    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category",fetch = FetchType.LAZY)
     private Collection<Product> products;
 
     public Category() {

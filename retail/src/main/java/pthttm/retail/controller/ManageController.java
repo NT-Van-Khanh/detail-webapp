@@ -12,6 +12,7 @@ import pthttm.retail.service.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
@@ -40,12 +41,19 @@ public class ManageController {
 
     @GetMapping("manage/product")
     public String getProduct(Model model,
-                             @RequestParam(value = "sort-product", required = false, defaultValue = "ID") String sortBy){
-        List<Product> products = productService.getAllProduct();
+                             @RequestParam(value = "sort-product", required = false, defaultValue = "ID") String sortBy,
+                             @RequestParam(value = "search-product", required = false, defaultValue = "") String search){
+        List<Product> products = new ArrayList<>();
+        if(search.isBlank()) {
+            products = productService.getAllProduct();
+        }else{
+            products = productService.findByName(search);
+        }
         if (!products.isEmpty()) {
             products= sortProduct(products,sortBy);
             model.addAttribute("products", products);
             model.addAttribute("sortBy", sortBy);
+            model.addAttribute("searchKeyword", search);
         }else {
             LoggerFactory.getLogger(this.getClass()).info("Không tìm thấy sản phẩm.");
         }
@@ -165,9 +173,9 @@ public class ManageController {
             case "CREATE":
                 products.sort(Comparator.comparing(Product::getCreateAt));
                 break;
-/*                case "UPDATE":
-                    products.sort(Comparator.comparing(Product::getUpdateAt));
-                    break;*/
+            case "UPDATE":
+                products.sort(Comparator.comparing(Product::getLastUpdate));
+                break;
             default:
                 products.sort(Comparator.comparing(Product::getId));
                 break;

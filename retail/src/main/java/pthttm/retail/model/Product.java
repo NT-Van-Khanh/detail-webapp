@@ -3,6 +3,8 @@ package pthttm.retail.model;
 import jakarta.persistence.*;
 import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -63,7 +65,7 @@ public class Product {
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private Collection<OrderItem> orders;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private Collection<ProductNutrient> nutrients;
 
     public Product( String id){

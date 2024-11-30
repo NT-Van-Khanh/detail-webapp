@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pthttm.retail.model.Customer;
+import pthttm.retail.model.CustomerDetails;
 import pthttm.retail.model.Nutrient;
 import pthttm.retail.model.Product;
 import pthttm.retail.service.CustomerService;
@@ -36,10 +39,14 @@ public class CustomerController {
     }
 
     @GetMapping("/customer/purchase-history")
-    public String getPurchaseHistory(Model model, HttpSession sesson){
-        Customer customer = customerService.getCustomerById(3);
-        /*List<Order> orders = orderService.getAllOrderByCustomer(customer);*/
-        model.addAttribute("orders",customer.getOrders());
+    public String getPurchaseHistory(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!authentication.isAuthenticated()) return "error";
+
+        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
+        Customer customer = customerDetails.getCustomer();
+        model.addAttribute("customer",customer);
+//        model.addAttribute("orders",customer.getOrders());
         return "/customer/page-purchase-history";
     }
 

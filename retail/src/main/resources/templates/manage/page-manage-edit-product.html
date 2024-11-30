@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link th:href = "@{/css/manage/add-product.css}" rel = "stylesheet">
-    <script th:src="@{/js/manage.js}"></script>
-    <title>Thêm sản phẩm mới</title>
+    <script th:src="@{/js/manage/edit-product.js}"></script>
+    <title>Cập nhật sản phẩm</title>
 </head>
 <body>
 <article layout:fragment ="content">
@@ -18,7 +18,8 @@
     <form class="manage__form"  th:action="@{/manage/edit-product/{id}(id=${product.id})}" th:object="${product}" method="post" enctype="multipart/form-data">
         <div class="manage__form-left">
             <div class="product__image-background">
-                <img  th:if="${product.id}"  th:src="'https://firebasestorage.googleapis.com/v0/b/retailstorage-5432c.appspot.com/o/'+${product.id.replace(' ', '')}+'.png?alt=media'"
+                <img id="blah" th:if="${product.id}"
+                     th:src="'https://firebasestorage.googleapis.com/v0/b/retailstorage-5432c.appspot.com/o/'+${product.id.replace(' ', '')}+'.png?alt=media'"
                       onerror="this.onerror=null; this.src='https://firebasestorage.googleapis.com/v0/b/retailstorage-5432c.appspot.com/o/upload-regular-96.png?alt=media';"
                       alt="Thêm ảnh"
                       style="display:block;"></div>

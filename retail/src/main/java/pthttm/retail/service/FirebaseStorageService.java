@@ -10,26 +10,26 @@ import java.io.InputStream;
 @Service
 public class FirebaseStorageService {
     private final FirebaseRepository firebaseRepository;
-    private final String bucketFirebase ="retailstorage-5432c.appspot.com";
+
     @Autowired
     public FirebaseStorageService(FirebaseRepository firebaseRepository) {
         this.firebaseRepository = firebaseRepository;
     }
 
     public String getObjectUrl(String filename) throws IOException{
-        return firebaseRepository.getObjectUrl(bucketFirebase,filename);
+        return firebaseRepository.getObjectUrl(filename);
     }
 
     public InputStream getObject(String fileName) throws IOException {
-        return firebaseRepository.getObject(bucketFirebase, fileName);
+        return firebaseRepository.getObject(fileName);
     }
 
     public void uploadObject(String fileName, InputStream inputStream,String contentType) throws IOException {
-        firebaseRepository.uploadObject(bucketFirebase, fileName, inputStream,contentType);//contentType là type của file được lưu trong fb
+        firebaseRepository.uploadObject( fileName, inputStream,contentType);//contentType là type của file được lưu trong fb
     }
 
     public void deleteObject(String fileName) throws IOException {
-        firebaseRepository.deleteObject(bucketFirebase, fileName);
+        firebaseRepository.deleteObject(fileName);
     }
     /*    private final StorageClient storageClient = StorageClient.getInstance();
     public InputStream getObject(String bucketName, String fileName) throws IOException {

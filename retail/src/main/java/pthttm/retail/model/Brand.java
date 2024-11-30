@@ -24,7 +24,7 @@ public class Brand {
     @Column(name="created_at",updatable = false, nullable = false)
     private LocalDateTime createAt;
 
-    @OneToMany(mappedBy = "brand",fetch =  FetchType.EAGER)
+    @OneToMany(mappedBy = "brand",fetch =  FetchType.LAZY)
     private Collection<Product> products;
 
 

@@ -45,22 +45,30 @@ public class LoginController {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodedPassword1 = encoder.encode("12345678@ptithcm");
         System.out.println(encodedPassword1);
-        return "/login/page-login";
+        return "login/page-login";
     }
 
     @GetMapping("/manage/login")
     public String getManageLogin(){
-        return "/manage/login/page-login";
+        return "manage/login/page-login";
     }
 
+    @GetMapping("/manage/logout")
+    public String getManageLogout(){
+        return "redirect:/manage/login";
+    }
     @GetMapping("/forgot-password")
     public String getForgotPassword(){
-        return "/login/page-forgot-password";
+        return "login/page-forgot-password";
     }
 
+    @GetMapping("/manage/forgot-password")
+    public String getManageForgotPassword(){
+        return "manage/login/page-forgot-password";
+    }
     @GetMapping("/confirm/phone")
     public String confirmPhone(){
-        return "/login/register/page-confirm-phone";
+        return "login/register/page-confirm-phone";
     }
 
     @PostMapping("/confirm/phone/send-otp")
@@ -94,13 +102,13 @@ public class LoginController {
         if (savedOtp != null && savedOtp.equals(otp)) {
             model.addAttribute("message", "OTP verified successfully!");
             session.setAttribute("phone",phone);
-            return "/login/register/page-confirm-email"; // Proceed to the next page
+            return "login/register/page-confirm-email"; // Proceed to the next page
         } else {
             model.addAttribute("message", "OTP không hợp lệ. Hãy thử lại.");
 //          return "/login/register/page-confirm-phone";
 
             session.setAttribute("phone",phone);
-            return "/login/register/page-confirm-email";
+            return "login/register/page-confirm-email";
         }
     }
 
@@ -133,14 +141,14 @@ public class LoginController {
             model.addAttribute("message", "OTP verified successfully!");
             session.setAttribute("email",email);
             model.addAttribute("customer", new Customer());
-            return "/login/register/page-register"; // Proceed to the next page
+            return "login/register/page-register"; // Proceed to the next page
         } else {
             model.addAttribute("message", "OTP không hợp lệ. Hãy thử lại.");
 //          return "/login/register/page-confirm-email";
 
             model.addAttribute("customer", new Customer());
             session.setAttribute("email",email);
-            return "/login/register/page-register";
+            return "login/register/page-register";
         }
     }
     @PostMapping("/register/confirm")
@@ -176,8 +184,5 @@ public class LoginController {
         return new ResponseEntity<>("Đăng ký thành công. Vui lòng đăng nhập.", headers, HttpStatus.FOUND);
     }
 
-    @GetMapping("/manage/forgot-password")
-    public String getManageForgotPassword(){
-        return "/manage/login/page-forgot-password";
-    }
+
 }

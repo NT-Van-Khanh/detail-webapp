@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <link th:href = "@{/css/manage/manage-table.css}" rel = "stylesheet">
-    <script th:src="@{/js/manage.js}"></script>
+    <script th:src="@{/js/manage/product.js}"></script>
     <title>Quản lý sản phẩm</title>
 </head>
 <body>
@@ -15,10 +15,10 @@
             <h2>Quản lý sản phẩm</h2></div>
         <div class="manage__header-tool">
             <div class="manage__header-tool-left">
-                <form action="" method ="get" class="manage__header-tool-search">
+                <form id="search-form" class="manage__header-tool-search" onsubmit="submitCombinedForms()">
                     <label>
-                        <input type="text" class="manage__header-tool-search-input" placeholder="Tìm kiếm"></label>
-                    <button class="manage__header-tool-search-button"><i class='bx bx-search' ></i></button>
+                        <input type="text" name ="search-product" id="search-product" th:value="${searchKeyword}" class="manage__header-tool-search-input" placeholder="Tìm kiếm"></label>
+                    <button class="manage__header-tool-search-button" type="submit"><i class='bx bx-search' ></i></button>
                 </form>
             </div>
             <div class="manage__header-tool-right">
@@ -27,9 +27,10 @@
                         <button class="manage__header-tool-button-add"><i class='bx bxs-plus-circle' ></i></i></i>Thêm mới</button>
                     </form></div>
                 <div  class="manage__header-tool-select">
-                    <form action="/manage/product" method ="get">
+<!--                    <form action="/manage/product" method ="get">-->
+                        <form id="filter-form">
                         <label>
-                            <select name="sort-product" onchange="this.form.submit()" class="manage__header-tool-select-sort">
+                            <select name="sort-product" id="sort-product" onchange="submitCombinedForms()" class="manage__header-tool-select-sort">
                                 <option value="ID" th:selected="${sortBy == 'ID'}">Mã sản phẩm</option>
                                 <option value="NAME" th:selected="${sortBy == 'NAME'}">Tên sản phẩm</option>
                                 <option value="QUANTITY" th:selected="${sortBy == 'QUANTITY'}">Số lượng sản phẩm</option>
@@ -93,7 +94,7 @@
 <th:block th:each = "quantity : ${#numbers.sequence(0, 4)}" th:var="">
     <tr onclick="window.location.href='/manage/product?id=${acc.userId}'">
         <td><img src=""alt="Image"></td>
-        <td>SP0001</td>
+        <td>0001</td>
         <td>Trái cây</td>
         <td>Nhà cung cấp nông sản ABC Việt Nam</td>
         <td>Trái cây tươi</td>

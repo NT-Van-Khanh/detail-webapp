@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### SECRET ###
+!**src/main/resources/firebase/firebase-key.json
+!**src/main/resources/application.properties

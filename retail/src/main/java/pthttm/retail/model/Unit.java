@@ -17,7 +17,7 @@ public class Unit {
     @Column(name="flag",nullable = false)
     private boolean flag;
 
-    @OneToMany(mappedBy = "unit",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "unit",fetch = FetchType.LAZY)
     private Collection<Product> products;
 
     public Unit() {

@@ -6,7 +6,6 @@
     --ship-status-col-width: 20%;
 }
 
-
 .personal-history__background{
     background-color: #eff3f4;
     background-size: cover;
@@ -179,18 +178,14 @@
     background-color: #f6f6f6;
 }
 
-
 .personal-history__header-tool-info{
     background-color:#f1f1f1;
     border:1px solid #f3f3f3;
     box-sizing:border-box;
     padding:2px 20px;
-/*    display:flex;*/
-/*    justify-content:space-between;*/
 }
 .personal-history__header-tool-info-content{
 /*    background-color:#f4f4f4;*/
-
     width:50%;
     align-items: flex-end;
     padding:5px 10px;
@@ -286,8 +281,6 @@
     justify-content: space-around;
 }
 
-
-
 /* Invoice table column widths */
 .invoice-table th:nth-child(1),
 .invoice-table td:nth-child(1) {
@@ -313,4 +306,3 @@
 .invoice-table td:nth-child(5) {
     width: var(--ship-status-col-width); /* Width for 'Trạng thái giao hàng' */
 }
-

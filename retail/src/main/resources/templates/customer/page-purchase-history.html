@@ -14,21 +14,28 @@
         <div class="personal-history__container">
             <div class="personal-history__header">
                 <div class="personal-history__header-name">
-                    <h2>Lịch sử mua hàng</h2></div>
-                <div class="personal-history__info">
-                    <div class="account-name__box">
-                        <label class="account__box-title">Họ và tên</label>
-                        <span class="account-name__box-span" th:text="${customer.lastName + ' ' + customer.firstName}" ></span>
+                    <h2><span class="account-name__box-span" th:text="${customer.lastName + ' ' + customer.firstName}" ></span>/ Lịch sử mua hàng </h2></div>
+                <div class="personal-history__header-tool-info">
+                    <div class="personal-history__header-tool-info-content">
+                        <div class="account__group-box">
+                            <div class="account__group-box-left">
+                                <label class="box-span-title">Số điện thoại:</label>
+                                <span class="box-span-detail" th:text="${customer.phone}" ></span>
+                            </div>
+                            <div class="account__group-box-right">
+                                <label class="box-span-title"> Email:</label>
+                                <span class="box-span-detail" th:text="${customer.email}" ></span>
+                            </div>
+                        </div>
+                        <div class="account-address__box">
+                            <label class="box-span-title">Địa chỉ:</label>
+                            <span class="box-span-detail" th:text="${customer.address}" ></span>
+                        </div>
                     </div>
-                    <div class="account__group-box">
-                        <div class="account__group-box-left">
-                            <label class="account__box-title">Số điện thoại</label>
-                            <span class="account__inline-box-span" th:text="${customer.phone}" ></span>
-                        </div>
-                        <div class="account__group-box-right">
-                            <label class="account__box-title"> Email</label>
-                            <span class="account__inline-box-span" th:text="${customer.email}" ></span>
-                        </div>
+                    <div class="personal-history__header-tool-info-button">
+                        <form action="customer/edit-info">
+                            <button class="personal-history__header-tool-button-add" type="submit"><i class='bx bx-edit'></i>Cập nhật thông tin cá nhân</button>
+                        </form>
                     </div>
                 </div>
                 <div class="personal-history__header-tool">
@@ -47,7 +54,7 @@
                         </label>
                     </div>
                 </div>
-           </div>
+            </div>
             <div class="personal-history__table">
                 <table class="invoice-table">
                     <thead>

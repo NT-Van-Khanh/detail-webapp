@@ -7,7 +7,6 @@
 }
 
 
-
 .personal-history__background{
     background-color: #eff3f4;
     background-size: cover;
@@ -180,6 +179,115 @@
     background-color: #f6f6f6;
 }
 
+
+.personal-history__header-tool-info{
+    background-color:#f1f1f1;
+    border:1px solid #f3f3f3;
+    box-sizing:border-box;
+    padding:2px 20px;
+/*    display:flex;*/
+/*    justify-content:space-between;*/
+}
+.personal-history__header-tool-info-content{
+/*    background-color:#f4f4f4;*/
+
+    width:50%;
+    align-items: flex-end;
+    padding:5px 10px;
+    box-sizing:border-box;
+}
+.personal-history__header-tool-info-button{
+/*    background-color:#f4f4f4;*/
+    width:50%;
+    align-items: center;
+    padding:5px 10px;
+    box-sizing:border-box;
+}
+
+.box-span-title{
+    color:#3c3c3c;
+    margin-bottom:5px;
+    margin-right:10px;
+    font-weight: 500;
+    font-size:16px;
+}
+
+.account-address__box{
+    width: 100%;
+    /*    display: flex;*/
+    /*    justify-content:space-between;*/
+}
+
+.box-span-detail{
+    width: calc(100% - 150px);
+    /*    background-color: #efefef;*/
+    color:#454545;
+    outline:none;
+    border:none;
+    /*    border-radius:5px;*/
+    box-sizing: border-box;
+    padding: 3px 10px;
+    font-size: 15px;
+}
+.box-span-detail:focus{
+    background-color:#f3f3f3;
+    box-shadow: 0 0 1em rgba(0,0,0,.1);
+}
+.box-span-detail:hover{
+    box-shadow: 0 0 1em rgba(0,0,0,.1);
+}
+
+.account__group-box{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-end;
+    width:100%;
+    margin-bottom: 5px;
+}
+
+.account__group-box-left{
+    width: 38%;
+    min-width:100px;
+}
+
+.account__group-box-right{
+    width: 60%;
+}
+
+.personal-history__header-tool-button-add{
+    background-color: white;
+    color: #454545;
+    display:flex;
+    align-items:center;
+    padding: 0 5px;
+    box-sizing:border-box;
+    border: 2px solid #535353;
+    min-width:100px;
+    height:30px;
+    border-radius: 5px;
+
+}
+
+.personal-history__header-tool-button-add:hover{
+    background-color:#f3f3f3;
+}
+
+.personal-history__header-tool-button-add i{
+    margin-right:5px;
+    color:#595555;
+}
+
+.product__message{
+    color:#5374af;
+    font-weight:550;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content: space-around;
+}
+
+
+
 /* Invoice table column widths */
 .invoice-table th:nth-child(1),
 .invoice-table td:nth-child(1) {
@@ -205,3 +313,4 @@
 .invoice-table td:nth-child(5) {
     width: var(--ship-status-col-width); /* Width for 'Trạng thái giao hàng' */
 }
+

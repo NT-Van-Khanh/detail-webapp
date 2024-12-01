@@ -30,12 +30,13 @@ public class CustomerController {
     private final CustomerService customerService;
     private final OrderService orderService;
     private final ProductService productService;
-    @Autowired
-    private NutrientService nutrientService;
-    public CustomerController(OrderService orderService,CustomerService customerService, ProductService productService) {
+    private final NutrientService nutrientService;
+
+    public CustomerController(OrderService orderService,CustomerService customerService, ProductService productService,NutrientService nutrientService ) {
         this.orderService = orderService;
-        this.customerService= customerService;
+        this.customerService = customerService;
         this.productService = productService;
+        this.nutrientService = nutrientService;
     }
 
     @GetMapping("/customer/purchase-history")
@@ -50,7 +51,7 @@ public class CustomerController {
         return "/customer/page-purchase-history";
     }
 
-    @GetMapping("/customer")
+    @GetMapping("/customer/edit-info")
     public String getCustomerInfo(){
         return "customer/page-personal";
     }

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
+    <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/retailstorage-5432c.appspot.com/o/logo-web.png?alt=media" type="image/icon type">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link th:href = "@{/css/header.css}" rel = "stylesheet">
     <script th:src="@{/js/header.js}"> </script>
@@ -23,7 +24,7 @@
     <div class ="header__personal">
         <form action="/gio-hang" method ="get">
         <button class="header__personal-cart">Giỏ hàng <i class='bx bx-cart'></i></button></form>
-        <form action="/purchase-history" method ="get">
+        <form action="customer/purchase-history" method ="get">
         <button class="header__personal-user"><i class='bx bx-user'></i></button></form>
     </div>
 </header>

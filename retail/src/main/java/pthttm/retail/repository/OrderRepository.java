@@ -1,5 +1,7 @@
 package pthttm.retail.repository;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 import pthttm.retail.model.Customer;
 import pthttm.retail.model.OrderProduct;
@@ -11,4 +13,7 @@ public interface OrderRepository extends CrudRepository<OrderProduct,String> {
     List<OrderProduct> findByShipStatus(String shipStatus);
     List<OrderProduct> findByPayStatusAndShipStatus(String payStatus, String shipStatus);
     List<OrderProduct> findByCustomer(Customer customer);
+
+    @Procedure(name = "GetNextOrderProductSequence")
+    Integer getNextSequenceValue();
 }

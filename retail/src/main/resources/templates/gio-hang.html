@@ -1,3 +1,4 @@
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="vn" xmlns:th="http://www.thymeleaf.com" xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{common/comp-header}">
@@ -41,7 +42,7 @@
 
                                 </td>
                                 <td th:id="'price-' + ${item.productId}" class="shoping__cart__price"
-                                    th:text="${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND'"></td>
+                                    th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
                                 <td class="shoping__cart__quantity">
                                     <div class="quantity">
                                         <div class="pro-qty">
@@ -52,7 +53,7 @@
                                     </div>
                                 </td>
                                 <td th:id="'total-' + ${item.productId}" class="shoping__cart__total"
-                                    th:text="${#numbers.formatDecimal(item.price * item.quantity, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND'"></td>
+                                    th:text="${#numbers.formatDecimal(item.price * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
                                 <td class="shoping__cart__item__close">
                                     <a th:href="@{/gio-hang/remove(productId=${item.productId})}" class="icon_close">Xóa</a>
                                 </td>
@@ -65,7 +66,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="/product-details" class="primary-btn cart-btn">Quay lại trang chi tiết</a>
+                        <a href="/home" class="primary-btn cart-btn">Quay lại trang chi tiết</a>
                         <a href="#" class="primary-btn cart-btn cart-btn-right" id="update-cart-button">
                             <span class="icon_loading"></span>Cập nhật giỏ hàng</a>
                     </div>

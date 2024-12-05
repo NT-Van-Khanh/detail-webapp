@@ -23,6 +23,10 @@ public class CustomerDetails implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
     }
 
+    public Integer getId() {
+        return customer.getId();
+    }
+
     @Override
     public String getPassword() {
         return customer.getPassword();

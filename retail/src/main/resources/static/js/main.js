@@ -163,10 +163,10 @@
 		Price Range Slider
 	------------------------ */
     var rangeSlider = $(".price-range"),
-        minamount = $("#minamount"),
-        maxamount = $("#maxamount"),
-        minPrice = rangeSlider.data('min'),
-        maxPrice = rangeSlider.data('max');
+    minamount = $("#minamount"),
+    maxamount = $("#maxamount"),
+    minPrice = rangeSlider.data('min'),
+    maxPrice = rangeSlider.data('max');
     rangeSlider.slider({
         range: true,
         min: minPrice,
@@ -207,11 +207,11 @@
     //proQty.append('<span class="inc qtybtn">+</span>');
     proQty.on('click', '.qtybtn', function () {
         var $button = $(this);
-        var productId = $button.data('product-id');       
-        console.log(productId); 
+        var productId = $button.data('product-id');
+        console.log(productId);
         var oldValue = $button.parent().find('input').val();
         if ($button.hasClass('inc')) {
-            var newVal = parseFloat(oldValue) + 1;            
+            var newVal = parseFloat(oldValue) + 1;
         } else {
             // Don't allow decrementing below zero
             if (oldValue > 0) {
@@ -221,69 +221,69 @@
             }
         }
         //Format các giá trị theo loại tiền VND
-        $button.parent().find('input').val(newVal.toLocaleString());
+        $button.parent().find('input').val(newVal.toLocaleString('en-US'));
         var element_id= 'price-'+productId;
         var total_element_id='total-'+productId;
-        const priceElement = document.getElementById(element_id);        
-        const priceText = priceElement.innerText;		
+        const priceElement = document.getElementById(element_id);
+        const priceText = priceElement.innerText;
         const numericPrice = parseFloat(priceText.replace(/[^0-9.-]+/g,""));
         const totalElement = document.getElementById(total_element_id);
         //console.log(totalElement);
         const totalAmount = (numericPrice * newVal);
-    	totalElement.innerText = totalAmount.toLocaleString() + ' VND';
+        totalElement.innerText = totalAmount.toLocaleString('en-US') + ' VND';
         //Tính tổng số tiền cần thanh toán
-        updateGrandTotal();        
+        updateGrandTotal();
     });
-    
-    // Khi người dùng click "Cập nhật giỏ hàng" 
+
+    // Khi người dùng click "Cập nhật giỏ hàng"
     $('#update-cart-button').click(function(e) {
-        e.preventDefault(); 
-        var quantities = {}; 		       
-        $('tbody tr').each(function() { 
-            var productId = $(this).find('.qtybtn').data('product-id');             
-            var quantity = $(this).find('.pro-qty input').val();             
+        e.preventDefault();
+        var quantities = {};
+        $('tbody tr').each(function() {
+            var productId = $(this).find('.qtybtn').data('product-id');
+            var quantity = $(this).find('.pro-qty input').val();
             if (productId && !isNaN(quantity)) {
-                quantities[productId] = quantity; 
+                quantities[productId] = quantity;
             }
-        });                
-        
+        });
+
         // AJAX request to update cart
         $.ajax({
             type: 'POST',
             url: '/cart/update',
             data: quantities,
-            success: function(response) {               
-                location.reload(); 
+            success: function(response) {
+                location.reload();
             },
-            error: function(xhr, status, error) {                
+            error: function(xhr, status, error) {
                 alert('Có lỗi xảy ra : ' + error);
             }
         });
     });
-    
+
     //Khi người dùng click vào TIẾN HÀNH THANH TOÁN
     $('#checkout-button').on('click', function(event) {
-        event.preventDefault(); 
-        window.location.href = '/thanh-toan'; 
+        event.preventDefault();
+        window.location.href = '/thanh-toan';
     });
-    
-    // Khi người dùng xóa một sản phẩm trong cart   
-	$('.icon_close').on('click', function() {
+
+    // Khi người dùng xóa một sản phẩm trong cart
+    $('.icon_close').on('click', function() {
         const productId = $(this).data('product-id');
-        console.log(productId); 
-        this.closest("tr").remove(); 
+        console.log(productId);
+        this.closest("tr").remove();
         //Tính tổng số tiền cần thanh toán
         updateGrandTotal();
     });
-    
+
     function updateGrandTotal() {
-    		let grandTotal = 0;
-            document.querySelectorAll(".shoping__cart__total").forEach(totalElement => {
-                const itemTotal = parseFloat(totalElement.textContent.replace(" VND", "").replace(",", ""));
-                grandTotal += itemTotal;
-            });
-            document.getElementById("grand-total").innerText = grandTotal.toLocaleString() + " VND";
-            document.getElementById("grand-total-final").innerText = grandTotal.toLocaleString() + " VND";       
-	}
+        let grandTotal = 0;
+        document.querySelectorAll(".shoping__cart__total").forEach(totalElement => {
+            const itemTotal = parseFloat(totalElement.textContent.replace(" VND", "").replace(",", ""));
+            grandTotal += itemTotal;
+        });
+        document.getElementById("grand-total").innerText = grandTotal.toLocaleString('en-US') + " VND";
+        document.getElementById("grand-total-final").innerText = grandTotal.toLocaleString('en-US') + " VND";
+    }
 
 })(jQuery);

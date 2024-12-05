@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pthttm.retail.model.CartItem;
 import pthttm.retail.service.CartItemService;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.Map;
 //@RequestMapping("/gio-hang")
 public class CartController {
     private final CartItemService cartItemService;
-    @Autowired
+
     public CartController(CartItemService cartItemService) {
         this.cartItemService=cartItemService;
     }
@@ -64,9 +63,11 @@ public class CartController {
     }
 
     @PostMapping("/cart/update")
-    public String updateCart(@RequestParam Map<String, String> quantities, Model model) {
+    public String updateCart(@RequestParam Map<String, String> quantities, HttpSession session) {
         // Cập nhật giỏ hàng
-        List<CartItem> cartItems = cartItemService.getAllCartItems();
+        @SuppressWarnings("unchecked")
+        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
+        //List<CartItem> cartItems=null;
         for (Map.Entry<String, String> entry : quantities.entrySet()) {
             String productId = entry.getKey(); // Product ID
             int quantity = Integer.parseInt(entry.getValue());
@@ -78,6 +79,7 @@ public class CartController {
         }
         //Xóa các bản ghi không có trong quantities
         cartItems.removeIf(item -> !quantities.containsKey(item.getProductId()));
+        session.setAttribute("cartItems", cartItems);
         return "gio-hang";
     }
 //    @PostMapping("/gio-hang/remove")

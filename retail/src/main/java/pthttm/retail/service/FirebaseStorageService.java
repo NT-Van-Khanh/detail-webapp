@@ -31,25 +31,4 @@ public class FirebaseStorageService {
     public void deleteObject(String fileName) throws IOException {
         firebaseRepository.deleteObject(fileName);
     }
-    /*    private final StorageClient storageClient = StorageClient.getInstance();
-    public InputStream getObject(String bucketName, String fileName) throws IOException {
-        Blob blob = storageClient.bucket(bucketName).get(fileName);
-        if (blob != null) {
-            return new ByteArrayInputStream(blob.getContent());
-        }else {
-            throw new IOException("File " + fileName + " not found in bucket " + bucketName);
-        }
-    }*/
-
-    /*
-        private final Storage storage = StorageOptions.getDefaultInstance().getService();
-        public InputStream getObject(String bucketName, String fileName) throws IOException {
-            Blob blob = storage.get(bucketName, fileName);
-            if (blob != null) {
-                return new ByteArrayInputStream(blob.getContent());
-            }else {
-                throw new IOException("File " + fileName + " not found in bucket " + bucketName);
-            }
-        }*/
-
 }

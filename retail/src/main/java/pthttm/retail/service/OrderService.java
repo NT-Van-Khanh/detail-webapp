@@ -46,6 +46,9 @@ public class OrderService {
         return orderRepository.findByCustomer(customer);
     }
 
+    public Integer getNextSequenceValue(){
+        return orderRepository.getNextSequenceValue();
+    }
 /*    public List<Order> getAllOrderByCustomer(Customer customer){
         return (List<Order>) orderRepository.findByCustomer(customer);
     }*/

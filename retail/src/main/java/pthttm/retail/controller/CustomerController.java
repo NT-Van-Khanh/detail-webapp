@@ -127,16 +127,17 @@ public class CustomerController {
     public String getProductDetail(@RequestParam("id") String productId, Model model) {
         Product product = productService.getProductById(productId);
 
-//        if (product == null) {
-//            model.addAttribute("error", "Không tìm thấy sản phẩm với ID: " + productId);
-//            return "error-page";
-//        }
-
+        if (product == null) {
+            model.addAttribute("error", "Không tìm thấy sản phẩm với ID: " + productId);
+            return "error-page";
+        }
+        String productName = product.getName();
         // Lấy các sản phẩm tương tự
-        List<Product> similarProducts = productService.findSimilarProducts(productId);
-
+        List<Product> similarProducts = productService.findByName(productName);
+        similarProducts.removeIf(p -> p.getId().equals(productId));
         model.addAttribute("product", product);
         model.addAttribute("similarProducts", similarProducts);
+
         return "product-details"; // Đảm bảo view này tồn tại
     }
 

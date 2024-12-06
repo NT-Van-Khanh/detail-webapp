@@ -63,28 +63,91 @@ public class ProductController {
         return "danhmuc/inland"; // Tên view để hiển thị sản phẩm
     }
 
-    @GetMapping("/search_ml")
-    public String search(@RequestParam("txtSearch") String query, Model model) {
-        // Lấy danh sách các ID sản phẩm từ API Django
-        List<String> productIds = productService.searchProductIds(query);
-        List<Product> products= new ArrayList<>();
-        if(!productIds.isEmpty()){
-            products = productService.findAllById(productIds);
-        }else{
-            products = productService.findByName(query);
-        }
-        // Giả sử bạn đã có phương thức để tìm sản phẩm từ DB theo các ID này
+//    @GetMapping("/search_ml")
+//    public String search(@RequestParam("txtSearch") String query, Model model) {
+//        // Lấy danh sách các ID sản phẩm từ API Django
+//        List<String> productIds = productService.searchProductIds(query);
+//        List<Product> products= new ArrayList<>();
+//        if(!productIds.isEmpty()){
+//            products = productService.findAllById(productIds);
+//        }else{
+//            products = productService.findByName(query);
+//        }
+//        // Giả sử bạn đã có phương thức để tìm sản phẩm từ DB theo các ID này
+//
+//        Set<Brand> brands=null;
+//        if(products!=null){
+//            brands=products.stream()
+//                    .map(Product::getBrand)
+//                    .collect(Collectors.toSet());
+//        }
+//        // Thêm danh sách sản phẩm vào Model để truyền cho view
+//        model.addAttribute("products", products);
+//        model.addAttribute("brands", brands);
+//        return "search-page";
+//    }
 
-        Set<Brand> brands=null;
-        if(products!=null){
-            brands=products.stream()
+    @GetMapping("/search_ml")
+    public String search(@RequestParam(name = "txtSearch", required = false) String query,
+                         @RequestParam(name = "sortOrder", required = false) String sortOrder,
+                         @RequestParam(name = "minPrice", required = false) Integer minPrice,
+                         @RequestParam(name = "maxPrice", required = false) Integer maxPrice,
+                         @RequestParam(name = "brandIds", required = false) List<String> brandIds, // Nhận tham số mảng brandIds
+                         Model model) {
+        List<Product> products = new ArrayList<>();
+
+        if (query != null && !query.isEmpty()) {
+            List<String> productIds = productService.searchProductIds(query);
+            if (!productIds.isEmpty()) {
+                products = productService.findAllById(productIds);
+            } else {
+                products = productService.findByName(query);
+            }
+        } else {
+            products = productService.getAllProduct();
+        }
+
+        // Lọc theo giá
+        if (minPrice != null || maxPrice != null) {
+            final int min = (minPrice != null) ? minPrice : Integer.MIN_VALUE;
+            final int max = (maxPrice != null) ? maxPrice : Integer.MAX_VALUE;
+            products = products.stream()
+                    .filter(product -> product.getPrice() >= min && product.getPrice() <= max)
+                    .collect(Collectors.toList());
+        }
+
+        // Lọc theo thương hiệu nếu có
+        if (brandIds != null && !brandIds.isEmpty()) {
+            products = products.stream()
+                    .filter(product -> brandIds.contains(product.getBrand().getId()))
+                    .collect(Collectors.toList());
+        }
+
+        // Áp dụng sắp xếp
+        if ("asc".equals(sortOrder)) {
+            products.sort(Comparator.comparing(Product::getPrice));
+        } else if ("desc".equals(sortOrder)) {
+            products.sort(Comparator.comparing(Product::getPrice).reversed());
+        } else if ("name".equals(sortOrder)) {
+            products.sort(Comparator.comparing(Product::getName));
+        }
+
+        // Lấy danh sách các thương hiệu đã lọc
+        Set<Brand> brands = null;
+        if (!products.isEmpty()) {
+            brands = products.stream()
                     .map(Product::getBrand)
                     .collect(Collectors.toSet());
         }
-        // Thêm danh sách sản phẩm vào Model để truyền cho view
+
         model.addAttribute("products", products);
         model.addAttribute("brands", brands);
+        model.addAttribute("query", query);
+        model.addAttribute("sortOrder", sortOrder);
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("maxPrice", maxPrice);
+        model.addAttribute("selectedBrandIds", brandIds);  // Truyền lại brandIds đã chọn
+
         return "search-page";
     }
-
 }

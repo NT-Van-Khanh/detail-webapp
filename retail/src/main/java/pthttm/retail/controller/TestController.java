@@ -35,38 +35,38 @@ public class TestController {
     public String getCartPage(){
         return "page-cart";
     }
-    @GetMapping("/search")
-    public String getSearchPage(@RequestParam(required = false) String sort,
-                                @RequestParam(required = false) Double minPrice,
-                                @RequestParam(required = false) Double maxPrice,
-                                @RequestParam(required = false) List<String> brandIds,
-                                Model model){
-        List<Product> products = productService.getAllProduct();
-        Logger logger = LoggerFactory.getLogger(this.getClass());
-        if (products == null || products.isEmpty()) {
-            logger.info("No products found.");
-        } else {
-            model.addAttribute("products",products);
-            products.forEach(product -> logger.info(product.toString()));
-        }
-
-        if ("price-up".equals(sort)) {
-            products.sort(Comparator.comparingDouble(Product::getPrice));
-        } else if ("price-down".equals(sort)) {
-            products.sort(Comparator.comparingDouble(Product::getPrice).reversed());
-        }
-        if (minPrice != null && maxPrice != null) {
-            products = products.stream()
-                    .filter(product -> product.getPrice() >= minPrice && product.getPrice() <= maxPrice)
-                    .collect(Collectors.toList());
-        }
-
-        Set<Brand> brands = products.stream()
-                .map(Product::getBrand)
-                .collect(Collectors.toSet());
-
-        model.addAttribute("products", products);
-        model.addAttribute("brands", brands);
-        return "search-page";
-    }
+//    @GetMapping("/search")
+//    public String getSearchPage(@RequestParam(required = false) String sort,
+//                                @RequestParam(required = false) Double minPrice,
+//                                @RequestParam(required = false) Double maxPrice,
+//                                @RequestParam(required = false) List<String> brandIds,
+//                                Model model){
+//        List<Product> products = productService.getAllProduct();
+//        Logger logger = LoggerFactory.getLogger(this.getClass());
+//        if (products == null || products.isEmpty()) {
+//            logger.info("No products found.");
+//        } else {
+//            model.addAttribute("products",products);
+//            products.forEach(product -> logger.info(product.toString()));
+//        }
+//
+//        if ("price-up".equals(sort)) {
+//            products.sort(Comparator.comparingDouble(Product::getPrice));
+//        } else if ("price-down".equals(sort)) {
+//            products.sort(Comparator.comparingDouble(Product::getPrice).reversed());
+//        }
+//        if (minPrice != null && maxPrice != null) {
+//            products = products.stream()
+//                    .filter(product -> product.getPrice() >= minPrice && product.getPrice() <= maxPrice)
+//                    .collect(Collectors.toList());
+//        }
+//
+//        Set<Brand> brands = products.stream()
+//                .map(Product::getBrand)
+//                .collect(Collectors.toSet());
+//
+//        model.addAttribute("products", products);
+//        model.addAttribute("brands", brands);
+//        return "search-page";
+//    }
 }

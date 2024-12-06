@@ -1,5 +1,6 @@
 package pthttm.retail.service;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import pthttm.retail.model.Customer;
 import pthttm.retail.model.OrderProduct;
@@ -37,16 +38,25 @@ public class OrderService {
     public OrderProduct getOrderById(String orderId){
         return orderRepository.findById(orderId).orElse(null);
     }
-    public void saveOrder(OrderProduct order ){
-        order.setLastUpdate(LocalDateTime.now());
+
+    public void addOrder(OrderProduct order){
+        order.setId(createId());
         orderRepository.save(order);
     }
 
+    public void saveOrder(OrderProduct order ){
+        orderRepository.save(order);
+    }
+    public String createId(){
+        long nextValue = orderRepository.getNextSequenceValue();
+        String orderId= "HD" + String.format("%05d", nextValue);
+        return orderId;
+    }
     public List<OrderProduct> getAllOrderByCustomer(Customer customer){
         return orderRepository.findByCustomer(customer);
     }
 
-    public Integer getNextSequenceValue(){
+    public long getNextSequenceValue(){
         return orderRepository.getNextSequenceValue();
     }
 /*    public List<Order> getAllOrderByCustomer(Customer customer){

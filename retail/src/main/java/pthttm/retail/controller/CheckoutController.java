@@ -1,8 +1,5 @@
 package pthttm.retail.controller;
 
-import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,18 +21,15 @@ public class CheckoutController {
 
 	private final OrderService orderService;
 
-	private final OrderItemService orderItemService;
+	private final CustomerDetailsService customerDetailsService;
 
-	private final CustomerService customerService;
-
-	public CheckoutController(ProductService productService, OrderService orderService, OrderItemService orderItemService, CustomerService customerService) {
+	public CheckoutController(ProductService productService, OrderService orderService, CustomerDetailsService customerDetailsService) {
         this.productService = productService;
         this.orderService = orderService;
-        this.orderItemService = orderItemService;
-        this.customerService = customerService;
+        this.customerDetailsService = customerDetailsService;
     }
 
-	@GetMapping("/thanh-toan")
+	@GetMapping("customer/thanh-toan")
 	public String thanhToan(Model model) {
 		// Lấy giỏ hàng từ model (tự động Spring sẽ quản lý session)
 		List<CartItem> cartItems = (List<CartItem>) model.getAttribute("cartItems");
@@ -59,85 +53,63 @@ public class CheckoutController {
 	}
 
 	// Post mapping để xử lý thanh toán
-	@PostMapping("/thanh-toan")
-	public String placeOrder(@RequestParam String firstName,
-							 @RequestParam String lastName,
-							 @RequestParam String city,
-							 @RequestParam String address,
-							 @RequestParam String phone,
-							 @RequestParam String email,
-							 @RequestParam String notes,
-							 @RequestParam double grandTotal,
-							 Model model,HttpSession session) {
-
-		List<CartItem> cartItems = (List<CartItem>) model.getAttribute("cartItems");
-
-		if (cartItems == null || cartItems.isEmpty()) {
-			return "redirect:/gio-hang";  // Nếu giỏ hàng trống, chuyển hướng về trang giỏ hàng
-		}
-
-
-		//Lấy thông tin trong cartItems để đưa vào OrderItems
-
+	@PostMapping("customer/thanh-toan")
+	public String placeOrder(@RequestParam String name,
+							 @RequestParam String address, @RequestParam String phone,
+							 @RequestParam String notes, @RequestParam double grandTotal,
+							 Model model) {
+		//Lấy thông tin khách hàng đã login
+		Customer customer = customerDetailsService.getAuthenticatedCustomer();
+		if(customer==null) return "error";
 		//Tạo đơn hàng mới
+		//Lấy thông tin trong cartItems để đưa vào OrderItems
+		List<CartItem> cartItems = (List<CartItem>) model.getAttribute("cartItems");
+		if (cartItems == null || cartItems.isEmpty()) {
+			return "redirect:/gio-hang";  //Nếu giỏ hàng trống, chuyển hướng về trang giỏ hàng
+		}
+
+		boolean createSuccess = createOrder(cartItems,address,customer);
+		if(!createSuccess) return "error";
+
+		// Xóa giỏ hàng sau khi thanh toán
+		model.addAttribute("cartItems", new ArrayList<>()); // Giỏ hàng sẽ được reset sau khi thanh toán
+		return "redirect:/home";  // Chuyển hướng về trang chủ sau khi thanh toán
+	}
+
+	private boolean createOrder(List<CartItem> cartItems, String address, Customer customer) {
+
+		if(cartItems==null || cartItems.isEmpty() || customer==null) return false;
+
 		OrderProduct orderProduct = new OrderProduct();
-		Integer nextValue = orderService.getNextSequenceValue();
-		String orderId= "HD" + String.format("%05d", nextValue);
-		orderProduct.setId(orderId);
-		orderProduct.setTotalCost(cartItems.stream()
-				.mapToLong(item -> Math.round(item.getTotalAmount())).sum());
-		orderProduct.setPayStatus("CH");
-		orderProduct.setShipStatus("DG");
-		orderProduct.setCreateAt(LocalDateTime.now());
-		orderProduct.setLastUpdate(LocalDateTime.now());
-		orderProduct.setFlag(true);
-		orderProduct.setAddress(address);
-
-		//Lấy thông tin khách hàng login
-		//
-		SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
-		Object principal=null;
-		String username=null;
-		if (securityContext != null && securityContext.getAuthentication() != null) {
-			principal = securityContext.getAuthentication().getPrincipal();
-		}
-		if (principal instanceof CustomerDetails) {
-			username=((CustomerDetails) principal).getUsername();
-		}
-		Customer customer=null;
-		//Nếu khách hàng login bằng email hay số điện thoại
-		if (username.contains("@")) {
-			customer= customerService.getByEmail(username);
-		}
-		else
-			customer= customerService.getByPhone(username);
-
-		orderProduct.setCustomer(customer);
-		//Lấy thông tin employee của một sản phẩm đầu tiên trong danh sách
-		Product firstProduct = productService.getProductById(cartItems.get(0).getProductId());
-		orderProduct.setEmployee(firstProduct.getEmployee());
-
-		// Lưu thông tin order_product
-		orderService.saveOrder(orderProduct);
+		List<OrderItem> orderItems = new ArrayList<>();
+		long totalCost = 0;
 
 		// Lưu thông tin các sản phẩm trong đơn hàng
 		for (CartItem cartItem : cartItems) {
 			// Fetch the Product entity
 			Product product = productService.getProductById(cartItem.getProductId());
-			OrderItem orderItem = new OrderItem();
-			orderItem.setOrder(orderProduct); // Set the parent order
-			orderItem.setProduct(product); // Associate with the Product entity
-			orderItem.setQuantity(cartItem.getQuantity());
-			orderItem.setTotalCost(Math.round(cartItem.getTotalAmount())); // Total amount as a Long
-			orderItem.setCreateAt(LocalDateTime.now());
-			orderItem.setFlag(true);
-			// Save the OrderItem
-			orderItemService.save(orderItem);
+			if (product == null) {
+				System.err.println("Sản phẩm không tồn tại.");
+				return false;
+			}
+			long itemTotal = Math.round(cartItem.getTotalAmount()); // Tính tổng chi phí cho từng sản phẩm
+			totalCost += itemTotal;
+			// Tạo OrderItem và thêm vào danh sách
+			OrderItem orderItem = new OrderItem(orderProduct, product, cartItem.getQuantity(), itemTotal);
+			orderItems.add(orderItem);
 		}
 
-		// Xóa giỏ hàng sau khi thanh toán
-		model.addAttribute("cartItems", new ArrayList<>()); // Giỏ hàng sẽ được reset sau khi thanh toán
+		orderProduct.setCustomer(customer);
+		orderProduct.setItems(orderItems);
+		orderProduct.setTotalCost(totalCost);
+		orderProduct.setPayStatus("CH");
+		orderProduct.setShipStatus("CB");
+		if(address.isBlank())
+			orderProduct.setAddress(customer.getAddress());
+		else
+			orderProduct.setAddress(address);
 
-		return "redirect:/home";  // Chuyển hướng về trang chủ sau khi thanh toán
+		orderService.addOrder(orderProduct);
+		return true;
 	}
 }

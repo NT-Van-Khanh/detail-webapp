@@ -1,6 +1,7 @@
 package pthttm.retail.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -17,8 +18,8 @@ public class Category {
     @Column(name="name",nullable = false)
     private String name;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="created_at",nullable = false)
+    @CreationTimestamp
+    @Column(name="created_at",updatable = false, nullable = false)
     private LocalDateTime createAt;
 
     @Column(name="flag",nullable = false)

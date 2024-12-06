@@ -13,6 +13,6 @@ public interface EmployeeRepository extends CrudRepository<Employee,String> {
     Optional<Employee> findByPhone(String phone);
     Optional<Employee> findByEmail(String email);
 
-    @Procedure(name = "GetNextEmployeeSequence")
+    @Query(value = "EXEC getNextEmployeeSequence", nativeQuery = true)
     Integer getNextSequenceValue();
 }

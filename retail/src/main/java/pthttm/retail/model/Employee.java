@@ -1,6 +1,7 @@
 package pthttm.retail.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -36,9 +37,8 @@ public class Employee {
     @Column(name="gender")
     private String gender;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="HH:mm dd/MM/yyyy")
-    @Column(name="created_at",nullable = false)
+    @CreationTimestamp
+    @Column(name="created_at",updatable = false, nullable = false)
     private LocalDateTime createAt;
 
     @Column(name="flag",nullable = false)

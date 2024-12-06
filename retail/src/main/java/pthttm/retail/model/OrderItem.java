@@ -1,6 +1,7 @@
 package pthttm.retail.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -30,15 +31,21 @@ public class OrderItem {
     @Column(name="total_cost", columnDefinition = "money", nullable = false)
     private  Long totalCost;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="HH:mm dd/MM/yyyy")
-    @Column(name="created_at",nullable = false)
+    @CreationTimestamp
+    @Column(name="created_at",updatable = false, nullable = false)
     private LocalDateTime createAt;
 
     @Column(name="flag",nullable = false)
     private boolean flag;
 
     public OrderItem() {
+    }
+
+    public OrderItem(OrderProduct order, Product product, Integer quantity, Long totalCost) {
+       this.order = order;
+       this.product = product;
+       this.quantity = quantity;
+       this.totalCost = totalCost;
     }
 
     public Integer getId() {

@@ -1,7 +1,6 @@
 CREATE SEQUENCE OrderProductSequence
     START WITH 6
     INCREMENT BY 1;
-
 CREATE SEQUENCE ProductSequence
     START WITH 34
     INCREMENT BY 1;

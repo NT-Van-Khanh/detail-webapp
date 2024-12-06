@@ -17,14 +17,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min11.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min11.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
 <body>
@@ -35,30 +35,22 @@
         <div class="container">
             <div class="checkout__form">
                 <h4>Chi tiết hóa đơn</h4>
-                <form action="#" th:action="@{/thanh-toan}" th:object="${invoice}" method="post">
+                <form action="#" th:action="@{/customer/thanh-toan}" th:object="${invoice}" method="post">
                     <table>
                         <tr>
-                            <td class="row" style="width: 60%;">
+                            <td class="row" style="width: 60%; vertical-align: top;">
                                 <div class="col-lg-8 col-md-6">
                                     <!-- Form nhập thông tin người dùng -->
                                     <div class="checkout__input" style="display: flex; justify-content: flex-end;">
-                                        <label for="lastName" style="padding-right: 10px; margin-right: auto;">Họ:</label>
-                                        <input type="text" id="lastName" th:field="*{lastName}" style="flex: 1;">
+                                        <label for="name" style="padding-right: 10px; margin-right: auto;">Họ và tên người nhận:</label>
+                                        <input type="text" id="name" th:field="*{name}" style="flex: 1;">
                                     </div>
                                     <div class="checkout__input" style="display: flex; justify-content: flex-end;">
-                                        <label for="firstName" style="padding-right: 10px; margin-right: auto;">Tên:</label>
-                                        <input type="text" id="firstName" th:field="*{firstName}" style="flex: 1;">
-                                    </div>
-                                    <div class="checkout__input">
-                                        <label for="city" style="padding-right: 10px; margin-right: auto;">Thành phố, quận, huyện:</label>
-                                        <input type="text" id="city" th:field="*{city}" style="flex: 1;">
-                                    </div>
-                                    <div class="checkout__input" style="display: flex; justify-content: flex-end;">
-                                        <label for="address" style="padding-right: 10px; margin-right: auto;">Địa chỉ:</label>
+                                        <label for="address" style="padding-right: 10px; margin-right: auto;">Địa chỉ giao hàng:</label>
                                         <input type="text" id="address" th:field="*{address}" style="flex: 1;">
                                     </div>
                                     <div class="checkout__input" style="display: flex; justify-content: flex-end;">
-                                        <label for="phone" style="padding-right: 10px; margin-right: auto;">Số ĐT:</label>
+                                        <label for="phone" style="padding-right: 10px; margin-right: auto;">Số điện thoại liên hệ:</label>
                                         <input type="text" id="phone" th:field="*{phone}" style="flex: 1;">
                                     </div>
                                     <div class="checkout__input" style="display: flex; justify-content: flex-end;">
@@ -131,14 +123,14 @@
     </section>
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/jquery.slicknav.js"></script>
+    <script src="/js/mixitup.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/main.js"></script>
 
 </article>
 </body>

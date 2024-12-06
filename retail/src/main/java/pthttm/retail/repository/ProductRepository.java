@@ -47,6 +47,6 @@ public interface ProductRepository extends CrudRepository<Product, String> {
 
     List<Product> findByCategory_Id(String categoryId);
 
-    @Procedure(name = "GetNextProductSequence")
+    @Query(value = "EXEC getNextProductSequence", nativeQuery = true)
     Integer getNextSequenceValue();
 }

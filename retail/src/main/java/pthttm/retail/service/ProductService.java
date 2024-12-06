@@ -52,7 +52,7 @@ public class ProductService {
     }
 
     public Product saveProduct(Product product) throws Exception{
-        product.setLastUpdate(LocalDateTime.now());
+//        product.setLastUpdate(LocalDateTime.now());
         return productRepository.save(product);
     }
 

@@ -1,6 +1,8 @@
 package pthttm.retail.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,5 +23,22 @@ public class CustomerDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Sai số điện thoại hoặc email.");
 
         return new CustomerDetails(customer);
+    }
+
+    public Customer getAuthenticatedCustomer() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || !authentication.isAuthenticated())
+                return null;
+
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof CustomerDetails) {
+                return ((CustomerDetails) principal).getCustomer();
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

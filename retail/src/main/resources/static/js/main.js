@@ -264,7 +264,7 @@
     //Khi người dùng click vào TIẾN HÀNH THANH TOÁN
     $('#checkout-button').on('click', function(event) {
         event.preventDefault();
-        window.location.href = '/thanh-toan';
+        window.location.href = 'thanh-toan';
     });
 
     // Khi người dùng xóa một sản phẩm trong cart

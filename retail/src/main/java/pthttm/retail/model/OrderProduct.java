@@ -1,6 +1,8 @@
 package pthttm.retail.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,11 +33,11 @@ public class OrderProduct {
     @Column(name="ship_status", nullable = false)
     private String shipStatus;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at",updatable = false, nullable = false)
+    @CreationTimestamp
+    @Column(name="created_at",updatable = false, nullable = false)
     private LocalDateTime createAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @UpdateTimestamp
     @Column(name = "last_update",nullable =false)
     private LocalDateTime lastUpdate;
 

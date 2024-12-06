@@ -21,7 +21,8 @@ public class CartController {
     public CartController(CartItemService cartItemService) {
         this.cartItemService=cartItemService;
     }
-    @GetMapping("/gio-hang")
+
+    @GetMapping("customer/gio-hang")
     public String getGioHang(HttpSession session, Model model) {
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
         if (cartItems == null) {
@@ -35,7 +36,7 @@ public class CartController {
         return "gio-hang";
     }
 
-    @GetMapping("/gio-hang/add")
+    @GetMapping("customer/gio-hang/add")
     public String addItem(@RequestParam String productId,
                           @RequestParam String productName,
                           @RequestParam Double price,
@@ -59,10 +60,10 @@ public class CartController {
         }
         session.setAttribute("cartItems", cartItems);
         System.out.println("Đã thêm sản phẩm: " + productName + ", Số lượng: " + quantity);
-        return "redirect:/gio-hang"; // Chuyển hướng đến trang giỏ hàng
+        return "redirect:/customer/gio-hang"; // Chuyển hướng đến trang giỏ hàng
     }
 
-    @PostMapping("/cart/update")
+    @PostMapping("customer/cart/update")
     public String updateCart(@RequestParam Map<String, String> quantities, HttpSession session) {
         // Cập nhật giỏ hàng
         @SuppressWarnings("unchecked")
@@ -88,7 +89,7 @@ public class CartController {
 //        return "redirect:/gio-hang";
 //    }
 
-    @GetMapping("/gio-hang/remove")
+    @GetMapping("customer/gio-hang/remove")
     public String removeItem(@RequestParam String productId, HttpSession session){
         List<CartItem> cartItems=(List<CartItem>) session.getAttribute("cartItems");
         if(cartItems!=null){
@@ -102,6 +103,6 @@ public class CartController {
             }
         }
         session.setAttribute("cartItems", cartItems);
-        return "redirect:/gio-hang";
+        return "redirect:/customer/gio-hang";
     }
 }

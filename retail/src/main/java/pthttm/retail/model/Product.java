@@ -5,6 +5,7 @@ import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -51,7 +52,7 @@ public class Product {
     @Column(name="created_at",updatable = false, nullable = false)
     private LocalDateTime createAt;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     @Column(name="last_update",nullable = false)
     private LocalDateTime lastUpdate;
 

@@ -1,25 +1,15 @@
 package pthttm.retail.controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import pthttm.retail.model.Customer;
-import pthttm.retail.model.CustomerDetails;
-import pthttm.retail.model.Nutrient;
 import pthttm.retail.model.Product;
-import pthttm.retail.service.CustomerService;
-import pthttm.retail.service.NutrientService;
-import pthttm.retail.service.OrderService;
-import pthttm.retail.service.ProductService;
+import pthttm.retail.service.*;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -30,22 +20,19 @@ public class CustomerController {
     private final CustomerService customerService;
     private final OrderService orderService;
     private final ProductService productService;
-    private final NutrientService nutrientService;
+    private final CustomerDetailsService customerDetailsService;
 
-    public CustomerController(OrderService orderService,CustomerService customerService, ProductService productService,NutrientService nutrientService ) {
+    public CustomerController(OrderService orderService, CustomerService customerService, ProductService productService, CustomerDetailsService customerDetailsService) {
         this.orderService = orderService;
         this.customerService = customerService;
         this.productService = productService;
-        this.nutrientService = nutrientService;
+        this.customerDetailsService = customerDetailsService;
     }
 
     @GetMapping("/customer/purchase-history")
     public String getPurchaseHistory(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(!authentication.isAuthenticated()) return "error";
-
-        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        Customer customer = customerDetails.getCustomer();
+        Customer customer = customerDetailsService.getAuthenticatedCustomer();
+        if(customer==null) return "error";
         model.addAttribute("customer",customer);
 //        model.addAttribute("orders",customer.getOrders());
         return "/customer/page-purchase-history";

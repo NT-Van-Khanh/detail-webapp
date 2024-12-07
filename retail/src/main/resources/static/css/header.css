@@ -57,6 +57,7 @@ i{
     white-space: nowrap;
     margin-left:10px;
     font-size: 28px;
+    font-family: "Comfortaa", sans-serif;
 }
 
 .header__search{
@@ -149,4 +150,8 @@ i{
 }
 .header__personal-logout i{
     margin-right:5px;
+}
+.mark-required{
+    margin-left:2px;
+    color:#f33a3a;
 }

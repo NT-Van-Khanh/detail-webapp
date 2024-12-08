@@ -17,14 +17,10 @@ import java.util.List;
 
 @Controller
 public class CustomerController {
-    private final CustomerService customerService;
-    private final OrderService orderService;
     private final ProductService productService;
     private final CustomerDetailsService customerDetailsService;
 
-    public CustomerController(OrderService orderService, CustomerService customerService, ProductService productService, CustomerDetailsService customerDetailsService) {
-        this.orderService = orderService;
-        this.customerService = customerService;
+    public CustomerController(ProductService productService, CustomerDetailsService customerDetailsService) {
         this.productService = productService;
         this.customerDetailsService = customerDetailsService;
     }

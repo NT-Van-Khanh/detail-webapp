@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pthttm.retail.model.Employee;
+import pthttm.retail.model.EmployeeDetails;
 import pthttm.retail.model.Product;
 import pthttm.retail.service.*;
 
@@ -25,11 +27,12 @@ public class ManageController {
     private final UnitService unitService;
     private final OrderService orderService;
     private final EmployeeService employeeService;
+    private final EmployeeDetailsService employeeDetailsService;
 
     @Autowired
     public ManageController(FirebaseStorageService firebaseService, CategoryService categoryService,
                             ProductService productService, BrandService brandService,
-                            UnitService unitService, OrderService orderService, EmployeeService employeeService) {
+                            UnitService unitService, OrderService orderService, EmployeeService employeeService, EmployeeDetailsService employeeDetailsService) {
         this.firebaseService = firebaseService;
         this.categoryService = categoryService;
         this.productService = productService;
@@ -37,10 +40,11 @@ public class ManageController {
         this.unitService = unitService;
         this.orderService = orderService;
         this.employeeService = employeeService;
+        this.employeeDetailsService = employeeDetailsService;
     }
 
     @GetMapping("manage/product")
-    public String getProduct(Model model,
+    public String getProductPage(Model model,
                              @RequestParam(value = "sort-product", required = false, defaultValue = "ID") String sortBy,
                              @RequestParam(value = "search-product", required = false, defaultValue = "") String search){
         List<Product> products = new ArrayList<>();
@@ -61,7 +65,7 @@ public class ManageController {
     }
 
     @GetMapping("manage/add-product")
-    public String addProduct(Model model) throws IOException {
+    public String getAddProductPage(Model model) throws IOException {
         model.addAttribute("product", new Product());
         model.addAttribute("categories",categoryService.getAllCategory());
         model.addAttribute("brands",brandService.getAllBrand());
@@ -136,17 +140,24 @@ public class ManageController {
     }
 
     @GetMapping("manage/bill")
-    public String getBill(Model model){
+    public String getBillPage(Model model){
         model.addAttribute("orders",orderService.getAllOrder());
         return "manage/page-manage-bill";
     }
 
     @GetMapping("manage/view-bill")
-    public String viewBill(){
+    public String viewBillPage(){
         return "manage/page-manage-view-bill";
     }
 
-
+    @GetMapping("manage/employee")
+    public String getEmployeePage(Model model){
+        Employee employee = employeeDetailsService.getAuthenticatedEmployee();
+        List<Employee> employees = employeeService.getAllByIdNot(employee.getId());
+        model.addAttribute("employee",employee);
+        model.addAttribute("employees",employees);
+        return "manage/page-manage-employee";
+    }
 
     private String getImageUpload() throws IOException {
         InputStream imageStream = firebaseService.getObject("upload-regular-96.png");

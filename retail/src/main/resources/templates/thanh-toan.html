@@ -14,10 +14,9 @@
     <title>Thanh Toán</title>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Chakra+Petch:wght@500;600;700&family=Coiny&family=Lexend:wght@100..900&family=Mitr:wght@200;300;400;500;600;700&family=Protest+Strike&family=REM:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- Css Styles -->
-    <link rel="stylesheet" href="/css/bootstrap.min11.css" type="text/css">
+<!--    <link rel="stylesheet" href="/css/bootstrap.min11.css" type="text/css">-->
     <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
@@ -34,7 +33,7 @@
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
-                <h4>Chi tiết hóa đơn</h4>
+                <h4 class="checkout__form-header">Chi tiết hóa đơn</h4>
                 <form action="#" th:action="@{/customer/thanh-toan}" th:object="${invoice}" method="post">
                     <table>
                         <tr>
@@ -42,21 +41,24 @@
                                 <div class="col-lg-8 col-md-6">
                                     <!-- Form nhập thông tin người dùng -->
                                     <div class="checkout__input" style="display: flex; justify-content: flex-end;">
-                                        <label for="name" style="padding-right: 10px; margin-right: auto;">Họ và tên người nhận:</label>
+                                        <label class= "checkout__input-title" for="name" style="padding-right: 10px; margin-right: auto;">Họ và tên người nhận:</label>
                                         <input type="text" id="name" th:field="*{name}" style="flex: 1;">
+                                        <label class="mark-required">*</label>
                                     </div>
                                     <div class="checkout__input" style="display: flex; justify-content: flex-end;">
-                                        <label for="address" style="padding-right: 10px; margin-right: auto;">Địa chỉ giao hàng:</label>
+                                        <label class= "checkout__input-title" for="address" style="padding-right: 10px; margin-right: auto;">Địa chỉ giao hàng:</label>
                                         <input type="text" id="address" th:field="*{address}" style="flex: 1;">
+                                        <label class="mark-required">*</label>
                                     </div>
                                     <div class="checkout__input" style="display: flex; justify-content: flex-end;">
-                                        <label for="phone" style="padding-right: 10px; margin-right: auto;">Số điện thoại liên hệ:</label>
+                                        <label class= "checkout__input-title" for="phone" style="padding-right: 10px; margin-right: auto;">Số điện thoại liên hệ:</label>
                                         <input type="text" id="phone" th:field="*{phone}" style="flex: 1;">
+                                        <label class="mark-required">*</label>
                                     </div>
-                                    <div class="checkout__input" style="display: flex; justify-content: flex-end;">
-                                        <label for="email" style="padding-right: 10px; margin-right: auto;">Email:</label>
-                                        <input type="text" id="email" th:field="*{email}" style="flex: 1;">
-                                    </div>
+<!--                                    <div class="checkout__input" style="display: flex; justify-content: flex-end;">-->
+<!--                                        <label for="email" style="padding-right: 10px; margin-right: auto;">Email:</label>-->
+<!--                                        <input type="text" id="email" th:field="*{email}" style="flex: 1;">-->
+<!--                                    </div>-->
                                     <div class="checkout__input" style="display: flex; justify-content: flex-end;">
                                         <label for="notes" style="padding-right: 10px; margin-right: auto;">Ghi chú:</label>
                                         <input type="text" id="notes" th:field="*{notes}" placeholder="Nhập ghi chú đơn hàng" style="flex: 1;">
@@ -108,7 +110,6 @@
                                                 <span class="checkmark"></span>
                                             </label>
                                         </div>
-
                                         <!-- Truyền tổng tiền -->
                                         <input type="hidden" name="grandTotal" th:value="${grandTotal}"/>
                                         <button type="submit" class="site-btn">ĐẶT HÀNG NGAY</button>

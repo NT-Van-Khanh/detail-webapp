@@ -2,8 +2,6 @@ package pthttm.retail.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.query.Procedure;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import pthttm.retail.model.Customer;
 import pthttm.retail.model.OrderProduct;

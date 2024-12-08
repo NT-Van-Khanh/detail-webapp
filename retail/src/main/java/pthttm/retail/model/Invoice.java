@@ -5,23 +5,21 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-@Entity
+
 public class Invoice {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	
     private String name;
-    private String city;
     private String address;
     private String phone;
     private String email;
     private String notes;    
     private double grandTotal;
-    @Column(name = "orderdatetime")
+//    @Column(name = "orderdatetime")
     private LocalDateTime orderDateTime;
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InvoiceDetails> invoiceDetails = new ArrayList<>();
+//    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<InvoiceDetails> invoiceDetails = new ArrayList<>();
 
     public Invoice() {		
 	}
@@ -41,12 +39,6 @@ public class Invoice {
 		this.name = name;
 	}
 
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
 	public String getAddress() {
 		return address;
 	}
@@ -87,8 +79,4 @@ public class Invoice {
 		this.orderDateTime = orderDateTime;
 	}
 
-	public void addInvoiceDetail(InvoiceDetails detail) {
-        detail.setInvoice(this);
-        this.invoiceDetails.add(detail);
-    }
 }

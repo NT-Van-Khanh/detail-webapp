@@ -80,7 +80,9 @@ public class Customer {
         this.lastName = String.join(" ", Arrays.copyOfRange(nameParts, 0, nameParts.length - 1));
         return true;
     }
-
+    public String getName(){
+        return lastName + " " +  firstName;
+    }
     public String getPassword() {
         return password;
     }

@@ -1,5 +1,6 @@
 package pthttm.retail.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class CheckoutController {
 		if (cartItems == null) {
 			cartItems = new ArrayList<>();  // Nếu giỏ hàng trống thì tạo danh sách trống
 			model.addAttribute("cartItems", cartItems);  // Lưu giỏ hàng vào model (Spring sẽ quản lý session)
+			return "redirect:/customer/gio-hang";
 		}
 
 		// Tính tổng tiền giỏ hàng
@@ -47,6 +49,13 @@ public class CheckoutController {
 
 		// Tạo một đối tượng hóa đơn mới để liên kết với form
 		Invoice invoice = new Invoice();
+		Customer customer = customerDetailsService.getAuthenticatedCustomer();
+		if(customer!=null){
+			invoice.setAddress(customer.getAddress());
+			invoice.setName(customer.getName());
+			invoice.setPhone(customer.getPhone());
+		}
+
 		model.addAttribute("invoice", invoice);
 
 		return "thanh-toan";  // Chuyển về trang thanh toán
@@ -65,7 +74,7 @@ public class CheckoutController {
 		//Lấy thông tin trong cartItems để đưa vào OrderItems
 		List<CartItem> cartItems = (List<CartItem>) model.getAttribute("cartItems");
 		if (cartItems == null || cartItems.isEmpty()) {
-			return "redirect:/gio-hang";  //Nếu giỏ hàng trống, chuyển hướng về trang giỏ hàng
+			return "redirect:/customer/gio-hang";  //Nếu giỏ hàng trống, chuyển hướng về trang giỏ hàng
 		}
 
 		boolean createSuccess = createOrder(cartItems,address,customer);

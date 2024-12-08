@@ -250,7 +250,7 @@
         // AJAX request to update cart
         $.ajax({
             type: 'POST',
-            url: '/cart/update',
+            url: 'cart/update',
             data: quantities,
             success: function(response) {
                 location.reload();

@@ -45,6 +45,9 @@ public class OrderProduct {
     @JoinColumn(name="employee_id")
     private Employee employee;
 
+    @Column(name="note")
+    private String note;
+
     @Column(name = "flag", nullable = false)
     private boolean flag;
 
@@ -180,5 +183,13 @@ public class OrderProduct {
 
     public void setItems(Collection<OrderItem> items) {
         this.items = items;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

@@ -1,18 +1,18 @@
 package pthttm.retail.model;
 import jakarta.persistence.*;
-@Entity
+//@Entity
 public class InvoiceDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String productId;
-    private String name;
-    private int quantity;
+	private String name;
+	private int quantity;
     private Double price;
 
-    @ManyToOne
-    @JoinColumn(name = "invoice_id", nullable = false)
-    private Invoice invoice;
+//    @ManyToOne
+//    @JoinColumn(name = "invoice_id", nullable = false)
+//    private Invoice invoice;
 
 	public Long getId() {
 		return id;
@@ -55,13 +55,13 @@ public class InvoiceDetails {
 		this.price = price;
 	}
 
-	public Invoice getInvoice() {
-		return invoice;
-	}
-
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
-	}
+//	public Invoice getInvoice() {
+//		return invoice;
+//	}
+//
+//	public void setInvoice(Invoice invoice) {
+//		this.invoice = invoice;
+//	}
 
     
 }

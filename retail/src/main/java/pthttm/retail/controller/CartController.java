@@ -68,6 +68,7 @@ public class CartController {
         // Cập nhật giỏ hàng
         @SuppressWarnings("unchecked")
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
+        if(cartItems==null) return "gio-hang";
         //List<CartItem> cartItems=null;
         for (Map.Entry<String, String> entry : quantities.entrySet()) {
             String productId = entry.getKey(); // Product ID

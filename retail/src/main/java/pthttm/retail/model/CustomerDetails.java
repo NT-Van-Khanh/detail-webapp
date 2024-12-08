@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class CustomerDetails implements UserDetails {
-    private Customer customer;
+    private final Customer customer;
 
     public CustomerDetails(Customer customer) {
         this.customer = customer;

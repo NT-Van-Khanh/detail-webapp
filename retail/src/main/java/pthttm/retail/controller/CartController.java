@@ -55,7 +55,7 @@ public class CartController {
             }
         }
         if (!exists) {
-            CartItem newItem = new CartItem(productId, productName, price, quantity);
+            CartItem newItem = new CartItem(productId, productName, (long)price.doubleValue(), quantity);
             cartItems.add(newItem);
         }
         session.setAttribute("cartItems", cartItems);

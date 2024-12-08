@@ -28,7 +28,11 @@ public class OrderItem {
     @Column(name="quantity",nullable = false)
     private Integer quantity;
 
-    @Column(name="total_cost", columnDefinition = "money", nullable = false)
+
+    @Column(name="price",columnDefinition = "money",nullable = false)
+    private Long price;
+
+//    @Column(name="total_cost", columnDefinition = "money", nullable = false)
     private  Long totalCost;
 
     @CreationTimestamp
@@ -41,11 +45,10 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(OrderProduct order, Product product, Integer quantity, Long totalCost) {
-       this.order = order;
+    public OrderItem( Product product, Integer quantity) {
        this.product = product;
        this.quantity = quantity;
-       this.totalCost = totalCost;
+       this.price = product.getPrice();
     }
 
     public Integer getId() {
@@ -80,13 +83,18 @@ public class OrderItem {
      this.quantity = quantity;
     }
 
-    public Long getTotalCost() {
-     return totalCost;
+    public Long getPrice() {
+     return price;
     }
 
-    public void setTotalCost(Long totalCost) {
-     this.totalCost = totalCost;
+    public void setPrice(Long price) {
+     this.price = price;
     }
+
+     public Long getTotalCost() {
+         return this.price*this.quantity;
+    }
+
 
     public LocalDateTime getCreateAt() {
      return createAt;
@@ -102,5 +110,19 @@ public class OrderItem {
 
     public void setFlag(boolean flag) {
      this.flag = flag;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", order=" + order +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", totalCost=" + totalCost +
+                ", createAt=" + createAt +
+                ", flag=" + flag +
+                '}';
     }
 }

@@ -8,10 +8,14 @@ import java.util.Collection;
 import java.util.List;
 
 public class EmployeeDetails implements UserDetails {
-    private Employee employee;
+    private final Employee employee;
 
     public EmployeeDetails(Employee employee) {
         this.employee = employee;
+    }
+
+    public Employee getEmployee(){
+        return employee;
     }
 
     @Override

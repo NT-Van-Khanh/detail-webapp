@@ -9,12 +9,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pthttm.retail.model.Customer;
 import pthttm.retail.model.CustomerDetails;
+import pthttm.retail.repository.CustomerRepository;
 
 @Service
 public class CustomerDetailsService implements UserDetailsService {
 
-    @Autowired
-    private CustomerService customerService;
+    private final CustomerService  customerService;
+    private final CustomerRepository customerRepository;
+
+    public CustomerDetailsService(CustomerService customerService, CustomerRepository customerRepository) {
+        this.customerService = customerService;
+        this.customerRepository = customerRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,7 +39,8 @@ public class CustomerDetailsService implements UserDetailsService {
 
             Object principal = authentication.getPrincipal();
             if (principal instanceof CustomerDetails) {
-                return ((CustomerDetails) principal).getCustomer();
+                Customer customer = ((CustomerDetails) principal).getCustomer();
+                return customerRepository.findById(customer.getId()).orElse(null);
             }
             return null;
         } catch (Exception e) {

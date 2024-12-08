@@ -1,8 +1,10 @@
 package pthttm.retail.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import pthttm.retail.model.Customer;
+import pthttm.retail.model.OrderItem;
 import pthttm.retail.model.OrderProduct;
 import pthttm.retail.repository.OrderItemRepository;
 import pthttm.retail.repository.OrderRepository;
@@ -39,9 +41,18 @@ public class OrderService {
         return orderRepository.findById(orderId).orElse(null);
     }
 
-    public void addOrder(OrderProduct order){
+    @Transactional
+    public void addOrder(OrderProduct order,List<OrderItem> orderItems){
         order.setId(createId());
+        System.out.println(order.toString());
         orderRepository.save(order);
+
+        for(OrderItem orderItem: orderItems){
+            orderItem.setOrder(order);
+            System.out.println(orderItem.toString());
+            orderItemRepository.save(orderItem);
+        }
+
     }
 
     public void saveOrder(OrderProduct order ){

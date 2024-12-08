@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import pthttm.retail.model.Employee;
 import pthttm.retail.repository.EmployeeRepository;
 
+import java.util.List;
+
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
@@ -25,4 +27,7 @@ public class EmployeeService {
         return employeeRepository.findByEmail(email).orElse(null);
     }
 
+    public List<Employee> getAllByIdNot(String id){
+        return employeeRepository.findAllByIdNot(id);
+    }
 }

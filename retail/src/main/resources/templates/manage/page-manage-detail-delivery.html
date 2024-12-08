@@ -14,13 +14,13 @@
 <article layout:fragment ="content">
     <div class="manage__header">
         <div class="manage__header-name">
-            <h2>Thông tin đơn đặt hàng</h2></div>
+            <h2>Thông tin đơn đặt hàng - <span th:text="${order.id}" style="font-size:22px;"></span></h2></div>
     </div>
     <div class="manage__form-top">
         <div class="customer__info">
             <div class="account-name__box">
                 <label class="box-span-title">Họ và tên khách hàng</label>
-                <span class="box-span" th:text="${order.customer.lastName + ' ' + order.customer.firstName}" ></span>
+                <span class="box-span" th:text="${order.customer.getName}" ></span>
             </div>
             <div class="account__group-box">
                 <div class="account__group-box-left">
@@ -88,10 +88,10 @@
                     <td><img th:src="'https://firebasestorage.googleapis.com/v0/b/retailstorage-5432c.appspot.com/o/'+${item.product.id.replace(' ', '')}+'.png?alt=media'" th:alt="Ảnh"></td>
                     <td th:text="${item.product.id}">SP0001</td>
                     <td th:text="${item.product.name}">Trái cây</td>
-                    <td th:text="${item.product.price}">120.000</td>
+                    <td th:text="${item.price}">120.000</td>
                     <td th:text="${item.product.unit.name}">Kg</td>
                     <td th:text="${item.quantity}">2</td>
-                    <td th:text="${item.quantity*item.product.price}">240.000</td>
+                    <td th:text="${item.quantity*item.price}">240.000</td>
                 </tr>
                 </tbody>
             </table>

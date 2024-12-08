@@ -51,7 +51,7 @@ public class OrderProduct {
     @Column(name = "flag", nullable = false)
     private boolean flag;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<OrderItem> items;
 
     public String getFormattedCreateAt() {
@@ -191,5 +191,23 @@ public class OrderProduct {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderProduct{" +
+                "id='" + id + '\'' +
+                ", customer=" + customer +
+                ", totalCost=" + totalCost +
+                ", address='" + address + '\'' +
+                ", payStatus='" + payStatus + '\'' +
+                ", shipStatus='" + shipStatus + '\'' +
+                ", createAt=" + createAt +
+                ", lastUpdate=" + lastUpdate +
+                ", employee=" + employee +
+                ", note='" + note + '\'' +
+                ", flag=" + flag +
+                ", items=" + items +
+                '}';
     }
 }

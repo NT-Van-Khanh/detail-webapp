@@ -2,10 +2,10 @@ package pthttm.retail.model;
 public class CartItem {
 	private String productId;
 	private String name;
-	private Double price;
+	private Long price;
 	private Integer quantity;
 
-	public CartItem(String productId, String name, Double price, Integer quantity) {
+	public CartItem(String productId, String name, Long price, Integer quantity) {
 		this.productId = productId;
 		this.name = name;
 		this.price = price;
@@ -13,7 +13,7 @@ public class CartItem {
 	}
 
 	public CartItem() {
-		this.price = 0.0;
+		this.price =Long.valueOf(0);
 	}
 
 	public double getTotalAmount() {
@@ -36,11 +36,11 @@ public class CartItem {
 		this.name = name;
 	}
 
-	public Double getPrice() {
+	public Long getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
 
@@ -52,5 +52,13 @@ public class CartItem {
 		this.quantity = quantity;
 	}
 
-
+	@Override
+	public String toString() {
+		return "CartItem{" +
+				"productId='" + productId + '\'' +
+				", name='" + name + '\'' +
+				", price=" + price +
+				", quantity=" + quantity +
+				'}';
+	}
 }

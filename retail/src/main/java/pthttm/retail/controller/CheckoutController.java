@@ -74,7 +74,7 @@ public class CheckoutController {
 		//Lấy thông tin trong cartItems để đưa vào OrderItems
 		List<CartItem> cartItems = (List<CartItem>) model.getAttribute("cartItems");
 		if (cartItems == null || cartItems.isEmpty()) {
-			return "redirect:/customer/gio-hang";  //Nếu giỏ hàng trống, chuyển hướng về trang giỏ hàng
+			return "redirect:/customer/purchase-history";  //Nếu giỏ hàng trống, chuyển hướng về trang giỏ hàng
 		}
 
 		boolean createSuccess = createOrder(cartItems,address,customer);
@@ -96,20 +96,19 @@ public class CheckoutController {
 		// Lưu thông tin các sản phẩm trong đơn hàng
 		for (CartItem cartItem : cartItems) {
 			// Fetch the Product entity
+			System.out.println(cartItem.getProductId());
 			Product product = productService.getProductById(cartItem.getProductId());
 			if (product == null) {
 				System.err.println("Sản phẩm không tồn tại.");
 				return false;
 			}
-			long itemTotal = Math.round(cartItem.getTotalAmount()); // Tính tổng chi phí cho từng sản phẩm
-			totalCost += itemTotal;
 			// Tạo OrderItem và thêm vào danh sách
-			OrderItem orderItem = new OrderItem(orderProduct, product, cartItem.getQuantity(), itemTotal);
+			OrderItem orderItem = new OrderItem(product, cartItem.getQuantity());
 			orderItems.add(orderItem);
+			totalCost += orderItem.getTotalCost();
 		}
 
 		orderProduct.setCustomer(customer);
-		orderProduct.setItems(orderItems);
 		orderProduct.setTotalCost(totalCost);
 		orderProduct.setPayStatus("CH");
 		orderProduct.setShipStatus("CB");
@@ -118,7 +117,12 @@ public class CheckoutController {
 		else
 			orderProduct.setAddress(address);
 
-		orderService.addOrder(orderProduct);
+		try {
+			orderService.addOrder(orderProduct,orderItems);
+		} catch (Exception e) {
+			System.err.println("Error occurred while saving the order: " + e.getMessage());
+			return false;  // Handle failure in order creation
+		}
 		return true;
 	}
 }
